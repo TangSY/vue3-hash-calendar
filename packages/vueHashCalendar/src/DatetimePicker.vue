@@ -82,7 +82,7 @@
         </slot>
       </div>
       <calendar
-        ref="calendar"
+        ref="calendarRef"
         v-if="pickerType !== 'time'"
         :show="isShowCalendar"
         v-model="isShowWeek"
@@ -150,7 +150,7 @@ import { formatDate } from "../utils/util";
 import { ARROW_DOWN_IMG, ARROW_UP_IMG } from "../constant/img";
 import languageUtil from "../language";
 import { DatetimePickerProps } from "./DatetimePicker";
-import { computed, onMounted, reactive, watch } from "vue";
+import { computed, onMounted, reactive, useSlots, watch } from "vue";
 
 const defaultDate = {
   year: new Date().getFullYear(),
@@ -166,18 +166,31 @@ defineOptions({
 
 const props = defineProps(DatetimePickerProps);
 
+const emit = defineEmits([
+  "update:visible",
+  "update:isShowWeekView",
+  "calendarTypeChange",
+  "click",
+  "confirm",
+  "change",
+  "slidechange",
+  "touchstart",
+  "touchmove",
+  "touchend",
+]);
+
 const calendarTitleRef = ref(null);
+const calendarRef = ref(null);
 const arrowDownImg = ARROW_DOWN_IMG;
 const arrowUpImg = ARROW_UP_IMG;
 let language = reactive({});
-const checkedDate = reactive(defaultDate);
-const isShowWeek = ref(false);
+let checkedDate = reactive(defaultDate);
 const isShowCalendar = ref(false);
 const calendarBodyHeight = ref(0);
 const calendarTitleHeight = ref(0);
 const firstTimes = ref(true);
 const currDateTime = ref(new Date());
-const yearMonthType = ref(date);
+const yearMonthType = ref('date');
 
 const isShowDatetimePicker = computed(() => {
   const visible = props.visible;
@@ -186,20 +199,234 @@ const isShowDatetimePicker = computed(() => {
       return visible;
     },
     set: (val) => {
-      $emit("update:visible", val);
+      emit("update:visible", val);
     },
   };
 });
 
-onMounted(() => {
-  const model = props.model;
-  const lang = props.lang;
+const isShowWeek = computed(() => {
+  const isShowWeekView = props.isShowWeekView;
+  return {
+    get: () => {
+      return isShowWeekView;
+    },
+    set: (val) => {
+      emit("update:isShowWeekView", val);
+    },
+  };
+});
 
-  if (model === "inline") {
+const isShowArrowImg = computed(
+  () => props.isShowArrow && props.model === "inline"
+);
+const calendarContentHeight = computed(
+  () => calendarBodyHeight.value + calendarTitleHeight.value
+);
+
+const slots = useSlots();
+
+// 判断是否有插槽
+const hasSlot = (slotName) => {
+  return !!slots?.[slotName]?.();
+};
+
+// 周视图开关
+const toggleWeek = () => {
+  isShowWeek.value = !isShowWeek.value;
+
+  if (isShowWeek.value) slideChange("up");
+  else slideChange("down");
+};
+
+const today = () => {
+  if (disabledDate(new Date())) return;
+
+  calendarRef.value?.today();
+};
+
+const lastMonth = () => {
+  calendarRef.value?.getLastMonth();
+};
+
+const nextMonth = () => {
+  calendarRef.value?.getNextMonth();
+};
+
+const lastWeek = () => {
+  calendarRef.value?.getLastMonth();
+  calendarRef.value?.changeWeekView({ isNext: false });
+};
+
+const nextWeek = () => {
+  calendarRef.value?.getNextMonth();
+  calendarRef.value?.changeWeekView({ isNext: true });
+};
+
+const dateChange = (date) => {
+  date.hours = checkedDate.hours;
+  date.minutes = checkedDate.minutes;
+  checkedDate = date;
+};
+
+const dateClick = (date) => {
+  date.hours = checkedDate.hours;
+  date.minutes = checkedDate.minutes;
+  checkedDate = date;
+
+  let fDate = new Date(
+    `${checkedDate.year}/${checkedDate.month + 1}/${checkedDate.day} ${
+      checkedDate.hours
+    }:${checkedDate.minutes}`
+  );
+  if (props.format) {
+    fDate = formatDate(fDate, props.format, props.lang);
+  }
+
+  // 控制点击之后进入下一选择面板
+  if (date.type) {
+    switch (date.type) {
+      case "yearRange":
+        yearMonthType.value = "year";
+        break;
+      case "year":
+        yearMonthType.value = "month";
+        break;
+      case "month":
+        currDateTime.value = new Date(fDate);
+        yearMonthType.value = "date";
+        break;
+    }
+
+    emit("calendarTypeChange", yearMonthType.value);
+  }
+
+  emit("click", fDate);
+};
+
+const timeChange = (date) => {
+  date.year = checkedDate.year;
+  date.month = checkedDate.month;
+  date.day = checkedDate.day;
+  checkedDate = date;
+};
+
+// 确认选择时间
+const confirm = () => {
+  let date = new Date(
+    `${checkedDate.year}/${checkedDate.month + 1}/${checkedDate.day} ${
+      checkedDate.hours
+    }:${checkedDate.minutes}`
+  );
+  if (props.format) {
+    date = formatDate(date, props.format, props.lang);
+  }
+  emit("confirm", date);
+  if (props.model === "dialog") {
+    close();
+  }
+};
+
+const show = () => {
+  isShowDatetimePicker.value = true;
+};
+
+const close = () => {
+  isShowDatetimePicker.value = false;
+};
+
+// 小于10，在前面补0
+const fillNumber = (val) => {
+  return val > 9 ? val : "0" + val;
+};
+
+const formatDate = (time, format) => {
+  return formatDate(time, format, props.lang);
+};
+
+// 显示日历控件
+const showCalendar = () => {
+  if (isShowCalendar.value) {
+    showYearMonthPicker();
+  }
+  isShowCalendar.value = true;
+};
+
+// 显示时间选择控件
+const showTime = () => {
+  isShowCalendar.value = false;
+
+  // 重置年月选择面板
+  yearMonthType.value = "date";
+};
+
+// 显示年月选择面板
+const showYearMonthPicker = () => {
+  if (!props.changeYearFast) return;
+
+  if (yearMonthType.value === "date") {
+    yearMonthType.value = "month";
+  } else if (yearMonthType.value === "month") {
+    yearMonthType.value = "year";
+  } else if (yearMonthType.value === "year") {
+    yearMonthType.value = "yearRange";
+  } else {
+    yearMonthType.value = "date";
+  }
+
+  emit("calendarTypeChange", yearMonthType.value);
+};
+
+// 高度变化
+const heightChange = (height) => {
+  if (!firstTimes.value && props.model === "dialog") return;
+
+  calendarBodyHeight.value = height;
+  firstTimes.value = false;
+};
+
+// 切换主题颜色
+const changeThemeColor = () => {
+  const themeColorKeys = Object.keys(props.themeColor || {});
+
+  if (themeColorKeys.length) {
+    let cssText = "";
+
+    themeColorKeys.forEach((k) => {
+      cssText += `--hash-calendar-${k}: ${props.themeColor[k]};`;
+    });
+
+    $nextTick(() => {
+      document.querySelector(".hash-calendar").style.cssText = cssText;
+    });
+  }
+};
+
+// 监听手指开始滑动事件
+const touchStart = (event) => {
+  emit("touchstart", event);
+};
+
+// 监听手指开始滑动事件
+const touchMove = (event) => {
+  emit("touchmove", event);
+};
+
+// 监听手指开始滑动事件
+const touchEnd = (event) => {
+  emit("touchend", event);
+};
+
+// 滑动方向改变
+const slideChange = (direction) => {
+  emit("slidechange", direction);
+};
+
+onMounted(() => {
+  if (props.model === "inline") {
     isShowDatetimePicker.value = true;
   }
 
-  language = languageUtil[lang.toUpperCase()];
+  language = languageUtil[props.lang.toUpperCase()];
 });
 
 watch(
@@ -258,7 +485,7 @@ watch(
     if (format) {
       date = formatDate(date, format, lang);
     }
-    $emit("change", date);
+    emit("change", date);
   },
   { deep: true }
 );
@@ -274,216 +501,6 @@ watch(
   },
   { immediate: true }
 );
-
-export default {
-  mounted() {},
-  watch: {
-    visible: {
-      handler(val) {},
-      immediate: true,
-    },
-    isShowWeekView: {
-      handler(val) {
-        isShowWeek = val;
-      },
-      immediate: true,
-    },
-  },
-  computed: {
-    isShowArrowImg() {
-      return isShowArrow && model === "inline";
-    },
-    // 是否显示周视图 (为兼容旧版本，舍弃这种方式)
-    // isShowWeek: {
-    //   get() {
-    //     return isShowWeekView
-    //   },
-    //   set(val) {
-    //     $emit('update:isShowWeekView', val)
-    //   }
-    // },
-    // 是否显示日期控件
-    isShowDatetimePicker: {},
-    // 日历组件的高度
-    calendarContentHeight() {
-      return calendarBodyHeight + calendarTitleHeight;
-    },
-  },
-  methods: {
-    // 判断是否有插槽
-    hasSlot(slotName) {
-      return !!$slots?.[slotName]?.();
-    },
-    // 周视图开关
-    toggleWeek() {
-      isShowWeek = !isShowWeek;
-
-      if (isShowWeek) slideChange("up");
-      else slideChange("down");
-    },
-    today() {
-      if (disabledDate(new Date())) return;
-
-      $refs.calendar.today();
-    },
-    lastMonth() {
-      $refs.calendar.getLastMonth();
-    },
-    nextMonth() {
-      $refs.calendar.getNextMonth();
-    },
-    lastWeek() {
-      $refs.calendar.getLastMonth();
-      $refs.calendar.changeWeekView({ isNext: false });
-    },
-    nextWeek() {
-      $refs.calendar.getNextMonth();
-      $refs.calendar.changeWeekView({ isNext: true });
-    },
-    dateChange(date) {
-      date.hours = checkedDate.hours;
-      date.minutes = checkedDate.minutes;
-      checkedDate = date;
-    },
-    dateClick(date) {
-      date.hours = checkedDate.hours;
-      date.minutes = checkedDate.minutes;
-      checkedDate = date;
-
-      let fDate = new Date(
-        `${checkedDate.year}/${checkedDate.month + 1}/${checkedDate.day} ${
-          checkedDate.hours
-        }:${checkedDate.minutes}`
-      );
-      if (format) {
-        fDate = formatDate(fDate, format, lang);
-      }
-
-      // 控制点击之后进入下一选择面板
-      if (date.type) {
-        switch (date.type) {
-          case "yearRange":
-            yearMonthType = "year";
-            break;
-          case "year":
-            yearMonthType = "month";
-            break;
-          case "month":
-            currDateTime = new Date(fDate);
-            yearMonthType = "date";
-            break;
-        }
-
-        $emit("calendarTypeChange", yearMonthType);
-      }
-
-      $emit("click", fDate);
-    },
-    timeChange(date) {
-      date.year = checkedDate.year;
-      date.month = checkedDate.month;
-      date.day = checkedDate.day;
-      checkedDate = date;
-    },
-    // 确认选择时间
-    confirm() {
-      let date = new Date(
-        `${checkedDate.year}/${checkedDate.month + 1}/${checkedDate.day} ${
-          checkedDate.hours
-        }:${checkedDate.minutes}`
-      );
-      if (format) {
-        date = formatDate(date, format, lang);
-      }
-      $emit("confirm", date);
-      if (model === "dialog") {
-        close();
-      }
-    },
-    show() {
-      isShowDatetimePicker = true;
-    },
-    close() {
-      isShowDatetimePicker = false;
-    },
-    // 小于10，在前面补0
-    fillNumber(val) {
-      return val > 9 ? val : "0" + val;
-    },
-    formatDate(time, format) {
-      return formatDate(time, format, lang);
-    },
-    // 显示日历控件
-    showCalendar() {
-      if (isShowCalendar) {
-        showYearMonthPicker();
-      }
-      isShowCalendar = true;
-    },
-    // 显示时间选择控件
-    showTime() {
-      isShowCalendar = false;
-
-      // 重置年月选择面板
-      yearMonthType = "date";
-    },
-    // 显示年月选择面板
-    showYearMonthPicker() {
-      if (!changeYearFast) return;
-
-      if (yearMonthType === "date") {
-        yearMonthType = "month";
-      } else if (yearMonthType === "month") {
-        yearMonthType = "year";
-      } else if (yearMonthType === "year") {
-        yearMonthType = "yearRange";
-      } else {
-        yearMonthType = "date";
-      }
-
-      $emit("calendarTypeChange", yearMonthType);
-    },
-    // 高度变化
-    heightChange(height) {
-      if (!firstTimes && model === "dialog") return;
-
-      calendarBodyHeight = height;
-      firstTimes = false;
-    },
-    // 切换主题颜色
-    changeThemeColor() {
-      const themeColorKeys = Object.keys(themeColor || {});
-
-      if (themeColorKeys.length) {
-        let cssText = "";
-
-        themeColorKeys.forEach((k) => {
-          cssText += `--hash-calendar-${k}: ${themeColor[k]};`;
-        });
-
-        $nextTick(() => {
-          document.querySelector(".hash-calendar").style.cssText = cssText;
-        });
-      }
-    },
-    // 监听手指开始滑动事件
-    touchStart(event) {
-      $emit("touchstart", event);
-    },
-    // 监听手指开始滑动事件
-    touchMove(event) {
-      $emit("touchmove", event);
-    },
-    // 监听手指开始滑动事件
-    touchEnd(event) {
-      $emit("touchend", event);
-    },
-    // 滑动方向改变
-    slideChange(direction) {
-      $emit("slidechange", direction);
-    },
-  },
-};
 </script>
 
 <style lang="stylus" scoped>

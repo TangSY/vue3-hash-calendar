@@ -15,7 +15,7 @@
       :scroll-change-date="true"
       v-model:visible="isShowCalendar"
       :default-datetime="defaultDatetime"
-      :is-show-week-view="false"
+      v-model:is-show-week-view="isShowWeekView"
       :is-show-action="true"
       :minute-step="1"
       :disabled-scroll="false"
@@ -52,6 +52,7 @@ export default {
     return {
       themeColor: {}, // 主题颜色
       isShowCalendar: true, // 是否显示弹窗
+      isShowWeekView: false, // 是否显示周视图
       isShowTips: false, // 是否显示下载提示
       defaultDatetime: new Date(),
       markDate: [
