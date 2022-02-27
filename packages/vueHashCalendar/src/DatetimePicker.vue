@@ -1,9 +1,3 @@
-/**
-* @Description:    日期、时间选择器
-* @Author:         TSY
-* @CreateDate:     2019/5/17 16:22
-* @Email:          t@tsy6.com
-*/
 <template>
   <div
     class="hash-calendar"
@@ -35,7 +29,7 @@
               :class="{ calendar_title_date_active: isShowCalendar }"
               @click="showCalendar"
               >{{
-                formatDate(
+                formatDatetime(
                   `${checkedDate.year}/${checkedDate.month + 1}/${
                     checkedDate.day
                   }`,
@@ -49,7 +43,7 @@
               :class="{ calendar_title_date_active: !isShowCalendar }"
               @click="showTime"
               >{{
-                formatDate(
+                formatDatetime(
                   `${checkedDate.year}/${checkedDate.month + 1}/${
                     checkedDate.day
                   } ${fillNumber(checkedDate.hours)}:${fillNumber(
@@ -63,7 +57,7 @@
           <div
             v-if="showTodayButton"
             class="calendar_confirm"
-            :class="{ today_disable: disabledDate(new Date()) }"
+            :class="{ today_disable: props.disabledDate(new Date()) }"
             @click="today"
           >
             <slot name="today">
@@ -142,7 +136,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import Calendar from "./Calendar.vue";
 import TimePicker from "./TimePicker.vue";
 import YearMonthPicker from "./YearMonthPicker.vue";
@@ -150,15 +144,15 @@ import { formatDate } from "../utils/util";
 import { ARROW_DOWN_IMG, ARROW_UP_IMG } from "../constant/img";
 import languageUtil from "../language";
 import { DatetimePickerProps } from "./DatetimePicker";
-import { computed, onMounted, reactive, useSlots, watch } from "vue";
-
-const defaultDate = {
-  year: new Date().getFullYear(),
-  month: new Date().getMonth(),
-  day: new Date().getDate(),
-  hours: new Date().getHours(),
-  minutes: new Date().getMinutes(),
-};
+import {
+  computed,
+  nextTick,
+  onMounted,
+  reactive,
+  ref,
+  useSlots,
+  watch,
+} from "vue";
 
 defineOptions({
   name: "VueHashCalendar",
@@ -179,6 +173,14 @@ const emit = defineEmits([
   "touchend",
 ]);
 
+const defaultDate = {
+  year: new Date().getFullYear(),
+  month: new Date().getMonth(),
+  day: new Date().getDate(),
+  hours: new Date().getHours(),
+  minutes: new Date().getMinutes(),
+};
+
 const calendarTitleRef = ref(null);
 const calendarRef = ref(null);
 const arrowDownImg = ARROW_DOWN_IMG;
@@ -190,7 +192,7 @@ const calendarBodyHeight = ref(0);
 const calendarTitleHeight = ref(0);
 const firstTimes = ref(true);
 const currDateTime = ref(new Date());
-const yearMonthType = ref('date');
+const yearMonthType = ref("date");
 
 const isShowDatetimePicker = computed(() => {
   const visible = props.visible;
@@ -239,7 +241,7 @@ const toggleWeek = () => {
 };
 
 const today = () => {
-  if (disabledDate(new Date())) return;
+  if (props.disabledDate(new Date())) return;
 
   calendarRef.value?.today();
 };
@@ -339,7 +341,7 @@ const fillNumber = (val) => {
   return val > 9 ? val : "0" + val;
 };
 
-const formatDate = (time, format) => {
+const formatDatetime = (time, format) => {
   return formatDate(time, format, props.lang);
 };
 
@@ -395,7 +397,7 @@ const changeThemeColor = () => {
       cssText += `--hash-calendar-${k}: ${props.themeColor[k]};`;
     });
 
-    $nextTick(() => {
+    nextTick(() => {
       document.querySelector(".hash-calendar").style.cssText = cssText;
     });
   }
@@ -482,8 +484,8 @@ watch(
         checkedDate.hours
       }:${checkedDate.minutes}`
     );
-    if (format) {
-      date = formatDate(date, format, lang);
+    if (props.format) {
+      date = formatDate(date, props.format, props.lang);
     }
     emit("change", date);
   },
