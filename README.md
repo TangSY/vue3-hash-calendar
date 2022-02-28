@@ -52,7 +52,7 @@ npm i -S vue3-hash-calendar
 // 在入口文件中（main.js），导入组件库
 import vueHashCalendar from 'vue3-hash-calendar'
 // 引入组件CSS样式
-import 'vue3-hash-calendar/lib/vue-hash-calendar.css'
+import 'vue3-hash-calendar/lib/style.css'
 const app = createApp(App);
 // 注册组件库
 app.use(vueHashCalendar);

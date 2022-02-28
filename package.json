@@ -1,14 +1,28 @@
 {
   "name": "vue3-hash-calendar",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": "HashTang",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TangSY/vue3-hash-calendar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TangSY/vue3-hash-calendar/issues"
+  },
+  "homepage": "https://www.hxkj.vip",
+  "license": "MIT",
+  "description": "vue 周 月 时间选择器，基于 vue 3.x 版本",
+  "main": "lib/vue-hash-calendar.umd.js",
+  "keyword": "vue3-hash-calendar vue-hash-calendar calendar date-picker datetime-picker time-picker week-picker",
+  "private": false,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue3-hash-calendar": "^0.0.1"
   },
   "devDependencies": {
     "@types/estree": "^0.0.51",
