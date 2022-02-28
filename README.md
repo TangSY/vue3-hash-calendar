@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.com/TangSY/vue-hash-calendar.svg?branch=master&from=hxkj)](https://travis-ci.com/TangSY/vue-hash-calendar)
-[![version](https://img.shields.io/npm/v/vue-hash-calendar.svg?from=hxkj)](https://www.npmjs.com/package/vue-hash-calendar)
-[![download](https://img.shields.io/npm/dt/vue-hash-calendar.svg?from=hxkj)](https://www.npmjs.com/package/vue-hash-calendar)
-![visitors](https://visitor-badge.glitch.me/badge?page_id=vue-hash-calendar)
+[![version](https://img.shields.io/npm/v/vue3-hash-calendar.svg?from=hxkj)](https://www.npmjs.com/package/vue3-hash-calendar)
+[![download](https://img.shields.io/npm/dt/vue3-hash-calendar.svg?from=hxkj)](https://www.npmjs.com/package/vue3-hash-calendar)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=vue3-hash-calendar)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg?from=hxkj)
 [![author](https://img.shields.io/badge/author-HashTang-orange.svg?from=hxkj)](https://www.hxkj.vip)
 
-简体中文 | [English](https://github.com/TangSY/vue-hash-calendar/blob/master/README-en_US.md)
+简体中文 | [English](https://github.com/TangSY/vue3-hash-calendar/blob/master/README-en_US.md)
 
 # 按照惯例，先上效果图
 
@@ -22,12 +22,19 @@
 
 - 🎉 觉得好用可以给一个 star 哦~~ 🎉
 
-## github 地址：[https://github.com/TangSY/vue-hash-calendar](https://github.com/TangSY/vue-hash-calendar)
-## 码云 gitee 地址：[https://gitee.com/HashTang/vue-hash-calendar](https://gitee.com/HashTang/vue-hash-calendar)
+## 仓库地址
 
-# vue-hash-calendar
+github：[https://github.com/TangSY/vue3-hash-calendar](https://github.com/TangSY/vue3-hash-calendar)
+码云 gitee：[https://gitee.com/HashTang/vue3-hash-calendar](https://gitee.com/HashTang/vue3-hash-calendar)
 
-- 基于 vue 2.X 开发的日历组件
+## 其他版本
+
+vue 2.x 版本：[https://github.com/TangSY/vue-hash-calendar](https://github.com/TangSY/vue-hash-calendar)
+react 版本：[https://github.com/TangSY/react-hash-calendar](https://github.com/TangSY/react-hash-calendar)
+
+# vue3-hash-calendar
+
+- 基于 vue 3.X 开发的日历组件
 - 支持手势滑动操作
 - 原生 js 开发，没引入第三方库
 - 支持快速切换年份和月份
@@ -37,17 +44,18 @@
 
 # 安装使用说明
 
-[![vue-hash-calendar](https://nodei.co/npm/vue-hash-calendar.png?from=hxkj)](https://npmjs.org/package/vue-hash-calendar)
+[![vue3-hash-calendar](https://nodei.co/npm/vue3-hash-calendar.png?from=hxkj)](https://npmjs.org/package/vue3-hash-calendar)
 
 ```js
-npm i -S vue-hash-calendar
+npm i -S vue3-hash-calendar
 
 // 在入口文件中（main.js），导入组件库
-import vueHashCalendar from 'vue-hash-calendar'
+import vueHashCalendar from 'vue3-hash-calendar'
 // 引入组件CSS样式
-import 'vue-hash-calendar/lib/vue-hash-calendar.css'
+import 'vue3-hash-calendar/lib/vue-hash-calendar.css'
+const app = createApp(App);
 // 注册组件库
-Vue.use(vueHashCalendar)
+app.use(vueHashCalendar);
 ```
 
 ```js
@@ -59,8 +67,8 @@ Vue.use(vueHashCalendar)
 
 ```js
 //在 index.html 加入以下两个 CDN 链接：
-js CDN：https://cdn.jsdelivr.net/npm/vue-hash-calendar@{version}/lib/vue-hash-calendar.umd.min.js
-css CDN: https://cdn.jsdelivr.net/npm/vue-hash-calendar@{version}/lib/vue-hash-calendar.css
+js CDN：https://cdn.jsdelivr.net/npm/vue3-hash-calendar@{version}/lib/vue3-hash-calendar.umd.min.js
+css CDN: https://cdn.jsdelivr.net/npm/vue3-hash-calendar@{version}/lib/vue3-hash-calendar.css
 
 //然后在 webpack 配置中，加入以下配置。
 externals: {
@@ -72,7 +80,7 @@ externals: {
 
 | 属性                        | 说明                                                                                                                                                                          |      类型       |      默认      | 是否必传 |
 | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------: | :------------: | :------: |
-| visible                     | 控制日历组件的显示或隐藏,需使用 `.sync` 修饰符                                                                                                                                |     Boolean     |     false      |    否    |
+| visible                     | 控制日历组件的显示或隐藏,需使用 `v-model:visible`                                                                                                                                |     Boolean     |     false      |    否    |
 | scrollChangeDate            | 控制滑动的时候是否修改选中的日期                                                                                                                                              |     Boolean     |      true      |    否    |
 | model                       | 日历组件以哪种形式展示。inline：内联的方式。dialog：弹窗的方式                                                                                                                |     String      |     inline     |    否    |
 | defaultDatetime             | 指定默认时间。                                                                                                                                                                |      Date       |    当前时间    |    否    |
@@ -82,7 +90,7 @@ externals: {
 | weekStart                   | 以星期几作为日历每一周的起始星期。可选['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']                                                          |     String      |     sunday     |    否    |
 | pickerType                  | 选择器类型 datetime：日期+时间 date：日期 time：时间                                                                                                                          |     String      |    datetime    |    否    |
 | showTodayButton             | 是否显示返回今日按钮                                                                                                                                                          |     Boolean     |      true      |    否    |
-| isShowWeekView              | 是否以周视图展示组件                                                                                                                                                          |     Boolean     |     false      |    否    |
+| isShowWeekView              | 是否以周视图展示组,需使用 `v-model:isShowWeekView`件                                                                                                                                                          |     Boolean     |     false      |    否    |
 | isShowArrow                 | 是否显示周月切换时的指示箭头（日历下方的小箭头），当 model 等于 inline 时生效                                                                                                 |     Boolean     |     false      |    否    |
 | isShowAction                | 是否显示日历组件操作栏（标题栏）                                                                                                                                              |     Boolean     |      true      |    否    |
 | isShowNotCurrentMonthDay    | 是否展示日历中的非本月日期（灰色部分日期）                                                                                                                                    |     Boolean     |      true      |    否    |
@@ -136,16 +144,12 @@ externals: {
 | nextWeek | 切换日历到下一周 | 1.3.20
 | today | 返回今日。当今日被禁用时，不生效 | 1.3.20
 
-## 其他版本
-
-react 版本：[https://github.com/TangSY/react-hash-calendar](https://github.com/TangSY/react-hash-calendar)
-
 ## Other
 
-- 在 dialog 模式中，如何显示日历组件？注意使用 `.sync` 修饰符
+- 在 dialog 模式中，如何显示日历组件？注意使用 `v-model:visible`
 
 ```js
-<vue-hash-calendar :visible.sync="isShowCalendar"></vue-hash-calendar>
+<vue-hash-calendar v-model:visible="isShowCalendar"></vue-hash-calendar>
 
 //设置为true
 this.isShowCalendar = true;
@@ -160,19 +164,19 @@ this.isShowCalendar = true;
 - 想要返回标准的英文格式日期，format 属性应该怎样写？ `MM DD,YY at hh:mm F`
 
 ```js
-<vue-hash-calendar format="MM DD,YY at hh:mm F" />
+<vue3-hash-calendar format="MM DD,YY at hh:mm F" />
 ```
 
 - 想要返回 12 小时制的日期，format 属性应该怎样写？ 在格式化字符串后面加上大写 `F`
 
 ```js
-<vue-hash-calendar format="YY/MM/DD hh:mm F" />
+<vue3-hash-calendar format="YY/MM/DD hh:mm F" />
 ```
 
 - day slot 的基本用法
 
 ```js
-https://github.com/TangSY/vue-hash-calendar/blob/dev/examples/FirstDayDemo.vue
+https://github.com/TangSY/vue3-hash-calendar/blob/dev/examples/FirstDayDemo.vue
 
 ```
 
