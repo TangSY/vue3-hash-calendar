@@ -18,7 +18,7 @@
 
 ![demo_qrcode.png](https://www.hxkj.vip/demo/calendar/demo.webp)
 
-或者请用浏览器的手机模式查看：[https://www.hxkj.vip/demo/calendar/](https://www.hxkj.vip/demo/calendar/)
+扫描上方二维码或者请用浏览器的手机模式查看：[https://www.hxkj.vip/demo/calendar/](https://www.hxkj.vip/demo/calendar/)
 
 - 🎉 觉得好用可以给一个 star 哦~~ 🎉
 
@@ -67,8 +67,8 @@ app.use(vueHashCalendar);
 
 ```js
 //在 index.html 加入以下两个 CDN 链接：
-js CDN：https://cdn.jsdelivr.net/npm/vue3-hash-calendar@{version}/lib/vue3-hash-calendar.umd.min.js
-css CDN: https://cdn.jsdelivr.net/npm/vue3-hash-calendar@{version}/lib/vue3-hash-calendar.css
+js CDN：https://cdn.jsdelivr.net/npm/vue3-hash-calendar@{version}/lib/vue-hash-calendar.umd.js
+css CDN: https://cdn.jsdelivr.net/npm/vue3-hash-calendar@{version}/lib/style.css
 
 //然后在 webpack 配置中，加入以下配置。
 externals: {
