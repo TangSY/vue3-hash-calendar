@@ -52,300 +52,253 @@
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import ScrollContainer from "../components/ScrollContainer.vue";
 import { isDateInRange } from "../utils/util";
 import languageUtil from "../language";
+import { YearMonthPickerProps } from "./YearMonthPicker";
+import { computed, reactive, ref, watch } from "vue";
 
-export default {
-  components: { ScrollContainer },
+defineOptions({
   name: "YearMonthPicker",
-  props: {
-    // 最小可选日期
-    minDate: {
-      type: Date,
-      default: null,
-    },
-    // 最大可选日期
-    maxDate: {
-      type: Date,
-      default: null,
-    },
-    // 禁用的日期
-    disabledDate: {
-      type: Function,
-      default: () => {
-        return false;
-      },
-    },
-    // 滑动的时候，是否触发改变日期
-    scrollChangeDate: {
-      type: Boolean,
-      default: true,
-    },
-    // 日期被选中时的 className
-    checkedDayClassName: {
-      type: String,
-      default: "",
-    },
-    // 不是当前展示月份日期的 className(例如日历前面几天与后面几天灰色部分)
-    notCurrentMonthDayClassName: {
-      type: String,
-      default: "",
-    },
-    // 日期被禁用时的 className
-    disabledClassName: {
-      type: String,
-      default: "",
-    },
-    type: String,
-    // 操作栏高度
-    calendarTitleHeight: {
-      type: Number,
-      default: 0,
-    },
-    // 日历内容区域高度
-    calendarContentHeight: {
-      type: Number,
-      default: 0,
-    },
-    // 禁止滑动，可选值【left, right, up, down, horizontal, vertical, true, false】
-    disabledScroll: {
-      type: [Boolean, String],
-      default: false,
-    },
-    // 日历选中的日期 {year, month, day}
-    calendarDate: {
-      type: Object,
-      default: () => {
-        return {
-          year: new Date().getFullYear,
-          month: new Date().getMonth,
-          day: new Date().getDate,
-        };
-      },
-    },
-    // 使用的语言包
-    lang: {
-      type: String,
-      default: "CN",
-    },
-  },
-  data() {
-    return {
-      language: {}, // 使用的语言包
-      yearRange: 10,
-      disabledScrollDirec: false,
-      yearMonthShow: [],
-      selectType: ["single", "mutiple", "range"],
-      calendarType: ["week", "date", "month", "year", "yearRange", "datetime"],
-    };
-  },
-  mounted() {
-    this.language = languageUtil[this.lang.toUpperCase()];
-  },
-  watch: {
-    type(val) {
-      this.disabledScrollDirec = this.disabledScroll;
-      if (val === "month") {
-        this.disabledScrollDirec = true;
-        this.yearMonthShow = [
-          this.language.MONTH,
-          this.language.MONTH,
-          this.language.MONTH,
-        ];
-      } else if (val === "year") {
-        this.yearMonthShow = this.getThreeYearArr();
-      } else if (val === "yearRange") {
-        this.yearMonthShow = this.getThreeYearRangeArr();
-      }
-    },
-  },
-  computed: {
-    itemHeight() {
-      return (this.calendarContentHeight - this.calendarTitleHeight) / 4;
-    },
-  },
-  methods: {
-    initYear(year) {
-      const yearArr = [];
-      const currYear = `${year || this.calendarDate.year}`;
-      const yearStart = parseInt(currYear.substring(0, 3) + "0");
-      for (let i = 0; i <= this.yearRange; i++) {
-        yearArr.push(yearStart + i);
-      }
-      yearArr.unshift(yearStart - 1);
+});
 
-      return yearArr;
-    },
-    initYearRange(year) {
-      const yearRangeArr = [];
-      const currYear = `${year || this.calendarDate.year}`;
-      const yearStart = parseInt(currYear.substring(0, 2) + "00");
-      for (let i = 0; i <= this.yearRange; i++) {
-        yearRangeArr.push({ s: yearStart + i * 10, e: yearStart + i * 10 + 9 });
-      }
-      yearRangeArr.unshift({ s: yearStart - 10, e: yearStart - 1 });
+const props = defineProps(YearMonthPickerProps);
 
-      return yearRangeArr;
-    },
-    slideChange(direc) {
-      if (direc === "left") {
-        this.getNextOpitonData();
-      } else if (direc === "right") {
-        this.getLastOptionData();
-      }
+const emit = defineEmits([
+  "click",
+  "slidechange",
+  "touchstart",
+  "touchmove",
+  "touchend",
+]);
 
-      this.$emit("slidechange", direc);
-    },
-    getNextOpitonData() {
-      if (this.type === "year") {
-        const year = this.yearMonthShow[2][1];
-        this.yearMonthShow = this.getThreeYearArr(year);
-      } else if (this.type === "yearRange") {
-        const year = this.yearMonthShow[2][1].s;
-        this.yearMonthShow = this.getThreeYearRangeArr(year);
-      }
-    },
-    getLastOptionData() {
-      if (this.type === "year") {
-        const year = this.yearMonthShow[0][1];
-        this.yearMonthShow = this.getThreeYearArr(year);
-      } else if (this.type === "yearRange") {
-        const year = this.yearMonthShow[0][1].s;
-        this.yearMonthShow = this.getThreeYearRangeArr(year);
-      }
-    },
-    getThreeYearArr(year = this.calendarDate.year) {
-      year = year + "";
-      const yearStartLast = parseInt(parseInt(year.substring(0, 3)) - 1 + "0");
-      const yearStartCurr = parseInt(year.substring(0, 3) + "0");
-      const yearStartNext = parseInt(parseInt(year.substring(0, 3)) + 1 + "0");
+let language = reactive({});
+const yearRange = ref(10);
+const disabledScrollDirec = ref(false);
+let yearMonthShow = reactive([]);
+let selectType = reactive(["single", "mutiple", "range"]);
+let calendarType = reactive([
+  "week",
+  "date",
+  "month",
+  "year",
+  "yearRange",
+  "datetime",
+]);
 
-      return [
-        this.initYear(yearStartLast),
-        this.initYear(yearStartCurr),
-        this.initYear(yearStartNext),
-      ];
-    },
-    getThreeYearRangeArr(year = this.calendarDate.year) {
-      year = year + "";
-      const yearStartLast = parseInt(parseInt(year.substring(0, 2)) - 1 + "00");
-      const yearStartCurr = parseInt(year.substring(0, 2) + "00");
-      const yearStartNext = parseInt(parseInt(year.substring(0, 2)) + 1 + "00");
+language = languageUtil[props.lang.toUpperCase()];
 
-      return [
-        this.initYearRange(yearStartLast),
-        this.initYearRange(yearStartCurr),
-        this.initYearRange(yearStartNext),
-      ];
-    },
-    dateClick(date, index) {
-      if (!date) return; // fix:1月无法选中
-      if (this.isDisabled(date, index)) return;
+const itemHeight = computed(
+  () => (props.calendarContentHeight - props.calendarTitleHeight) / 4
+);
 
-      let checkedDate = { ...this.calendarDate, type: this.type };
-      if (this.type === "month") {
-        checkedDate = {
-          ...checkedDate,
-          month: index,
-        };
-      }
-      if (this.type === "year") {
-        checkedDate = {
-          ...checkedDate,
-          year: date,
-        };
-      }
-      if (this.type === "yearRange") {
-        const yearArr = this.getRangeYear(date);
-        checkedDate = {
-          ...checkedDate,
-          year: yearArr.includes(checkedDate.year) ? checkedDate.year : date.s,
-        };
-      }
+const initYear = (year) => {
+  const yearArr = [];
+  const currYear = `${year || props.calendarDate.year}`;
+  const yearStart = parseInt(currYear.substring(0, 3) + "0");
+  for (let i = 0; i <= yearRange.value; i++) {
+    yearArr.push(yearStart + i);
+  }
+  yearArr.unshift(yearStart - 1);
 
-      this.$emit("click", checkedDate);
-    },
-    isChecked(date, index) {
-      if (this.type === "month") {
-        return index === this.calendarDate.month;
-      }
-      if (this.type === "year") {
-        return date === this.calendarDate.year;
-      }
-      if (this.type === "yearRange") {
-        return (
-          date.s <= this.calendarDate.year && date.e >= this.calendarDate.year
-        );
-      }
-    },
-    isNotCurrent(index) {
-      return (
-        (index === 0 || index === 11) &&
-        (this.type === "year" || this.type === "yearRange")
-      );
-    },
-    isDisabled(date, index) {
-      let fDate = new Date();
-
-      if (this.type === "month") {
-        fDate = new Date(
-          `${this.calendarDate.year}/${parseInt(index) + 1}/${
-            this.calendarDate.day
-          }`
-        );
-      } else if (this.type === "year") {
-        fDate = new Date(
-          `${date}/${parseInt(this.calendarDate.month) + 1}/${
-            this.calendarDate.day
-          }`
-        );
-      } else if (this.type === "yearRange") {
-        const yearArr = this.getRangeYear(date);
-        return yearArr.every((year) => {
-          fDate = new Date(
-            `${year}/${parseInt(this.calendarDate.month) + 1}/${
-              this.calendarDate.day
-            }`
-          );
-          return (
-            this.disabledDate(fDate) ||
-            !isDateInRange(fDate, this.minDate, this.maxDate)
-          );
-        });
-      }
-
-      return (
-        this.disabledDate(fDate) ||
-        !isDateInRange(fDate, this.minDate, this.maxDate)
-      );
-    },
-    getRangeYear(date) {
-      const yearStart = date.s;
-      const yearEnd = date.e;
-      const yearArr = [];
-
-      for (let i = yearStart; i <= yearEnd; i++) {
-        yearArr.push(i);
-      }
-
-      return yearArr;
-    },
-    // 监听手指开始滑动事件
-    touchStart(event) {
-      this.$emit("touchstart", event);
-    },
-    // 监听手指开始滑动事件
-    touchMove(event) {
-      this.$emit("touchmove", event);
-    },
-    // 监听手指开始滑动事件
-    touchEnd(event) {
-      this.$emit("touchend", event);
-    },
-  },
+  return yearArr;
 };
+
+const initYearRange = (year) => {
+  const yearRangeArr = [];
+  const currYear = `${year || props.calendarDate.year}`;
+  const yearStart = parseInt(currYear.substring(0, 2) + "00");
+  for (let i = 0; i <= yearRange.value; i++) {
+    yearRangeArr.push({ s: yearStart + i * 10, e: yearStart + i * 10 + 9 });
+  }
+  yearRangeArr.unshift({ s: yearStart - 10, e: yearStart - 1 });
+
+  return yearRangeArr;
+};
+
+const slideChange = (direc) => {
+  if (direc === "left") {
+    getNextOpitonData();
+  } else if (direc === "right") {
+    getLastOptionData();
+  }
+
+  emit("slidechange", direc);
+};
+
+const getNextOpitonData = () => {
+  if (props.type === "year") {
+    const year = yearMonthShow[2][1];
+    yearMonthShow = getThreeYearArr(year);
+  } else if (props.type === "yearRange") {
+    const year = yearMonthShow[2][1].s;
+    yearMonthShow = getThreeYearRangeArr(year);
+  }
+};
+
+const getLastOptionData = () => {
+  if (props.type === "year") {
+    const year = yearMonthShow[0][1];
+    yearMonthShow = getThreeYearArr(year);
+  } else if (props.type === "yearRange") {
+    const year = yearMonthShow[0][1].s;
+    yearMonthShow = getThreeYearRangeArr(year);
+  }
+};
+
+const getThreeYearArr = (year = props.calendarDate.year) => {
+  year = year + "";
+  const yearStartLast = parseInt(parseInt(year.substring(0, 3)) - 1 + "0");
+  const yearStartCurr = parseInt(year.substring(0, 3) + "0");
+  const yearStartNext = parseInt(parseInt(year.substring(0, 3)) + 1 + "0");
+
+  return [
+    initYear(yearStartLast),
+    initYear(yearStartCurr),
+    initYear(yearStartNext),
+  ];
+};
+
+const getThreeYearRangeArr = (year = props.calendarDate.year) => {
+  year = year + "";
+  const yearStartLast = parseInt(parseInt(year.substring(0, 2)) - 1 + "00");
+  const yearStartCurr = parseInt(year.substring(0, 2) + "00");
+  const yearStartNext = parseInt(parseInt(year.substring(0, 2)) + 1 + "00");
+
+  return [
+    initYearRange(yearStartLast),
+    initYearRange(yearStartCurr),
+    initYearRange(yearStartNext),
+  ];
+};
+
+const dateClick = (date, index) => {
+  if (!date) return; // fix:1月无法选中
+  if (isDisabled(date, index)) return;
+
+  let checkedDate = { ...props.calendarDate, type: props.type };
+  if (props.type === "month") {
+    checkedDate = {
+      ...checkedDate,
+      month: index,
+    };
+  }
+  if (props.type === "year") {
+    checkedDate = {
+      ...checkedDate,
+      year: date,
+    };
+  }
+  if (props.type === "yearRange") {
+    const yearArr = getRangeYear(date);
+    checkedDate = {
+      ...checkedDate,
+      year: yearArr.includes(checkedDate.year) ? checkedDate.year : date.s,
+    };
+  }
+
+  emit("click", checkedDate);
+};
+
+const isChecked = (date, index) => {
+  if (props.type === "month") {
+    return index === props.calendarDate.month;
+  }
+  if (props.type === "year") {
+    return date === props.calendarDate.year;
+  }
+  if (props.type === "yearRange") {
+    return (
+      date.s <= props.calendarDate.year && date.e >= props.calendarDate.year
+    );
+  }
+};
+
+const isNotCurrent = (index) => {
+  return (
+    (index === 0 || index === 11) &&
+    (props.type === "year" || props.type === "yearRange")
+  );
+};
+
+const isDisabled = (date, index) => {
+  let fDate = new Date();
+
+  if (props.type === "month") {
+    fDate = new Date(
+      `${props.calendarDate.year}/${parseInt(index) + 1}/${
+        props.calendarDate.day
+      }`
+    );
+  } else if (props.type === "year") {
+    fDate = new Date(
+      `${date}/${parseInt(props.calendarDate.month) + 1}/${
+        props.calendarDate.day
+      }`
+    );
+  } else if (props.type === "yearRange") {
+    const yearArr = getRangeYear(date);
+    return yearArr.every((year) => {
+      fDate = new Date(
+        `${year}/${parseInt(props.calendarDate.month) + 1}/${
+          props.calendarDate.day
+        }`
+      );
+      return (
+        props.disabledDate(fDate) ||
+        !isDateInRange(fDate, props.minDate, props.maxDate)
+      );
+    });
+  }
+
+  return (
+    props.disabledDate(fDate) ||
+    !isDateInRange(fDate, props.minDate, props.maxDate)
+  );
+};
+
+const getRangeYear = (date) => {
+  const yearStart = date.s;
+  const yearEnd = date.e;
+  const yearArr = [];
+
+  for (let i = yearStart; i <= yearEnd; i++) {
+    yearArr.push(i);
+  }
+
+  return yearArr;
+};
+
+// 监听手指开始滑动事件
+const touchStart = (event) => {
+  emit("touchstart", event);
+};
+
+// 监听手指开始滑动事件
+const touchMove = (event) => {
+  emit("touchmove", event);
+};
+
+// 监听手指开始滑动事件
+const touchEnd = (event) => {
+  emit("touchend", event);
+};
+
+watch(
+  () => props.type,
+  (val) => {
+    disabledScrollDirec.value = props.disabledScroll;
+    if (val === "month") {
+      disabledScrollDirec.value = true;
+      yearMonthShow = [language.MONTH, language.MONTH, language.MONTH];
+    } else if (val === "year") {
+      yearMonthShow = getThreeYearArr();
+    } else if (val === "yearRange") {
+      yearMonthShow = getThreeYearRangeArr();
+    }
+  }
+);
 </script>
 
 <style lang="stylus" scoped>

@@ -144,15 +144,7 @@ import { formatDate } from "../utils/util";
 import { ARROW_DOWN_IMG, ARROW_UP_IMG } from "../constant/img";
 import languageUtil from "../language";
 import { DatetimePickerProps } from "./DatetimePicker";
-import {
-  computed,
-  nextTick,
-  onMounted,
-  reactive,
-  ref,
-  useSlots,
-  watch,
-} from "vue";
+import { computed, nextTick, reactive, ref, useSlots, watch } from "vue";
 
 defineOptions({
   name: "VueHashCalendar",
@@ -194,6 +186,8 @@ const firstTimes = ref(true);
 const currDateTime = ref(new Date());
 const yearMonthType = ref("date");
 
+language = languageUtil[props.lang.toUpperCase()];
+
 const isShowDatetimePicker = computed(() => {
   const visible = props.visible;
   return {
@@ -205,6 +199,10 @@ const isShowDatetimePicker = computed(() => {
     },
   };
 });
+
+if (props.model === "inline") {
+  isShowDatetimePicker.value = true;
+}
 
 const isShowWeek = computed(() => {
   const isShowWeekView = props.isShowWeekView;
@@ -422,14 +420,6 @@ const touchEnd = (event) => {
 const slideChange = (direction) => {
   emit("slidechange", direction);
 };
-
-onMounted(() => {
-  if (props.model === "inline") {
-    isShowDatetimePicker.value = true;
-  }
-
-  language = languageUtil[props.lang.toUpperCase()];
-});
 
 watch(
   () => props.themeColor,

@@ -33,283 +33,274 @@
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
+import { nextTick, reactive, ref, watch } from "vue";
 import { checkPlatform } from "../utils/util";
-export default {
+import { TimePickerProps } from "./TimePicker";
+
+defineOptions({
   name: "TimePicker",
-  props: {
-    defaultTime: null,
-    show: false,
-    minuteStep: {
-      type: Number,
-      default: 1,
-    },
-    selectableRange: {
-      type: String | Array,
-      default: "",
-    },
-    // 日历选中的时间 {year, month, day}
-    calendarDate: null,
-    // 禁用的日期
-    disabledTime: {
-      type: Function,
-      default: () => {
-        return false;
-      },
-    },
-  },
-  data() {
-    return {
-      hashID: [], // 用于生成随机ID
-      hashClass: "", // 用于生成随机class
-      timeRange: [], // 时间范围
-      timeOptions: {
-        minHours: 24,
-        minMinutes: 59,
-        maxHours: 0,
-        maxMinutes: 0,
-      },
-      checkedDate: {
-        hours: new Date().getHours(),
-        minutes: new Date().getMinutes(),
-      }, // 被选中的日期
-      timeHeight: 0, // 单个时间项的高度
-      timeArray: [], // 时间选择器数据
-      timeStartY: 0, // touchstart,Y轴坐标
-      timeStartUp: 0, // 滑动开始前，时间控件dom与顶部的偏移量
-    };
-  },
-  created() {
-    this.hashID = [
-      `time${parseInt(Math.random() * 1000000)}`,
-      `time${parseInt(Math.random() * 1000000)}`,
-    ];
-    this.hashClass = `time_item_${parseInt(Math.random() * 1000000)}`;
-  },
-  computed: {},
-  watch: {
-    defaultTime: {
-      handler(val) {
-        if (!(val instanceof Date)) {
-          throw new Error(
-            "The calendar component's defaultTime must be date type!"
-          );
-        }
-        // this.$set(this.checkedDate, "hours", val.getHours());
-        // this.$set(this.checkedDate, "minutes", val.getMinutes());
-      },
-      immediate: true,
-    },
-    checkedDate: {
-      handler(val) {
-        this.$emit("change", val);
-      },
-      deep: true,
-      immediate: true,
-    },
-    show: {
-      handler(val) {
-        if (val) {
-          this.initTimeArray();
-        }
-      },
-      immediate: true,
-    },
-    minuteStep: {
-      handler(val) {
-        if (val <= 0 || val >= 60) {
-          throw new Error(`The minutes-step can't be: ${val}!`);
-        }
-        if (60 % val !== 0) {
-          throw new Error("The minutes-step must be divided by 60!");
-        }
-      },
-      immediate: true,
-    },
-    selectableRange: {
-      handler(val) {
-        if (!val) return;
-        this.timeRange = [];
-        let formatPass = false;
-        if (typeof val === "string") {
-          formatPass = this.checkTimeRange(val);
-        } else if (val instanceof Array) {
-          formatPass = val.every((item) => this.checkTimeRange(item));
-        }
-        if (!formatPass)
-          throw new Error("The format of selectableRange is error!");
-      },
-      immediate: true,
-    },
-  },
-  methods: {
-    // 小于10，在前面补0
-    fillNumber(val) {
-      return val > 9 ? val : "0" + val;
-    },
-    // 初始化时间选择器数据
-    initTimeArray() {
-      let hours = [];
-      this.timeArray = [];
-      for (let i = 0; i < 24; i++) {
-        hours.push(i);
-      }
-      let minutes = [];
-      for (let i = 0; i < 60; i++) {
-        if (i % this.minuteStep === 0) {
-          minutes.push(i);
-        }
-      }
-      this.timeArray.push(hours, minutes);
+});
 
-      this.$nextTick(() => {
-        let checkHours = this.checkedDate.hours;
-        let checkMinutes = this.checkedDate.minutes;
+const props = defineProps(TimePickerProps);
 
-        this.timeHeight =
-          getComputedStyle(document.querySelector(`.${this.hashClass}`))
-            .height || "";
-        this.timeHeight = parseFloat(this.timeHeight.split("px")[0]);
+const emit = defineEmits(["change"]);
 
-        let hoursUp = (2 - parseFloat(checkHours)) * this.timeHeight;
-        let minutesUp =
-          (2 - parseFloat(checkMinutes) / this.minuteStep) * this.timeHeight;
-        document.querySelector(`#${this.hashID[0]}`).style.webkitTransform =
-          "translate3d(0px," + hoursUp + "px,0px)";
-        document.querySelector(`#${this.hashID[1]}`).style.webkitTransform =
-          "translate3d(0px," + minutesUp + "px,0px)";
-      });
-    },
-    formatDisabledDate(time, index) {
-      let hours = index === 0 ? time : this.checkedDate.hours;
-      let minutes = index === 1 ? time : this.checkedDate.minutes;
-      let dateStr = `${this.calendarDate.year}/${this.calendarDate.month + 1}/${
-        this.calendarDate.day
-      } ${hours}:${minutes}`;
-      let fDate = new Date(dateStr);
+let hashID = reactive([]);
+const hashClass = ref("");
+let timeRange = reactive([]);
+let timeOptions = reactive({
+  minHours: 24,
+  minMinutes: 59,
+  maxHours: 0,
+  maxMinutes: 0,
+});
+let checkedDate = reactive({
+  hours: new Date().getHours(),
+  minutes: new Date().getMinutes(),
+});
+const timeHeight = ref(0);
+let timeArray = reactive([]);
+const timeStartY = ref(0);
+const timeStartUp = ref(0);
 
-      return this.disabledTime(fDate);
-    },
-    timeTouchStart(e) {
-      e.preventDefault();
-      this.timeStartY = e.changedTouches[0].pageY;
-      let transform = e.currentTarget.style.webkitTransform;
-      if (transform) {
-        this.timeStartUp = parseFloat(transform.split(" ")[1].split("px")[0]);
-      }
-    },
-    timeTouchMove(e, index) {
-      let moveEndY = e.changedTouches[0].pageY;
-      let Y = moveEndY - this.timeStartY;
+hashID = [
+  `time${parseInt(Math.random() * 1000000)}`,
+  `time${parseInt(Math.random() * 1000000)}`,
+];
+hashClass.value = `time_item_${parseInt(Math.random() * 1000000)}`;
 
-      e.currentTarget.style.webkitTransform =
-        "translate3d(0px," + (Y + this.timeStartUp) + "px,0px)";
-
-      if (checkPlatform() === "2") {
-        this.timeTouchEnd(e, index);
-        return false;
-      }
-    },
-    timeTouchEnd(e, index) {
-      let transform = e.currentTarget.style.webkitTransform;
-      let endUp = this.timeStartUp;
-      if (transform) {
-        endUp = parseFloat(
-          e.currentTarget.style.webkitTransform.split(" ")[1].split("px")[0]
-        );
-      }
-
-      let distance = Math.abs(endUp - this.timeStartUp);
-      let upCount = Math.floor(distance / this.timeHeight) || 1;
-      let halfWinWith = this.timeHeight / 2;
-      let up = this.timeStartUp;
-
-      if (endUp <= this.timeStartUp) {
-        // 向上滑动 未过临界值
-        if (distance <= halfWinWith) {
-          up = this.timeStartUp;
-        } else {
-          up = this.timeStartUp - this.timeHeight * upCount;
-          if (up < -(this.timeArray[index].length - 3) * this.timeHeight) {
-            up = -(this.timeArray[index].length - 3) * this.timeHeight;
-          }
-        }
-      } else {
-        // 向下滑动 未过临界值
-        if (distance <= halfWinWith) {
-          up = this.timeStartUp;
-        } else {
-          up = this.timeStartUp + this.timeHeight * upCount;
-          if (up > this.timeHeight * 2) {
-            up = this.timeHeight * 2;
-          }
-        }
-      }
-      if (index === 0) {
-        let hour = 2 - Math.round(parseFloat(up) / parseFloat(this.timeHeight));
-
-        if (this.formatDisabledDate(hour, index)) {
-          up = this.timeStartUp;
-        } else {
-          // this.$set(this.checkedDate, "hours", hour);
-        }
-      } else {
-        let minute =
-          2 - Math.round(parseFloat(up) / parseFloat(this.timeHeight));
-
-        if (this.formatDisabledDate(minute, index)) {
-          up = this.timeStartUp;
-        } else {
-          // this.$set(this.checkedDate, "minutes", minute * this.minuteStep);
-        }
-      }
-      e.currentTarget.style.webkitTransition = "transform 300ms";
-      e.currentTarget.style.webkitTransform =
-        "translate3d(0px," + up + "px,0px)";
-    },
-    isBeSelectedTime(time, index) {
-      // 是否为当前选中的时间
-      return (
-        (index === 0 && time === this.checkedDate.hours) ||
-        (index === 1 && time === this.checkedDate.minutes)
-      );
-    },
-    isDisableTime(time, index) {
-      // 是否禁用当前时间
-      for (let i in this.timeRange) {
-        for (let j in this.timeRange[i]) {
-          if (index === 0) {
-            let currentHours = this.timeRange[i][j].split(":")[0];
-
-            if (currentHours > time) {
-              this.timeOptions.minHours = currentHours;
-              return true;
-            }
-          }
-        }
-      }
-      return false;
-    },
-    // 校验时间范围
-    checkTimeRange(timeRange) {
-      if (!timeRange) return;
-      let timeArr = timeRange.split("-");
-      if (timeArr.length === 0 || timeArr.length > 2) return false;
-      this.timeRange.push(timeRange);
-
-      return timeArr.every((time) => {
-        let mhArr = time.split(":");
-        if (mhArr.length === 0 || mhArr.length > 2) return false;
-
-        // 校验单个时间是否符合规范 00:00 - 24:00
-        if (parseInt(mhArr[0]) < 0 || parseInt(mhArr[0]) > 24) return false;
-        if (parseInt(mhArr[1]) < 0 || parseInt(mhArr[1]) > 59) return false;
-        if (parseInt(mhArr[0]) === 24 && parseInt(mhArr[1]) > 0) return false;
-        return true;
-      });
-    },
-  },
+// 小于10，在前面补0
+const fillNumber = (val) => {
+  return val > 9 ? val : "0" + val;
 };
+
+// 初始化时间选择器数据
+const initTimeArray = () => {
+  let hours = [];
+  timeArray = [];
+  for (let i = 0; i < 24; i++) {
+    hours.push(i);
+  }
+  let minutes = [];
+  for (let i = 0; i < 60; i++) {
+    if (i % props.minuteStep === 0) {
+      minutes.push(i);
+    }
+  }
+  timeArray.push(hours, minutes);
+
+  nextTick(() => {
+    let checkHours = checkedDate.hours;
+    let checkMinutes = checkedDate.minutes;
+
+    const timeHeightStr =
+      getComputedStyle(document.querySelector(`.${hashClass}`)).height || "";
+    timeHeight.value = parseFloat(timeHeightStr.split("px")[0]);
+
+    let hoursUp = (2 - parseFloat(checkHours)) * timeHeight.value;
+    let minutesUp =
+      (2 - parseFloat(checkMinutes) / minuteStep) * timeHeight.value;
+    document.querySelector(`#${hashID[0]}`).style.webkitTransform =
+      "translate3d(0px," + hoursUp + "px,0px)";
+    document.querySelector(`#${hashID[1]}`).style.webkitTransform =
+      "translate3d(0px," + minutesUp + "px,0px)";
+  });
+};
+
+const formatDisabledDate = (time, index) => {
+  let hours = index === 0 ? time : checkedDate.hours;
+  let minutes = index === 1 ? time : checkedDate.minutes;
+  let dateStr = `${props.calendarDate.year}/${props.calendarDate.month + 1}/${
+    props.calendarDate.day
+  } ${hours}:${minutes}`;
+  let fDate = new Date(dateStr);
+
+  return props.disabledTime(fDate);
+};
+
+const timeTouchStart = (e) => {
+  e.preventDefault();
+  timeStartY.value = e.changedTouches[0].pageY;
+  let transform = e.currentTarget.style.webkitTransform;
+  if (transform) {
+    timeStartUp.value = parseFloat(transform.split(" ")[1].split("px")[0]);
+  }
+};
+
+const timeTouchMove = (e, index) => {
+  let moveEndY = e.changedTouches[0].pageY;
+  let Y = moveEndY - timeStartY.value;
+
+  e.currentTarget.style.webkitTransform =
+    "translate3d(0px," + (Y + timeStartUp.value) + "px,0px)";
+
+  if (checkPlatform() === "2") {
+    timeTouchEnd(e, index);
+    return false;
+  }
+};
+
+const timeTouchEnd = (e, index) => {
+  let transform = e.currentTarget.style.webkitTransform;
+  let endUp = timeStartUp.value;
+  if (transform) {
+    endUp = parseFloat(
+      e.currentTarget.style.webkitTransform.split(" ")[1].split("px")[0]
+    );
+  }
+
+  let distance = Math.abs(endUp - timeStartUp.value);
+  let upCount = Math.floor(distance / timeHeight.value) || 1;
+  let halfWinWith = timeHeight.value / 2;
+  let up = timeStartUp.value;
+
+  if (endUp <= timeStartUp.value) {
+    // 向上滑动 未过临界值
+    if (distance <= halfWinWith) {
+      up = timeStartUp.value;
+    } else {
+      up = timeStartUp.value - timeHeight.value * upCount;
+      if (up < -(timeArray[index].length - 3) * timeHeight.value) {
+        up = -(timeArray[index].length - 3) * timeHeight.value;
+      }
+    }
+  } else {
+    // 向下滑动 未过临界值
+    if (distance <= halfWinWith) {
+      up = timeStartUp.value;
+    } else {
+      up = timeStartUp.value + timeHeight.value * upCount;
+      if (up > timeHeight.value * 2) {
+        up = timeHeight.value * 2;
+      }
+    }
+  }
+  if (index === 0) {
+    let hour = 2 - Math.round(parseFloat(up) / parseFloat(timeHeight.value));
+
+    if (formatDisabledDate(hour, index)) {
+      up = timeStartUp.value;
+    } else {
+      checkedDate.hours = hour;
+    }
+  } else {
+    let minute = 2 - Math.round(parseFloat(up) / parseFloat(timeHeight.value));
+
+    if (formatDisabledDate(minute, index)) {
+      up = timeStartUp.value;
+    } else {
+      checkedDate.minutes = minute * props.minuteStep;
+    }
+  }
+  e.currentTarget.style.webkitTransition = "transform 300ms";
+  e.currentTarget.style.webkitTransform = "translate3d(0px," + up + "px,0px)";
+};
+
+const isBeSelectedTime = (time, index) => {
+  // 是否为当前选中的时间
+  return (
+    (index === 0 && time === checkedDate.hours) ||
+    (index === 1 && time === checkedDate.minutes)
+  );
+};
+
+const isDisableTime = (time, index) => {
+  // 是否禁用当前时间
+  for (let i in timeRange) {
+    for (let j in timeRange[i]) {
+      if (index === 0) {
+        let currentHours = timeRange[i][j].split(":")[0];
+
+        if (currentHours > time) {
+          timeOptions.minHours = currentHours;
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+};
+
+// 校验时间范围
+const checkTimeRange = (range) => {
+  if (!range) return;
+  let timeArr = range.split("-");
+  if (timeArr.length === 0 || timeArr.length > 2) return false;
+  timeRange.push(range);
+
+  return timeArr.every((time) => {
+    let mhArr = time.split(":");
+    if (mhArr.length === 0 || mhArr.length > 2) return false;
+
+    // 校验单个时间是否符合规范 00:00 - 24:00
+    if (parseInt(mhArr[0]) < 0 || parseInt(mhArr[0]) > 24) return false;
+    if (parseInt(mhArr[1]) < 0 || parseInt(mhArr[1]) > 59) return false;
+    if (parseInt(mhArr[0]) === 24 && parseInt(mhArr[1]) > 0) return false;
+    return true;
+  });
+};
+
+watch(
+  () => props.defaultTime,
+  (val) => {
+    if (!(val instanceof Date)) {
+      throw new Error(
+        "The calendar component's defaultTime must be date type!"
+      );
+    }
+    checkedDate.hours = val.getHours();
+    checkedDate.minutes = val.getMinutes();
+  },
+  { immediate: true }
+);
+
+watch(
+  checkedDate,
+  (val) => {
+    emit("change", val);
+  },
+  { deep: true, immediate: true }
+);
+
+watch(
+  () => props.show,
+  (val) => {
+    if (val) {
+      initTimeArray();
+    }
+  },
+  { immediate: true }
+);
+
+watch(
+  () => props.minuteStep,
+  (val) => {
+    if (val <= 0 || val >= 60) {
+      throw new Error(`The minutes-step can't be: ${val}!`);
+    }
+    if (60 % val !== 0) {
+      throw new Error("The minutes-step must be divided by 60!");
+    }
+  },
+  { immediate: true }
+);
+
+watch(
+  () => props.selectableRange,
+  (val) => {
+    if (!val) return;
+    timeRange = [];
+    let formatPass = false;
+    if (typeof val === "string") {
+      formatPass = checkTimeRange(val);
+    } else if (val instanceof Array) {
+      formatPass = val.every((item) => checkTimeRange(item));
+    }
+    if (!formatPass) throw new Error("The format of selectableRange is error!");
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="stylus" scoped>

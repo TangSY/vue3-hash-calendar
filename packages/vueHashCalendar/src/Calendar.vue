@@ -95,7 +95,7 @@
 <script lang="ts" setup>
 import { formatDate, isDateInRange } from "../utils/util";
 import languageUtil from "../language";
-import { reactive, ref, onMounted, watch, nextTick, computed } from "vue";
+import { reactive, ref, watch, nextTick, computed } from "vue";
 import { CalendarProps } from "./Calendar";
 
 defineOptions({
@@ -165,6 +165,14 @@ const isLastWeekInCurrentMonth = ref(false);
 const isNextWeekInCurrentMonth = ref(false);
 let markDateColorObj = reactive({});
 let markDateTypeObj = reactive({});
+
+language = languageUtil[props.lang.toUpperCase()];
+calendarWeek = language.WEEK;
+weekStartIndex.value = weekArray.indexOf(props.weekStart.toLowerCase());
+calendarWeek = [
+  ...calendarWeek.slice(weekStartIndex.value, calendarWeek.length),
+  ...calendarWeek.slice(0, weekStartIndex.value),
+];
 
 const isShowWeek = computed(() => {
   const isShowWeekView = props.isShowWeekView;
@@ -720,16 +728,6 @@ const setDisabledScrollDirection = () => {
   touch.y < 0 && !isCanScroll("up") && (touch.y = 0);
   touch.y > 0 && !isCanScroll("down") && (touch.y = 0);
 };
-
-onMounted(() => {
-  language = languageUtil[props.lang.toUpperCase()];
-  calendarWeek = language.WEEK;
-  weekStartIndex.value = weekArray.indexOf(props.weekStart.toLowerCase());
-  calendarWeek = [
-    ...calendarWeek.slice(weekStartIndex.value, calendarWeek.length),
-    ...calendarWeek.slice(0, weekStartIndex.value),
-  ];
-});
 
 watch(
   () => props.markDate,
