@@ -1,9 +1,3 @@
-/**
-* @Description:    时间选择组件
-* @Author:         TSY
-* @Email:          t@tsy6.com
-* @CreateDate:     2019/5/26 22:53
-*/
 <template>
   <div class="time_body" v-show="show">
     <div class="time_group">
@@ -46,25 +40,18 @@ const props = defineProps(TimePickerProps);
 
 const emit = defineEmits(["change"]);
 
-let hashID = reactive([]);
+const hashID = ref([]);
 const hashClass = ref("");
-let timeRange = reactive([]);
-let timeOptions = reactive({
-  minHours: 24,
-  minMinutes: 59,
-  maxHours: 0,
-  maxMinutes: 0,
-});
-let checkedDate = reactive({
+const checkedDate = ref({
   hours: new Date().getHours(),
   minutes: new Date().getMinutes(),
 });
 const timeHeight = ref(0);
-let timeArray = reactive([]);
+const timeArray = ref([]);
 const timeStartY = ref(0);
 const timeStartUp = ref(0);
 
-hashID = [
+hashID.value = [
   `time${parseInt(Math.random() * 1000000)}`,
   `time${parseInt(Math.random() * 1000000)}`,
 ];
@@ -78,7 +65,7 @@ const fillNumber = (val) => {
 // 初始化时间选择器数据
 const initTimeArray = () => {
   let hours = [];
-  timeArray = [];
+  timeArray.value = [];
   for (let i = 0; i < 24; i++) {
     hours.push(i);
   }
@@ -88,29 +75,30 @@ const initTimeArray = () => {
       minutes.push(i);
     }
   }
-  timeArray.push(hours, minutes);
+  timeArray.value.push(hours, minutes);
 
   nextTick(() => {
-    let checkHours = checkedDate.hours;
-    let checkMinutes = checkedDate.minutes;
+    let checkHours = checkedDate.value.hours;
+    let checkMinutes = checkedDate.value.minutes;
 
     const timeHeightStr =
-      getComputedStyle(document.querySelector(`.${hashClass}`)).height || "";
+      getComputedStyle(document.querySelector(`.${hashClass.value}`)).height ||
+      "";
     timeHeight.value = parseFloat(timeHeightStr.split("px")[0]);
 
     let hoursUp = (2 - parseFloat(checkHours)) * timeHeight.value;
     let minutesUp =
-      (2 - parseFloat(checkMinutes) / minuteStep) * timeHeight.value;
-    document.querySelector(`#${hashID[0]}`).style.webkitTransform =
+      (2 - parseFloat(checkMinutes) / props.minuteStep) * timeHeight.value;
+    document.querySelector(`#${hashID.value[0]}`).style.webkitTransform =
       "translate3d(0px," + hoursUp + "px,0px)";
-    document.querySelector(`#${hashID[1]}`).style.webkitTransform =
+    document.querySelector(`#${hashID.value[1]}`).style.webkitTransform =
       "translate3d(0px," + minutesUp + "px,0px)";
   });
 };
 
 const formatDisabledDate = (time, index) => {
-  let hours = index === 0 ? time : checkedDate.hours;
-  let minutes = index === 1 ? time : checkedDate.minutes;
+  let hours = index === 0 ? time : checkedDate.value.hours;
+  let minutes = index === 1 ? time : checkedDate.value.minutes;
   let dateStr = `${props.calendarDate.year}/${props.calendarDate.month + 1}/${
     props.calendarDate.day
   } ${hours}:${minutes}`;
@@ -161,8 +149,8 @@ const timeTouchEnd = (e, index) => {
       up = timeStartUp.value;
     } else {
       up = timeStartUp.value - timeHeight.value * upCount;
-      if (up < -(timeArray[index].length - 3) * timeHeight.value) {
-        up = -(timeArray[index].length - 3) * timeHeight.value;
+      if (up < -(timeArray.value[index].length - 3) * timeHeight.value) {
+        up = -(timeArray.value[index].length - 3) * timeHeight.value;
       }
     }
   } else {
@@ -182,7 +170,7 @@ const timeTouchEnd = (e, index) => {
     if (formatDisabledDate(hour, index)) {
       up = timeStartUp.value;
     } else {
-      checkedDate.hours = hour;
+      checkedDate.value.hours = hour;
     }
   } else {
     let minute = 2 - Math.round(parseFloat(up) / parseFloat(timeHeight.value));
@@ -190,7 +178,7 @@ const timeTouchEnd = (e, index) => {
     if (formatDisabledDate(minute, index)) {
       up = timeStartUp.value;
     } else {
-      checkedDate.minutes = minute * props.minuteStep;
+      checkedDate.value.minutes = minute * props.minuteStep;
     }
   }
   e.currentTarget.style.webkitTransition = "transform 300ms";
@@ -200,26 +188,9 @@ const timeTouchEnd = (e, index) => {
 const isBeSelectedTime = (time, index) => {
   // 是否为当前选中的时间
   return (
-    (index === 0 && time === checkedDate.hours) ||
-    (index === 1 && time === checkedDate.minutes)
+    (index === 0 && time === checkedDate.value.hours) ||
+    (index === 1 && time === checkedDate.value.minutes)
   );
-};
-
-const isDisableTime = (time, index) => {
-  // 是否禁用当前时间
-  for (let i in timeRange) {
-    for (let j in timeRange[i]) {
-      if (index === 0) {
-        let currentHours = timeRange[i][j].split(":")[0];
-
-        if (currentHours > time) {
-          timeOptions.minHours = currentHours;
-          return true;
-        }
-      }
-    }
-  }
-  return false;
 };
 
 // 校验时间范围
@@ -227,7 +198,6 @@ const checkTimeRange = (range) => {
   if (!range) return;
   let timeArr = range.split("-");
   if (timeArr.length === 0 || timeArr.length > 2) return false;
-  timeRange.push(range);
 
   return timeArr.every((time) => {
     let mhArr = time.split(":");
@@ -249,8 +219,8 @@ watch(
         "The calendar component's defaultTime must be date type!"
       );
     }
-    checkedDate.hours = val.getHours();
-    checkedDate.minutes = val.getMinutes();
+    checkedDate.value.hours = val.getHours();
+    checkedDate.value.minutes = val.getMinutes();
   },
   { immediate: true }
 );
@@ -290,7 +260,6 @@ watch(
   () => props.selectableRange,
   (val) => {
     if (!val) return;
-    timeRange = [];
     let formatPass = false;
     if (typeof val === "string") {
       formatPass = checkTimeRange(val);

@@ -41,7 +41,7 @@ const emit = defineEmits([
 const containerRef = ref(null);
 const translateIndex = ref(0);
 const transitionDuration = ref(0.3);
-let touch = reactive({
+const touch = ref({
   x: 0,
   y: 0,
 });
@@ -56,8 +56,9 @@ const touchStart = (event) => {
 
   touchStartPositionX.value = event.touches[0].clientX;
   touchStartPositionY.value = event.touches[0].clientY;
-  touch = {
+  touch.value = {
     x: 0,
+    y: 0,
   };
   isTouching.value = true;
 };
@@ -69,12 +70,12 @@ const touchMove = (event) => {
   let moveX = event.touches[0].clientX - touchStartPositionX.value;
   let moveY = event.touches[0].clientY - touchStartPositionY.value;
   if (Math.abs(moveX) > Math.abs(moveY)) {
-    touch = {
+    touch.value = {
       x: moveX / containerRef.value?.offsetWidth,
       y: 0,
     };
   } else {
-    touch = {
+    touch.value = {
       x: 0,
       y: moveY / containerRef.value?.offsetHeight,
     };
@@ -88,28 +89,31 @@ const touchEnd = (e) => {
   emit("touchend", e);
 
   isTouching.value = false;
-  if (Math.abs(touch.x) > Math.abs(touch.y) && Math.abs(touch.x) > 0.2) {
-    if (touch.x > 0) {
+  if (
+    Math.abs(touch.value.x) > Math.abs(touch.value.y) &&
+    Math.abs(touch.value.x) > 0.2
+  ) {
+    if (touch.value.x > 0) {
       emit("slidechange", "right");
 
       translateIndex.value += 1;
-    } else if (touch.x < 0) {
+    } else if (touch.value.x < 0) {
       emit("slidechange", "left");
 
       translateIndex.value -= 1;
     }
   }
   if (
-    Math.abs(touch.y) > Math.abs(touch.x) &&
-    Math.abs(touch.y * containerRef.value?.offsetHeight) > 50
+    Math.abs(touch.value.y) > Math.abs(touch.value.x) &&
+    Math.abs(touch.value.y * containerRef.value?.offsetHeight) > 50
   ) {
-    if (touch.y > 0) {
+    if (touch.value.y > 0) {
       emit("slidechange", "down");
-    } else if (touch.y < 0) {
+    } else if (touch.value.y < 0) {
       emit("slidechange", "up");
     }
   } else {
-    touch = {
+    touch.value = {
       x: 0,
       y: 0,
     };
@@ -131,10 +135,10 @@ const isCanScroll = (dire) => {
 
 // 设置禁止滑动的方向
 const setDisabledScrollDirection = () => {
-  touch.x < 0 && !isCanScroll("left") && (touch.x = 0);
-  touch.x > 0 && !isCanScroll("right") && (touch.x = 0);
-  touch.y < 0 && !isCanScroll("up") && (touch.y = 0);
-  touch.y > 0 && !isCanScroll("down") && (touch.y = 0);
+  touch.value.x < 0 && !isCanScroll("left") && (touch.value.x = 0);
+  touch.value.x > 0 && !isCanScroll("right") && (touch.value.x = 0);
+  touch.value.y < 0 && !isCanScroll("up") && (touch.value.y = 0);
+  touch.value.y > 0 && !isCanScroll("down") && (touch.value.y = 0);
 };
 </script>
 

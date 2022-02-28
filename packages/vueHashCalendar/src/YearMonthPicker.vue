@@ -1,9 +1,3 @@
-/**
-* @Description:    年月选择组件（年范围/年/月）
-* @Author:         TSY
-* @Email:          t@tsy6.com
-* @CreateDate:     2021/5/26 22:53
-*/
 <template>
   <div
     class="year-body"
@@ -73,21 +67,12 @@ const emit = defineEmits([
   "touchend",
 ]);
 
-let language = reactive({});
+const language = ref({});
 const yearRange = ref(10);
 const disabledScrollDirec = ref(false);
-let yearMonthShow = reactive([]);
-let selectType = reactive(["single", "mutiple", "range"]);
-let calendarType = reactive([
-  "week",
-  "date",
-  "month",
-  "year",
-  "yearRange",
-  "datetime",
-]);
+const yearMonthShow = ref([]);
 
-language = languageUtil[props.lang.toUpperCase()];
+language.value = languageUtil[props.lang.toUpperCase()];
 
 const itemHeight = computed(
   () => (props.calendarContentHeight - props.calendarTitleHeight) / 4
@@ -129,21 +114,21 @@ const slideChange = (direc) => {
 
 const getNextOpitonData = () => {
   if (props.type === "year") {
-    const year = yearMonthShow[2][1];
-    yearMonthShow = getThreeYearArr(year);
+    const year = yearMonthShow.value[2][1];
+    yearMonthShow.value = getThreeYearArr(year);
   } else if (props.type === "yearRange") {
-    const year = yearMonthShow[2][1].s;
-    yearMonthShow = getThreeYearRangeArr(year);
+    const year = yearMonthShow.value[2][1].s;
+    yearMonthShow.value = getThreeYearRangeArr(year);
   }
 };
 
 const getLastOptionData = () => {
   if (props.type === "year") {
-    const year = yearMonthShow[0][1];
-    yearMonthShow = getThreeYearArr(year);
+    const year = yearMonthShow.value[0][1];
+    yearMonthShow.value = getThreeYearArr(year);
   } else if (props.type === "yearRange") {
-    const year = yearMonthShow[0][1].s;
-    yearMonthShow = getThreeYearRangeArr(year);
+    const year = yearMonthShow.value[0][1].s;
+    yearMonthShow.value = getThreeYearRangeArr(year);
   }
 };
 
@@ -291,11 +276,15 @@ watch(
     disabledScrollDirec.value = props.disabledScroll;
     if (val === "month") {
       disabledScrollDirec.value = true;
-      yearMonthShow = [language.MONTH, language.MONTH, language.MONTH];
+      yearMonthShow.value = [
+        language.value.MONTH,
+        language.value.MONTH,
+        language.value.MONTH,
+      ];
     } else if (val === "year") {
-      yearMonthShow = getThreeYearArr();
+      yearMonthShow.value = getThreeYearArr();
     } else if (val === "yearRange") {
-      yearMonthShow = getThreeYearRangeArr();
+      yearMonthShow.value = getThreeYearRangeArr();
     }
   }
 );

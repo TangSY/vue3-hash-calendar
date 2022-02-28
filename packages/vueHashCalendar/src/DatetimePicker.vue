@@ -177,8 +177,8 @@ const calendarTitleRef = ref(null);
 const calendarRef = ref(null);
 const arrowDownImg = ARROW_DOWN_IMG;
 const arrowUpImg = ARROW_UP_IMG;
-let language = reactive({});
-let checkedDate = reactive(defaultDate);
+const language = ref({});
+const checkedDate = ref(defaultDate);
 const isShowCalendar = ref(false);
 const calendarBodyHeight = ref(0);
 const calendarTitleHeight = ref(0);
@@ -186,34 +186,28 @@ const firstTimes = ref(true);
 const currDateTime = ref(new Date());
 const yearMonthType = ref("date");
 
-language = languageUtil[props.lang.toUpperCase()];
+language.value = languageUtil[props.lang.toUpperCase()];
 
-const isShowDatetimePicker = computed(() => {
-  const visible = props.visible;
-  return {
-    get: () => {
-      return visible;
-    },
-    set: (val) => {
-      emit("update:visible", val);
-    },
-  };
+const isShowDatetimePicker = computed({
+  get() {
+    return props.visible;
+  },
+  set(val) {
+    emit("update:visible", val);
+  },
 });
 
 if (props.model === "inline") {
   isShowDatetimePicker.value = true;
 }
 
-const isShowWeek = computed(() => {
-  const isShowWeekView = props.isShowWeekView;
-  return {
-    get: () => {
-      return isShowWeekView;
-    },
-    set: (val) => {
-      emit("update:isShowWeekView", val);
-    },
-  };
+const isShowWeek = computed({
+  get() {
+    return props.isShowWeekView;
+  },
+  set(val) {
+    emit("update:isShowWeekView", val);
+  },
 });
 
 const isShowArrowImg = computed(
@@ -263,20 +257,20 @@ const nextWeek = () => {
 };
 
 const dateChange = (date) => {
-  date.hours = checkedDate.hours;
-  date.minutes = checkedDate.minutes;
-  checkedDate = date;
+  date.hours = checkedDate.value.hours;
+  date.minutes = checkedDate.value.minutes;
+  checkedDate.value = date;
 };
 
 const dateClick = (date) => {
-  date.hours = checkedDate.hours;
-  date.minutes = checkedDate.minutes;
-  checkedDate = date;
+  date.hours = checkedDate.value.hours;
+  date.minutes = checkedDate.value.minutes;
+  checkedDate.value = date;
 
   let fDate = new Date(
-    `${checkedDate.year}/${checkedDate.month + 1}/${checkedDate.day} ${
-      checkedDate.hours
-    }:${checkedDate.minutes}`
+    `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
+      checkedDate.value.day
+    } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
   );
   if (props.format) {
     fDate = formatDate(fDate, props.format, props.lang);
@@ -304,18 +298,18 @@ const dateClick = (date) => {
 };
 
 const timeChange = (date) => {
-  date.year = checkedDate.year;
-  date.month = checkedDate.month;
-  date.day = checkedDate.day;
-  checkedDate = date;
+  date.year = checkedDate.value.year;
+  date.month = checkedDate.value.month;
+  date.day = checkedDate.value.day;
+  checkedDate.value = date;
 };
 
 // 确认选择时间
 const confirm = () => {
   let date = new Date(
-    `${checkedDate.year}/${checkedDate.month + 1}/${checkedDate.day} ${
-      checkedDate.hours
-    }:${checkedDate.minutes}`
+    `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
+      checkedDate.value.day
+    } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
   );
   if (props.format) {
     date = formatDate(date, props.format, props.lang);
@@ -378,6 +372,7 @@ const showYearMonthPicker = () => {
 
 // 高度变化
 const heightChange = (height) => {
+  console.log("T ~ heightChange ~ height", height);
   if (!firstTimes.value && props.model === "dialog") return;
 
   calendarBodyHeight.value = height;
@@ -470,9 +465,9 @@ watch(
   checkedDate,
   () => {
     let date = new Date(
-      `${checkedDate.year}/${checkedDate.month + 1}/${checkedDate.day} ${
-        checkedDate.hours
-      }:${checkedDate.minutes}`
+      `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
+        checkedDate.value.day
+      } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
     );
     if (props.format) {
       date = formatDate(date, props.format, props.lang);
@@ -493,6 +488,14 @@ watch(
   },
   { immediate: true }
 );
+
+defineExpose({
+  today,
+  lastMonth,
+  nextMonth,
+  lastWeek,
+  nextWeek,
+});
 </script>
 
 <style lang="stylus" scoped>

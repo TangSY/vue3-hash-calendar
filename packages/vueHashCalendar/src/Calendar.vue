@@ -4,7 +4,7 @@
     :style="{ 'margin-top': calendarTitleHeight + 'px' }"
     v-show="show"
   >
-    <div class="calendar_week" ref="weekTitle">
+    <div class="calendar_week" ref="weekTitleRef">
       <div class="calendar_item" v-for="item in calendarWeek" :key="item">
         <p class="calendar_day">
           <slot name="week" :week="item">
@@ -16,7 +16,7 @@
     <div
       class="calendar_group"
       :style="{ height: `${calendarGroupHeight}px` }"
-      ref="calendar"
+      ref="calendarRef"
       @touchstart="touchStart"
       @touchmove="touchMove"
       @touchend="touchEnd"
@@ -37,7 +37,12 @@
         >
           <div
             class="calendar_item"
-            ref="calendarItem"
+            :ref="
+              (el) => {
+                calendarItemRef.length = 0;
+                calendarItemRef.push(el);
+              }
+            "
             v-for="(date, j) in item"
             :class="
               formatDisabledDate(date) &&
@@ -95,7 +100,7 @@
 <script lang="ts" setup>
 import { formatDate, isDateInRange } from "../utils/util";
 import languageUtil from "../language";
-import { reactive, ref, watch, nextTick, computed } from "vue";
+import { reactive, ref, watch, nextTick, computed, onMounted } from "vue";
 import { CalendarProps } from "./Calendar";
 
 defineOptions({
@@ -118,15 +123,15 @@ const emit = defineEmits([
 let timer = null;
 const weekTitleRef = ref(null);
 const calendarRef = ref(null);
-const calendarItemRef = ref(null);
-let language = reactive({});
+const calendarItemRef = reactive([]);
+const language = ref({});
 const currentChangeIsScroll = ref(false);
 const yearOfCurrentShow = ref(new Date().getFullYear());
 const monthOfCurrentShow = ref(new Date().getMonth());
 const yearOfToday = ref(new Date().getFullYear());
 const monthOfToday = ref(new Date().getMonth());
 const dayOfToday = ref(new Date().getDate());
-let weekArray = reactive([
+const weekArray = [
   "sunday",
   "monday",
   "tuesday",
@@ -134,20 +139,20 @@ let weekArray = reactive([
   "thursday",
   "friday",
   "saturday",
-]);
-let calendarWeek = reactive(["日", "一", "二", "三", "四", "五", "六"]);
-let calendarOfMonth = reactive([]);
-let calendarOfMonthShow = reactive([]);
+];
+const calendarWeek = ref(["日", "一", "二", "三", "四", "五", "六"]);
+const calendarOfMonth = ref([]);
+const calendarOfMonthShow = ref([]);
 const calendarDaysTotalLength = ref(42);
 const lastMonthYear = ref(null);
 const lastMonth = ref(null);
 const nextMonthYear = ref(null);
 const nextMonth = ref(null);
-let checkedDate = reactive({});
+const checkedDate = ref({});
 const weekStartIndex = ref(0);
 const translateIndex = ref(0);
 const transitionDuration = ref(0.3);
-let touch = reactive({
+const touch = ref({
   x: 0,
   y: 0,
 });
@@ -159,40 +164,38 @@ const touchStartPositionX = ref(null);
 const touchStartPositionY = ref(null);
 const calendarY = ref(0);
 const selectedDayIndex = ref(0);
-let lastWeek = reactive([]);
-let nextWeek = reactive([]);
+const lastWeek = ref([]);
+const nextWeek = ref([]);
 const isLastWeekInCurrentMonth = ref(false);
 const isNextWeekInCurrentMonth = ref(false);
-let markDateColorObj = reactive({});
-let markDateTypeObj = reactive({});
+const markDateColorObj = ref({});
+const markDateTypeObj = ref({});
 
-language = languageUtil[props.lang.toUpperCase()];
-calendarWeek = language.WEEK;
+language.value = languageUtil[props.lang.toUpperCase()];
+calendarWeek.value = language.value.WEEK;
 weekStartIndex.value = weekArray.indexOf(props.weekStart.toLowerCase());
-calendarWeek = [
-  ...calendarWeek.slice(weekStartIndex.value, calendarWeek.length),
-  ...calendarWeek.slice(0, weekStartIndex.value),
+calendarWeek.value = [
+  ...calendarWeek.value.slice(weekStartIndex.value, calendarWeek.value.length),
+  ...calendarWeek.value.slice(0, weekStartIndex.value),
 ];
 
-const isShowWeek = computed(() => {
-  const isShowWeekView = props.isShowWeekView;
-  return {
-    get: () => {
-      return isShowWeekView;
-    },
-    set: (val) => {
-      emit("update:isShowWeekView", val);
-    },
-  };
+const isShowWeek = computed({
+  get() {
+    return props.isShowWeekView;
+  },
+  set(val) {
+    emit("update:isShowWeekView", val);
+  },
 });
 
 // 初始化日历dom
 const initDom = () => {
   nextTick(() => {
-    calendarItemHeight.value = calendarItemRef.value?.[0]?.offsetHeight;
+    calendarItemHeight.value = calendarItemRef[0]?.offsetHeight;
     calendarWeekTitleHeight.value = weekTitleRef.value?.offsetHeight;
 
-    let calendarItemGroup = calendarItemRef.value || [];
+    let calendarItemGroup = calendarItemRef || [];
+    console.log("T ~ initDom ~ calendarItemGroup", calendarItemGroup.length);
     calendarItemGroup.forEach((item) => {
       item.style.height = `${calendarItemHeight}px`;
     });
@@ -204,14 +207,14 @@ const initDom = () => {
 
 // 今天
 const today = () => {
-  // $set(checkedDate, "day", new Date().getDate());
+  checkedDate.value.day = new Date().getDate();
 
   yearOfCurrentShow.value = new Date().getFullYear(); // 当前日历展示的年份
   monthOfCurrentShow.value = new Date().getMonth(); // 当前日历展示的月份
 
   calculateCalendarOfThreeMonth();
 
-  if (isShowWeek) {
+  if (isShowWeek.value) {
     setTimeout(() => {
       isTouching.value = true;
       showWeek();
@@ -244,9 +247,9 @@ const calculateCalendarOfThreeMonth = (
     nextMonth.value
   );
 
-  calendarOfMonth = [];
-  calendarOfMonth.push(firstMonth, secondMonth, thirdMonth);
-  calendarOfMonthShow = JSON.parse(JSON.stringify(calendarOfMonth));
+  calendarOfMonth.value = [];
+  calendarOfMonth.value.push(firstMonth, secondMonth, thirdMonth);
+  calendarOfMonthShow.value = JSON.parse(JSON.stringify(calendarOfMonth.value));
 
   if (!props.scrollChangeDate && currentChangeIsScroll.value) {
     currentChangeIsScroll.value = false;
@@ -255,7 +258,7 @@ const calculateCalendarOfThreeMonth = (
 
   // 改变日期选择的日期
   let tempDate = {};
-  let day = checkedDate.day;
+  let day = checkedDate.value.day;
   if (day > 30 || (day > 28 && month === 1)) {
     day = daysOfMonth(year)[month];
   }
@@ -266,9 +269,9 @@ const calculateCalendarOfThreeMonth = (
   // fix: change 事件会触发两次 https://github.com/TangSY/vue-hash-calendar/issues/47
   if (isShowWeek.value) return;
 
-  checkedDate.day = tempDate.day;
-  checkedDate.year = year;
-  checkedDate.month = month;
+  checkedDate.value.day = tempDate.day;
+  checkedDate.value.year = year;
+  checkedDate.value.month = month;
 };
 
 // 计算每个月的日历
@@ -349,9 +352,9 @@ const clickCalendarDay = (date) => {
 
   if (formatDisabledDate(date)) return;
 
-  // $set(checkedDate, "year", date.year);
-  // $set(checkedDate, "month", date.month);
-  // $set(checkedDate, "day", date.day);
+  checkedDate.value.year = date.year;
+  checkedDate.value.month = date.month;
+  checkedDate.value.day = date.day;
 
   if (date.month === lastMonth.value && date.year === lastMonthYear.value) {
     getLastMonth();
@@ -364,7 +367,7 @@ const clickCalendarDay = (date) => {
     showWeek();
   }
 
-  emit("click", checkedDate);
+  emit("click", checkedDate.value);
 };
 
 // 该日期是否为今天
@@ -381,15 +384,15 @@ const isCheckedDay = (date) => {
   if (formatDisabledDate(date)) return false;
 
   return (
-    checkedDate.year === date.year &&
-    checkedDate.month === date.month &&
-    checkedDate.day === date.day
+    checkedDate.value.year === date.year &&
+    checkedDate.value.month === date.month &&
+    checkedDate.value.day === date.day
   );
 };
 
 // 非本月日期
 const isNotCurrentMonthDay = (date, index) => {
-  let dateOfCurrentShow = calendarOfMonth[index][15]; // 本月中间的日期一定为本月
+  let dateOfCurrentShow = calendarOfMonth.value[index][15]; // 本月中间的日期一定为本月
   return (
     date.year !== dateOfCurrentShow.year ||
     date.month !== dateOfCurrentShow.month
@@ -402,8 +405,9 @@ const touchStart = (event) => {
 
   touchStartPositionX.value = event.touches[0].clientX;
   touchStartPositionY.value = event.touches[0].clientY;
-  touch = {
+  touch.value = {
     x: 0,
+    y: 0,
   };
   isTouching.value = true;
 };
@@ -423,7 +427,7 @@ const touchMove = (event) => {
   if (Math.abs(moveX) > Math.abs(moveY)) {
     if (isDisabledHorizontalScroll(moveX < 0 ? "left" : "right")) return;
 
-    touch = {
+    touch.value = {
       x: moveX / calendarRef.value?.offsetWidth,
       y: 0,
     };
@@ -431,7 +435,7 @@ const touchMove = (event) => {
     // 禁用周视图（禁止上下滑动）
     if (props.disabledWeekView) return;
 
-    touch = {
+    touch.value = {
       x: 0,
       y: moveY / calendarRef.value?.offsetHeight,
     };
@@ -445,16 +449,19 @@ const touchEnd = (e) => {
   emit("touchend", e);
 
   isTouching.value = false;
-  if (Math.abs(touch.x) > Math.abs(touch.y) && Math.abs(touch.x) > 0.2) {
+  if (
+    Math.abs(touch.value.x) > Math.abs(touch.value.y) &&
+    Math.abs(touch.value.x) > 0.2
+  ) {
     currentChangeIsScroll.value = true;
-    if (touch.x > 0) {
+    if (touch.value.x > 0) {
       emit("slidechange", "right");
 
       getLastMonth();
       if (isShowWeek.value) {
         changeWeekView({ isNext: false });
       }
-    } else if (touch.x < 0) {
+    } else if (touch.value.x < 0) {
       emit("slidechange", "left");
 
       getNextMonth();
@@ -464,20 +471,20 @@ const touchEnd = (e) => {
     }
   }
   if (
-    Math.abs(touch.y) > Math.abs(touch.x) &&
-    Math.abs(touch.y * calendarRef.value?.offsetHeight) > 50
+    Math.abs(touch.value.y) > Math.abs(touch.value.x) &&
+    Math.abs(touch.value.y * calendarRef.value?.offsetHeight) > 50
   ) {
-    if (touch.y > 0 && isShowWeek.value) {
+    if (touch.value.y > 0 && isShowWeek.value) {
       emit("slidechange", "down");
 
       showMonth();
-    } else if (touch.y < 0 && !isShowWeek.value) {
+    } else if (touch.value.y < 0 && !isShowWeek.value) {
       emit("slidechange", "up");
 
       showWeek();
     }
   } else {
-    touch = {
+    touch.value = {
       x: 0,
       y: 0,
     };
@@ -493,13 +500,16 @@ const showMonth = () => {
   isLastWeekInCurrentMonth.value = false;
   isNextWeekInCurrentMonth.value = false;
 
-  calculateCalendarOfThreeMonth(checkedDate.year, checkedDate.month);
+  calculateCalendarOfThreeMonth(
+    checkedDate.value.year,
+    checkedDate.value.month
+  );
 };
 
 // 日历以星期方式展示
-const showWeek = (checkedDatetime = checkedDate) => {
+const showWeek = (checkedDatetime = checkedDate.value) => {
   let daysArr = [];
-  calendarOfMonth[1].forEach((item) => {
+  calendarOfMonth.value[1].forEach((item) => {
     daysArr.push(item.day);
   });
   let dayIndexOfMonth = daysArr.indexOf(checkedDatetime.day);
@@ -520,7 +530,7 @@ const showWeek = (checkedDatetime = checkedDate) => {
   let sliceStart = lastLine * 7;
   let sliceEnd = sliceStart + 7;
   isLastWeekInCurrentMonth.value = false;
-  currentWeek = calendarOfMonth[1].slice(sliceStart, sliceEnd);
+  currentWeek = calendarOfMonth.value[1].slice(sliceStart, sliceEnd);
   for (let i in currentWeek) {
     if (currentWeek[i].day === checkedDatetime.day) {
       selectedDayIndex.value = parseInt(i);
@@ -534,16 +544,21 @@ const showWeek = (checkedDatetime = checkedDate) => {
     firstDayOfCurrentWeek.month !== checkedDatetime.month ||
     firstDayOfCurrentWeek.day === 1
   ) {
-    if (calendarOfMonth[0].slice(28, 35)[6].month !== checkedDatetime.month) {
-      lastWeek = calendarOfMonth[0].slice(28, 35);
+    if (
+      calendarOfMonth.value[0].slice(28, 35)[6].month !== checkedDatetime.month
+    ) {
+      lastWeek.value = calendarOfMonth.value[0].slice(28, 35);
     } else {
-      lastWeek = calendarOfMonth[0].slice(21, 28);
+      lastWeek.value = calendarOfMonth.value[0].slice(21, 28);
     }
   } else {
-    lastWeek = calendarOfMonth[1].slice(sliceStart - 7, sliceEnd - 7);
+    lastWeek.value = calendarOfMonth.value[1].slice(
+      sliceStart - 7,
+      sliceEnd - 7
+    );
     if (
-      lastWeek[selectedDayIndex.value] &&
-      lastWeek[selectedDayIndex.value].month === checkedDatetime.month
+      lastWeek.value[selectedDayIndex.value] &&
+      lastWeek.value[selectedDayIndex.value].month === checkedDatetime.month
     ) {
       isLastWeekInCurrentMonth.value = true;
     }
@@ -554,22 +569,27 @@ const showWeek = (checkedDatetime = checkedDate) => {
     lastDayOfCurrentWeek.day < firstDayOfCurrentWeek.day &&
     lastDayOfCurrentWeek.month !== checkedDatetime.month
   ) {
-    nextWeek = calendarOfMonth[2].slice(7, 14);
+    nextWeek.value = calendarOfMonth.value[2].slice(7, 14);
   } else {
     if (
       lastDayOfCurrentWeek.day ===
       daysOfMonth(lastDayOfCurrentWeek.year)[lastDayOfCurrentWeek.month]
     ) {
-      nextWeek = calendarOfMonth[2].slice(0, 7);
+      nextWeek.value = calendarOfMonth.value[2].slice(0, 7);
     } else {
-      nextWeek = calendarOfMonth[1].slice(sliceStart + 7, sliceEnd + 7);
-      if (nextWeek[selectedDayIndex.value].month === checkedDatetime.month) {
+      nextWeek.value = calendarOfMonth.value[1].slice(
+        sliceStart + 7,
+        sliceEnd + 7
+      );
+      if (
+        nextWeek.value[selectedDayIndex.value].month === checkedDatetime.month
+      ) {
         isNextWeekInCurrentMonth.value = true;
       }
     }
   }
-  calendarOfMonthShow[0].splice(sliceStart, 7, ...lastWeek);
-  calendarOfMonthShow[2].splice(sliceStart, 7, ...nextWeek);
+  calendarOfMonthShow.value[0].splice(sliceStart, 7, ...lastWeek.value);
+  calendarOfMonthShow.value[2].splice(sliceStart, 7, ...nextWeek.value);
 };
 
 // 切换展示的星期
@@ -585,32 +605,32 @@ const changeWeekView = ({ isNext }) => {
 
 // 显示上一周
 const getLastWeek = () => {
-  let checkedDate = lastWeek[selectedDayIndex.value];
-  showWeek(checkedDate);
+  let checked = lastWeek.value[selectedDayIndex.value];
+  showWeek(checked);
 
-  if (formatDisabledDate(checkedDate)) return;
+  if (formatDisabledDate(checked)) return;
 
   if (!props.scrollChangeDate && currentChangeIsScroll.value) {
     currentChangeIsScroll.value = false;
     return;
   }
 
-  checkedDate = checkedDate;
+  checkedDate.value = checked;
 };
 
 // 显示下一周
 const getNextWeek = () => {
-  let checkedDate = nextWeek[selectedDayIndex.value];
-  showWeek(checkedDate);
+  let checked = nextWeek.value[selectedDayIndex.value];
+  showWeek(checked);
 
-  if (formatDisabledDate(checkedDate)) return;
+  if (formatDisabledDate(checked)) return;
 
   if (!props.scrollChangeDate && currentChangeIsScroll.value) {
     currentChangeIsScroll.value = false;
     return;
   }
 
-  checkedDate = checkedDate;
+  checkedDate.value = checked;
 };
 
 // 获取上个月日历
@@ -646,11 +666,11 @@ const markDateColor = (date, type) => {
   let dateString = `${date.year}/${fillNumber(date.month + 1)}/${fillNumber(
     date.day
   )}`;
-  let markDateTypeString = markDateTypeObj[dateString] || "";
+  let markDateTypeString = markDateTypeObj.value[dateString] || "";
 
   if (markDateTypeString.indexOf(type) === -1) return;
 
-  return markDateColorObj[dateString];
+  return markDateColorObj.value[dateString];
 };
 
 const formatDisabledDate = (date) => {
@@ -669,12 +689,16 @@ const isDisabledHorizontalScroll = (direc) => {
   let minDate = props.minDate && props.minDate.getTime() - 24 * 60 * 60 * 1000;
   let maxDate = props.maxDate && props.maxDate.getTime();
 
-  if (isShowWeek) {
+  if (isShowWeek.value) {
     let lastWeekLastedDay = new Date(
-      `${lastWeek[6].year}/${lastWeek[6].month + 1}/${lastWeek[6].day}`
+      `${lastWeek.value[6].year}/${lastWeek.value[6].month + 1}/${
+        lastWeek.value[6].day
+      }`
     ).getTime();
     let nextWeekFirstDay = new Date(
-      `${nextWeek[0].year}/${nextWeek[0].month + 1}/${nextWeek[0].day}`
+      `${nextWeek.value[0].year}/${nextWeek.value[0].month + 1}/${
+        nextWeek.value[0].day
+      }`
     ).getTime();
     if (direc === "left" && maxDate) return nextWeekFirstDay >= maxDate;
     if (direc === "right" && minDate) return lastWeekLastedDay <= minDate;
@@ -723,11 +747,15 @@ const isCanScroll = (dire) => {
 
 // 设置禁止滑动的方向
 const setDisabledScrollDirection = () => {
-  touch.x < 0 && !isCanScroll("left") && (touch.x = 0);
-  touch.x > 0 && !isCanScroll("right") && (touch.x = 0);
-  touch.y < 0 && !isCanScroll("up") && (touch.y = 0);
-  touch.y > 0 && !isCanScroll("down") && (touch.y = 0);
+  touch.value.x < 0 && !isCanScroll("left") && (touch.value.x = 0);
+  touch.value.x > 0 && !isCanScroll("right") && (touch.value.x = 0);
+  touch.value.y < 0 && !isCanScroll("up") && (touch.value.y = 0);
+  touch.value.y > 0 && !isCanScroll("down") && (touch.value.y = 0);
 };
+
+onMounted(() => {
+  initDom();
+});
 
 watch(
   () => props.markDate,
@@ -747,12 +775,12 @@ watch(
       val[index].date = dateFormat(val[index].date);
     });
 
-    markDateColorObj = {};
-    markDateTypeObj = {};
+    markDateColorObj.value = {};
+    markDateTypeObj.value = {};
     val.forEach((item) => {
       item.date.forEach((date) => {
-        markDateColorObj[date] = item.color;
-        markDateTypeObj[date] = item.type;
+        markDateColorObj.value[date] = item.color;
+        markDateTypeObj.value[date] = item.type;
       });
     });
   },
@@ -760,7 +788,10 @@ watch(
 );
 
 watch(weekStartIndex, () => {
-  calculateCalendarOfThreeMonth(checkedDate.year, checkedDate.month);
+  calculateCalendarOfThreeMonth(
+    checkedDate.value.year,
+    checkedDate.value.month
+  );
 });
 
 watch(
@@ -772,9 +803,9 @@ watch(
       );
     }
 
-    checkedDate.year = val.getFullYear();
-    checkedDate.month = val.getMonth();
-    checkedDate.day = val.getDate();
+    checkedDate.value.year = val.getFullYear();
+    checkedDate.value.month = val.getMonth();
+    checkedDate.value.day = val.getDate();
     calculateCalendarOfThreeMonth(val.getFullYear(), val.getMonth());
 
     if (isShowWeek.value) {
@@ -796,7 +827,11 @@ watch(
   () => props.show,
   (val) => {
     if (val) {
-      calculateCalendarOfThreeMonth(checkedDate.year, checkedDate.month);
+      console.log("T ~ val", val);
+      calculateCalendarOfThreeMonth(
+        checkedDate.value.year,
+        checkedDate.value.month
+      );
       initDom();
     }
   },
@@ -821,6 +856,11 @@ watch(
 
 watch(calendarGroupHeight, (val) => {
   emit("height", val + calendarWeekTitleHeight.value);
+  console.log(
+    "T ~ watch ~ calendarWeekTitleHeight",
+    calendarWeekTitleHeight.value
+  );
+  console.log("T ~ watch ~ val", val);
 });
 
 watch(
@@ -846,6 +886,13 @@ watch(
   },
   { immediate: true }
 );
+
+defineExpose({
+  today,
+  getLastMonth,
+  getNextMonth,
+  changeWeekView,
+});
 </script>
 
 <style lang="stylus" scoped>

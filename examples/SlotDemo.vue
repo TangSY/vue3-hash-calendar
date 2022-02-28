@@ -1,9 +1,3 @@
-/**
-* @Description:    通过 slot 实现被标注的日期下面进行备注功能  github issues：https://github.com/TangSY/vue-hash-calendar/issues/19
-* @Author:         TSY
-* @CreateDate:     2019/05/23 00:08
-* @Email:          t@tsy6.com
-*/
 <template>
   <div class="body">
     <button @click="showCalendarDialog">显示</button>
