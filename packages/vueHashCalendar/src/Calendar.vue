@@ -742,7 +742,7 @@ watch(
         obj.date = item || [];
         val[index] = obj;
       }
-      val[index].type = item.type || markType || "";
+      val[index].type = item.type || props.markType || "";
 
       val[index].date = dateFormat(val[index].date);
     });
