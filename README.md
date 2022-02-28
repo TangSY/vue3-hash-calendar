@@ -24,13 +24,13 @@
 
 ## 仓库地址
 
-github：[https://github.com/TangSY/vue3-hash-calendar](https://github.com/TangSY/vue3-hash-calendar)
-码云 gitee：[https://gitee.com/HashTang/vue3-hash-calendar](https://gitee.com/HashTang/vue3-hash-calendar)
+- github：[https://github.com/TangSY/vue3-hash-calendar](https://github.com/TangSY/vue3-hash-calendar)
+- 码云 gitee：[https://gitee.com/HashTang/vue3-hash-calendar](https://gitee.com/HashTang/vue3-hash-calendar)
 
 ## 其他版本
 
-vue 2.x 版本：[https://github.com/TangSY/vue-hash-calendar](https://github.com/TangSY/vue-hash-calendar)
-react 版本：[https://github.com/TangSY/react-hash-calendar](https://github.com/TangSY/react-hash-calendar)
+- vue 2.x 版本：[https://github.com/TangSY/vue-hash-calendar](https://github.com/TangSY/vue-hash-calendar)
+- react 版本：[https://github.com/TangSY/react-hash-calendar](https://github.com/TangSY/react-hash-calendar)
 
 # vue3-hash-calendar
 
@@ -136,13 +136,13 @@ externals: {
 
 # 方法 Method
 
-| 方法名称           | 说明                                       | 版本                              |
-| :---------------- | :---------------------------------------- | :--------------------------------- |
-| lastMonth | 切换日历到上一月 | 1.3.20
-| nextMonth | 切换日历到下一月 | 1.3.20
-| lastWeek | 切换日历到上一周 | 1.3.20
-| nextWeek | 切换日历到下一周 | 1.3.20
-| today | 返回今日。当今日被禁用时，不生效 | 1.3.20
+| 方法名称           | 说明                                       |
+| :---------------- | :---------------------------------------- |
+| lastMonth | 切换日历到上一月 |
+| nextMonth | 切换日历到下一月 |
+| lastWeek | 切换日历到上一周 |
+| nextWeek | 切换日历到下一周 |
+| today | 返回今日。当今日被禁用时，不生效 |
 
 ## Other
 
