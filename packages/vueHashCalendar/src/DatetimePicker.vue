@@ -372,7 +372,6 @@ const showYearMonthPicker = () => {
 
 // 高度变化
 const heightChange = (height) => {
-  console.log("T ~ heightChange ~ height", height);
   if (!firstTimes.value && props.model === "dialog") return;
 
   calendarBodyHeight.value = height;

@@ -7,42 +7,28 @@
       @touchend="touchEnd"
     >
     </vue-hash-calendar>
-    <!--github入口-->
-    <github></github>
   </div>
 </template>
 
-<script>
-import Github from "./Github.vue";
+<script setup lang="ts">
+const touchStart = (event: Event) => {
+  // 监听手指开始滑动事件
+  console.log(event, "start");
+};
 
-export default {
-  name: "TouchDemo",
-  components: { Github },
-  data() {
-    return {};
-  },
-  mounted() {},
-  methods: {
-    touchStart(event) {
-      // 监听手指开始滑动事件
-      console.log(event, "start");
-    },
-    touchMove(event) {
-      // 监听手指开始滑动事件
-      console.log(event, "move");
-    },
-    touchEnd(event) {
-      // 监听手指开始滑动事件
-      console.log(event, "end");
-    },
-    slideChange(direction) {
-      // 滑动方向改变
-      console.log(direction, "direction");
-    },
-  },
+const touchMove = (event: Event) => {
+  // 监听手指开始滑动事件
+  console.log(event, "move");
+};
+
+const touchEnd = (event: Event) => {
+  // 监听手指开始滑动事件
+  console.log(event, "end");
+};
+
+const slideChange = (direction: string) => {
+  // 滑动方向改变
+  console.log(direction, "direction");
 };
 </script>
 
-<style lang="stylus">
-@import './style/reset.styl';
-</style>

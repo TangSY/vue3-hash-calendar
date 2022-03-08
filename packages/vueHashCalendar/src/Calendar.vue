@@ -195,7 +195,6 @@ const initDom = () => {
     calendarWeekTitleHeight.value = weekTitleRef.value?.offsetHeight;
 
     let calendarItemGroup = calendarItemRef || [];
-    console.log("T ~ initDom ~ calendarItemGroup", calendarItemGroup.length);
     calendarItemGroup.forEach((item) => {
       item.style.height = `${calendarItemHeight}px`;
     });
@@ -829,7 +828,6 @@ watch(
   () => props.show,
   (val) => {
     if (val) {
-      console.log("T ~ val", val);
       calculateCalendarOfThreeMonth(
         checkedDate.value.year,
         checkedDate.value.month
@@ -858,11 +856,6 @@ watch(
 
 watch(calendarGroupHeight, (val) => {
   emit("height", val + calendarWeekTitleHeight.value);
-  console.log(
-    "T ~ watch ~ calendarWeekTitleHeight",
-    calendarWeekTitleHeight.value
-  );
-  console.log("T ~ watch ~ val", val);
 });
 
 watch(

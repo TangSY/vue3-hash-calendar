@@ -1,5 +1,7 @@
 import Vue, { createApp } from "vue";
 import App from "./App.vue";
+// import App from "./SlotDemo.vue";
+// import App from "./lunar/LunarDemo.vue";
 // 导入组件库
 import vueHashCalendar from "../packages/index";
 

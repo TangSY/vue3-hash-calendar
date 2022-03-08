@@ -146,6 +146,13 @@ externals: {
 
 ## Other
 
+- 如何添加农历？
+
+```js
+https://github.com/TangSY/vue3-hash-calendar/blob/main/examples/lunar/LunarDemo.vue
+
+```
+
 - 在 dialog 模式中，如何显示日历组件？注意使用 `v-model:visible`
 
 ```js
@@ -176,7 +183,7 @@ this.isShowCalendar = true;
 - day slot 的基本用法
 
 ```js
-https://github.com/TangSY/vue3-hash-calendar/blob/dev/examples/FirstDayDemo.vue
+https://github.com/TangSY/vue3-hash-calendar/blob/main/examples/SlotDemo.vue
 
 ```
 
