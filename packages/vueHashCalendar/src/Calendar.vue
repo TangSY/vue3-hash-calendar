@@ -217,6 +217,8 @@ const today = () => {
   if (isShowWeek.value) {
     setTimeout(() => {
       isTouching.value = true;
+      checkedDate.value.year = new Date().getFullYear();
+      checkedDate.value.month = new Date().getMonth();
       showWeek();
     }, transitionDuration.value * 1000);
   }

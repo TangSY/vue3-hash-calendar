@@ -164,13 +164,13 @@ this.isShowCalendar = true;
 - 想要返回标准的英文格式日期，format 属性应该怎样写？ `MM DD,YY at hh:mm F`
 
 ```js
-<vue3-hash-calendar format="MM DD,YY at hh:mm F" />
+<vue-hash-calendar format="MM DD,YY at hh:mm F" />
 ```
 
 - 想要返回 12 小时制的日期，format 属性应该怎样写？ 在格式化字符串后面加上大写 `F`
 
 ```js
-<vue3-hash-calendar format="YY/MM/DD hh:mm F" />
+<vue-hash-calendar format="YY/MM/DD hh:mm F" />
 ```
 
 - day slot 的基本用法
