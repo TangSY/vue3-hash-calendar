@@ -25,7 +25,7 @@ export const checkPlatform = function () {
  */
 export let formatDate = function (time, format, lang = "CN") {
   lang = lang.toUpperCase();
-  const models = import.meta.globEager("../language/index.js");
+  const models = import.meta.globEager("../language/index.ts");
   const model = models[Object.keys(models)[0]];
   let language = model.default[lang] || {};
   format =

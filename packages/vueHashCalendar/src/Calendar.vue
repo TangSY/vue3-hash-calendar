@@ -100,6 +100,7 @@
 <script lang="ts" setup>
 import { formatDate, isDateInRange } from "../utils/util";
 import languageUtil from "../language";
+import type { LanguageEntityType, LanguageType } from "../language";
 import { reactive, ref, watch, nextTick, computed, onMounted } from "vue";
 import { CalendarProps } from "./Calendar";
 
@@ -120,11 +121,12 @@ const emit = defineEmits([
   "touchend",
 ]);
 
-let timer = null;
+type TimerType = ReturnType<typeof setTimeout> | null;
+let timer: TimerType;
 const weekTitleRef = ref(null);
 const calendarRef = ref(null);
-const calendarItemRef = reactive([]);
-const language = ref({});
+const calendarItemRef = reactive<HTMLDivElement[]>([]);
+const language = ref({} as LanguageEntityType);
 const currentChangeIsScroll = ref(false);
 const yearOfCurrentShow = ref(new Date().getFullYear());
 const monthOfCurrentShow = ref(new Date().getMonth());
@@ -171,7 +173,8 @@ const isNextWeekInCurrentMonth = ref(false);
 const markDateColorObj = ref({});
 const markDateTypeObj = ref({});
 
-language.value = languageUtil[props.lang.toUpperCase()];
+const lang = props.lang.toUpperCase() as LanguageType;
+language.value = languageUtil[lang];
 calendarWeek.value = language.value.WEEK;
 weekStartIndex.value = weekArray.indexOf(props.weekStart.toLowerCase());
 calendarWeek.value = [

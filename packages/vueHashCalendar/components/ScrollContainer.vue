@@ -25,11 +25,12 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { ScrollContainerProps } from "./ScrollContainer";
+import { scrollContainerProps } from "./ScrollContainer";
+import type { ScorllDireType } from "./ScrollContainer";
 
 defineOptions({ name: "ScrollContainer" });
 
-const props = defineProps(ScrollContainerProps);
+const props = defineProps(scrollContainerProps);
 
 const emit = defineEmits([
   "slidechange",
@@ -38,7 +39,7 @@ const emit = defineEmits([
   "touchend",
 ]);
 
-const containerRef = ref(null);
+const containerRef = ref<HTMLDivElement>();
 const translateIndex = ref(0);
 const transitionDuration = ref(0.3);
 const touch = ref({
@@ -51,7 +52,7 @@ const touchStartPositionY = ref(0);
 const calendarY = ref(0);
 
 // 监听手指开始滑动事件
-const touchStart = (event) => {
+const touchStart = (event: TouchEvent) => {
   emit("touchstart", event);
 
   touchStartPositionX.value = event.touches[0].clientX;
@@ -64,7 +65,7 @@ const touchStart = (event) => {
 };
 
 // 监听手指移动事件
-const touchMove = (event) => {
+const touchMove = (event: TouchEvent) => {
   emit("touchmove", event);
 
   let moveX = event.touches[0].clientX - touchStartPositionX.value;
@@ -85,7 +86,7 @@ const touchMove = (event) => {
 };
 
 // 监听touch结束事件
-const touchEnd = (e) => {
+const touchEnd = (e: TouchEvent) => {
   emit("touchend", e);
 
   isTouching.value = false;
@@ -121,7 +122,7 @@ const touchEnd = (e) => {
 };
 
 // 是否可以滑动
-const isCanScroll = (dire) => {
+const isCanScroll = (dire: ScorllDireType) => {
   const scrollObj = {
     up: [true, "up", "vertical"],
     down: [true, "down", "vertical"],

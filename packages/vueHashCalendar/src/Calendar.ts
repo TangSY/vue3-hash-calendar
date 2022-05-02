@@ -1,3 +1,5 @@
+import { LanguageTypes } from "../language";
+
 export const CalendarProps = {
   // 最小可选日期
   minDate: {
@@ -98,6 +100,7 @@ export const CalendarProps = {
   // 使用的语言包
   lang: {
     type: String,
+    values: LanguageTypes,
     default: "CN",
   },
 };
