@@ -29,9 +29,9 @@ const showCalendarDialog = () => {
 };
 
 const showLunar = (date) => {
-  if (!date) return;
+  if (!date || !date.day) return;
 
-  const lunarObj = lunar.solar2lunar(date.year, date.month, date.day);
+  const lunarObj = lunar.solar2lunar(date.year, date.month + 1, date.day);
 
   return lunarObj.festival || lunarObj.lunarFestival || lunarObj.IDayCn;
 };
