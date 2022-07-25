@@ -20,9 +20,8 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "vue": "^3.2.25",
-    "vue3-hash-calendar": "^0.0.1"
+  "peerDependencies": {
+    "vue": "^3.2.25"
   },
   "devDependencies": {
     "@types/estree": "^0.0.51",

@@ -1692,6 +1692,14 @@ vue-tsc@^0.29.8:
     "@volar/shared" "0.29.8"
     vscode-vue-languageservice "0.29.8"
 
+vue3-hash-calendar@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/vue3-hash-calendar/-/vue3-hash-calendar-0.1.2.tgz#005b5e08efe6c4957c5585d66c0d1ae7e8cf6df3"
+  integrity sha512-wK9K0W1IK1w9oZyMVgqUd9dNSaE7U94ObMqKQt0QWQYwjelokjLTMifmpFb+lfhdPAU1H+cczWazgegsNBlz4A==
+  dependencies:
+    vue "^3.2.25"
+    vue3-hash-calendar "^0.0.1"
+
 vue3-hash-calendar@^0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/vue3-hash-calendar/-/vue3-hash-calendar-0.0.1.tgz#eaf8b7e236d292e87ad1a3042be0c1b861687604"
