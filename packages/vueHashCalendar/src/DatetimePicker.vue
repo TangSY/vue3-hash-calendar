@@ -79,7 +79,7 @@
         ref="calendarRef"
         v-if="pickerType !== 'time'"
         :show="isShowCalendar"
-        v-model="isShowWeek"
+        v-model:is-show-week-view="isShowWeek"
         v-bind="{ ...$props, ...$attrs }"
         :calendarTitleHeight="calendarTitleHeight"
         @height="heightChange"

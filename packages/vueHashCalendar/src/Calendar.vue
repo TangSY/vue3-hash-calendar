@@ -202,8 +202,13 @@ const initDom = () => {
       item.style.height = `${calendarItemHeight}px`;
     });
 
-    showMonth();
-    calendarGroupHeight.value = calendarItemHeight.value * 6;
+    if (isShowWeek.value) {
+      showWeek();
+      calendarGroupHeight.value = calendarItemHeight.value;
+    } else {
+      showMonth();
+      calendarGroupHeight.value = calendarItemHeight.value * 6;
+    }
   });
 };
 
