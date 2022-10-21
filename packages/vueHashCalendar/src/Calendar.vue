@@ -127,7 +127,6 @@ const weekTitleRef = ref(null);
 const calendarRef = ref(null);
 const calendarItemRef = reactive<HTMLDivElement[]>([]);
 const language = ref({} as LanguageEntityType);
-const currentChangeIsScroll = ref(false);
 const yearOfCurrentShow = ref(new Date().getFullYear());
 const monthOfCurrentShow = ref(new Date().getMonth());
 const yearOfToday = ref(new Date().getFullYear());
@@ -260,10 +259,7 @@ const calculateCalendarOfThreeMonth = (
   calendarOfMonth.value.push(firstMonth, secondMonth, thirdMonth);
   calendarOfMonthShow.value = JSON.parse(JSON.stringify(calendarOfMonth.value));
 
-  if (!props.scrollChangeDate && currentChangeIsScroll.value) {
-    currentChangeIsScroll.value = false;
-    return;
-  }
+  if (!props.scrollChangeDate) return;
 
   // 改变日期选择的日期
   let tempDate = {};
@@ -462,7 +458,6 @@ const touchEnd = (e) => {
     Math.abs(touch.value.x) > Math.abs(touch.value.y) &&
     Math.abs(touch.value.x) > 0.2
   ) {
-    currentChangeIsScroll.value = true;
     if (touch.value.x > 0) {
       emit("slidechange", "right");
 
@@ -607,7 +602,6 @@ const changeWeekView = ({ isNext }) => {
 
   timer = setTimeout(() => {
     isTouching.value = true;
-    currentChangeIsScroll.value = true;
     isNext ? getNextWeek() : getLastWeek();
   }, transitionDuration.value * 1000);
 };
@@ -619,10 +613,7 @@ const getLastWeek = () => {
 
   if (formatDisabledDate(checked)) return;
 
-  if (!props.scrollChangeDate && currentChangeIsScroll.value) {
-    currentChangeIsScroll.value = false;
-    return;
-  }
+  if (!props.scrollChangeDate) return;
 
   checkedDate.value = checked;
 };
@@ -634,10 +625,7 @@ const getNextWeek = () => {
 
   if (formatDisabledDate(checked)) return;
 
-  if (!props.scrollChangeDate && currentChangeIsScroll.value) {
-    currentChangeIsScroll.value = false;
-    return;
-  }
+  if (!props.scrollChangeDate) return;
 
   checkedDate.value = checked;
 };
