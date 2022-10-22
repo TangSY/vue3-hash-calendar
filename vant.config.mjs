@@ -7,12 +7,12 @@ export default {
     site: {
       publicPath: '/vue3-hash-calendar/',
     },
+    // srcDir: process.env.BUILD_TARGET === 'site' ? './src' : './src/calendar',
     configureVite(config) {
       const { BUILD_TARGET } = process.env;
 
       if (BUILD_TARGET === 'package') {
         // 修改组件库构建配置
-        console.log('config', config);
       }
 
       return config;

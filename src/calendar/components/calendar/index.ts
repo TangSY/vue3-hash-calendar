@@ -1,4 +1,4 @@
-import { LanguageTypes } from "../language";
+import { LanguageTypes } from '../../language';
 
 export const CalendarProps = {
   // 最小可选日期
@@ -14,7 +14,7 @@ export const CalendarProps = {
   // 每月第一天的 className
   firstDayOfMonthClassName: {
     type: String,
-    default: "",
+    default: '',
   },
   // 操作栏高度
   calendarTitleHeight: {
@@ -24,22 +24,22 @@ export const CalendarProps = {
   // 当天日期的 className
   todayClassName: {
     type: String,
-    default: "",
+    default: '',
   },
   // 日期被选中时的 className
   checkedDayClassName: {
     type: String,
-    default: "",
+    default: '',
   },
   // 不是当前展示月份日期的 className(例如日历前面几天与后面几天灰色部分)
   notCurrentMonthDayClassName: {
     type: String,
-    default: "",
+    default: '',
   },
   // 日期被禁用时的 className
   disabledClassName: {
     type: String,
-    default: "",
+    default: '',
   },
   // 滑动的时候，是否触发改变日期
   scrollChangeDate: {
@@ -63,7 +63,7 @@ export const CalendarProps = {
   },
   weekStart: {
     type: String,
-    default: "Sunday",
+    default: 'Sunday',
   },
   // 是否展示非本月日期
   isShowNotCurrentMonthDay: {
@@ -83,7 +83,7 @@ export const CalendarProps = {
   // 日期标记类型
   markType: {
     type: String,
-    default: "dot",
+    default: 'dot',
   },
   // 禁用的日期
   disabledDate: {
@@ -101,6 +101,6 @@ export const CalendarProps = {
   lang: {
     type: String,
     values: LanguageTypes,
-    default: "CN",
+    default: 'CN',
   },
 };

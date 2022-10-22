@@ -98,27 +98,27 @@
 </template>
 
 <script lang="ts" setup>
-import { formatDate, isDateInRange } from "../utils/util";
-import languageUtil from "../language";
-import type { LanguageEntityType, LanguageType } from "../language";
-import { reactive, ref, watch, nextTick, computed, onMounted } from "vue";
-import { CalendarProps } from "./Calendar";
+import { formatDate, isDateInRange } from '../utils/util';
+import languageUtil from '../language';
+import type { LanguageEntityType, LanguageType } from '../language';
+import { reactive, ref, watch, nextTick, computed, onMounted } from 'vue';
+import { CalendarProps } from '.';
 
 defineOptions({
-  name: "Calendar",
+  name: 'Calendar',
 });
 
 const props = defineProps(CalendarProps);
 
 const emit = defineEmits([
-  "height",
-  "update:isShowWeekView",
-  "click",
-  "change",
-  "slidechange",
-  "touchstart",
-  "touchmove",
-  "touchend",
+  'height',
+  'update:isShowWeekView',
+  'click',
+  'change',
+  'slidechange',
+  'touchstart',
+  'touchmove',
+  'touchend',
 ]);
 
 type TimerType = ReturnType<typeof setTimeout> | null;
@@ -133,15 +133,15 @@ const yearOfToday = ref(new Date().getFullYear());
 const monthOfToday = ref(new Date().getMonth());
 const dayOfToday = ref(new Date().getDate());
 const weekArray = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
+  'sunday',
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
 ];
-const calendarWeek = ref(["日", "一", "二", "三", "四", "五", "六"]);
+const calendarWeek = ref(['日', '一', '二', '三', '四', '五', '六']);
 const calendarOfMonth = ref([]);
 const calendarOfMonthShow = ref([]);
 const calendarDaysTotalLength = ref(42);
@@ -186,7 +186,7 @@ const isShowWeek = computed({
     return props.isShowWeekView;
   },
   set(val) {
-    emit("update:isShowWeekView", val);
+    emit('update:isShowWeekView', val);
   },
 });
 
@@ -305,7 +305,7 @@ const calculateCalendarOfMonth = (
       month: lastMonth,
       day: props.isShowNotCurrentMonthDay
         ? lastMonthDays - (dayOfWeek - 1 - i)
-        : "",
+        : '',
     });
   }
 
@@ -324,7 +324,7 @@ const calculateCalendarOfMonth = (
     calendarOfCurrentMonth.push({
       year: nextMonthYear,
       month: nextMonth,
-      day: props.isShowNotCurrentMonthDay ? i + 1 : "",
+      day: props.isShowNotCurrentMonthDay ? i + 1 : '',
     });
   }
 
@@ -372,7 +372,7 @@ const clickCalendarDay = (date) => {
     showWeek();
   }
 
-  emit("click", checkedDate.value);
+  emit('click', checkedDate.value);
 };
 
 // 该日期是否为今天
@@ -406,7 +406,7 @@ const isNotCurrentMonthDay = (date, index) => {
 
 // 监听手指开始滑动事件
 const touchStart = (event) => {
-  emit("touchstart", event);
+  emit('touchstart', event);
 
   touchStartPositionX.value = event.touches[0].clientX;
   touchStartPositionY.value = event.touches[0].clientY;
@@ -419,7 +419,7 @@ const touchStart = (event) => {
 
 // 监听手指移动事件
 const touchMove = (event) => {
-  emit("touchmove", event);
+  emit('touchmove', event);
 
   // fix: 禁止切换周模式显示后，日历区域上下滑动，页面不能触发上下滑动了 #62
   if (!props.disabledWeekView) {
@@ -430,7 +430,7 @@ const touchMove = (event) => {
   let moveX = event.touches[0].clientX - touchStartPositionX.value;
   let moveY = event.touches[0].clientY - touchStartPositionY.value;
   if (Math.abs(moveX) > Math.abs(moveY)) {
-    if (isDisabledHorizontalScroll(moveX < 0 ? "left" : "right")) return;
+    if (isDisabledHorizontalScroll(moveX < 0 ? 'left' : 'right')) return;
 
     touch.value = {
       x: moveX / calendarRef.value?.offsetWidth,
@@ -451,7 +451,7 @@ const touchMove = (event) => {
 
 // 监听touch结束事件
 const touchEnd = (e) => {
-  emit("touchend", e);
+  emit('touchend', e);
 
   isTouching.value = false;
   if (
@@ -459,14 +459,14 @@ const touchEnd = (e) => {
     Math.abs(touch.value.x) > 0.2
   ) {
     if (touch.value.x > 0) {
-      emit("slidechange", "right");
+      emit('slidechange', 'right');
 
       getLastMonth();
       if (isShowWeek.value) {
         changeWeekView({ isNext: false });
       }
     } else if (touch.value.x < 0) {
-      emit("slidechange", "left");
+      emit('slidechange', 'left');
 
       getNextMonth();
       if (isShowWeek.value) {
@@ -479,11 +479,11 @@ const touchEnd = (e) => {
     Math.abs(touch.value.y * calendarRef.value?.offsetHeight) > 50
   ) {
     if (touch.value.y > 0 && isShowWeek.value) {
-      emit("slidechange", "down");
+      emit('slidechange', 'down');
 
       showMonth();
     } else if (touch.value.y < 0 && !isShowWeek.value) {
-      emit("slidechange", "up");
+      emit('slidechange', 'up');
 
       showWeek();
     }
@@ -663,7 +663,7 @@ const markDateColor = (date, type) => {
   let dateString = `${date.year}/${fillNumber(date.month + 1)}/${fillNumber(
     date.day
   )}`;
-  let markDateTypeString = markDateTypeObj.value[dateString] || "";
+  let markDateTypeString = markDateTypeObj.value[dateString] || '';
 
   if (markDateTypeString.indexOf(type) === -1) return;
 
@@ -697,8 +697,8 @@ const isDisabledHorizontalScroll = (direc) => {
         nextWeek.value[0].day
       }`
     ).getTime();
-    if (direc === "left" && maxDate) return nextWeekFirstDay >= maxDate;
-    if (direc === "right" && minDate) return lastWeekLastedDay <= minDate;
+    if (direc === 'left' && maxDate) return nextWeekFirstDay >= maxDate;
+    if (direc === 'right' && minDate) return lastWeekLastedDay <= minDate;
   } else {
     let lastMonthLastedDay = new Date(
       `${lastMonthYear.value}/${lastMonth.value + 1}/${
@@ -708,8 +708,8 @@ const isDisabledHorizontalScroll = (direc) => {
     let nextMonthFirstDay = new Date(
       `${nextMonthYear.value}/${nextMonth.value + 1}/1`
     ).getTime();
-    if (direc === "left" && maxDate) return nextMonthFirstDay >= maxDate;
-    if (direc === "right" && minDate) return lastMonthLastedDay <= minDate;
+    if (direc === 'left' && maxDate) return nextMonthFirstDay >= maxDate;
+    if (direc === 'right' && minDate) return lastMonthLastedDay <= minDate;
   }
 
   return false;
@@ -717,13 +717,13 @@ const isDisabledHorizontalScroll = (direc) => {
 
 // 小于10，在前面补0
 const fillNumber = (val) => {
-  return val > 9 ? val : "0" + val;
+  return val > 9 ? val : '0' + val;
 };
 
 // 日期格式转换
 const dateFormat = (dateArr) => {
   dateArr.forEach((date, index) => {
-    dateArr[index] = formatDate(date, "YY/MM/DD");
+    dateArr[index] = formatDate(date, 'YY/MM/DD');
   });
 
   return dateArr;
@@ -732,10 +732,10 @@ const dateFormat = (dateArr) => {
 // 是否可以滑动
 const isCanScroll = (dire) => {
   const scrollObj = {
-    up: [true, "up", "vertical"],
-    down: [true, "down", "vertical"],
-    left: [true, "left", "horizontal"],
-    right: [true, "right", "horizontal"],
+    up: [true, 'up', 'vertical'],
+    down: [true, 'down', 'vertical'],
+    left: [true, 'left', 'horizontal'],
+    right: [true, 'right', 'horizontal'],
   };
 
   let checkedScrollArr = scrollObj[dire];
@@ -744,10 +744,10 @@ const isCanScroll = (dire) => {
 
 // 设置禁止滑动的方向
 const setDisabledScrollDirection = () => {
-  touch.value.x < 0 && !isCanScroll("left") && (touch.value.x = 0);
-  touch.value.x > 0 && !isCanScroll("right") && (touch.value.x = 0);
-  touch.value.y < 0 && !isCanScroll("up") && (touch.value.y = 0);
-  touch.value.y > 0 && !isCanScroll("down") && (touch.value.y = 0);
+  touch.value.x < 0 && !isCanScroll('left') && (touch.value.x = 0);
+  touch.value.x > 0 && !isCanScroll('right') && (touch.value.x = 0);
+  touch.value.y < 0 && !isCanScroll('up') && (touch.value.y = 0);
+  touch.value.y > 0 && !isCanScroll('down') && (touch.value.y = 0);
 };
 
 onMounted(() => {
@@ -760,14 +760,14 @@ watch(
     val.forEach((item, index) => {
       if (!item.color) {
         let obj = {};
-        obj.color = "#1c71fb";
-        if (typeof item === "string" || typeof item === "number") {
+        obj.color = '#1c71fb';
+        if (typeof item === 'string' || typeof item === 'number') {
           item = [item];
         }
         obj.date = item || [];
         val[index] = obj;
       }
-      val[index].type = item.type || props.markType || "";
+      val[index].type = item.type || props.markType || '';
 
       val[index].date = dateFormat(val[index].date);
     });
@@ -815,7 +815,7 @@ watch(
 watch(
   checkedDate,
   (val) => {
-    emit("change", val);
+    emit('change', val);
   },
   { deep: true, immediate: true }
 );
@@ -851,7 +851,7 @@ watch(
 );
 
 watch(calendarGroupHeight, (val) => {
-  emit("height", val + calendarWeekTitleHeight.value);
+  emit('height', val + calendarWeekTitleHeight.value);
 });
 
 watch(
