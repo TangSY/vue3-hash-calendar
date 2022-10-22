@@ -9,6 +9,8 @@ export type ThemeColorType = {
 
 export type PickerType = 'datetime' | 'date' | 'time';
 
+export type CalendarPanelType = 'date' | 'month' | 'year' | 'yearRange';
+
 export type ModelType = 'dialog' | 'inline';
 
 export type LangType = 'EN' | 'CN';
@@ -36,3 +38,23 @@ export type DisabledScrollType =
   | 'down'
   | 'horizontal'
   | 'vertical';
+
+export type ScrollDirectionType = 'left' | 'right' | 'up' | 'down';
+
+export type CalendarDateType = {
+  year: number;
+  month: number;
+  day: number;
+  hours: number;
+  minutes: number;
+};
+
+export type EmitDateType = Date | string;
+
+export type CanlendarExposeType = {
+  today: () => void;
+  lastMonth: () => void;
+  nextMonth: () => void;
+  lastWeek: () => void;
+  nextWeek: () => void;
+};

@@ -137,32 +137,32 @@
 </template>
 
 <script lang="ts" setup>
-import Calendar from "./Calendar.vue";
-import TimePicker from "./TimePicker.vue";
-import YearMonthPicker from "./YearMonthPicker.vue";
-import { formatDate } from "../utils/util";
-import { ARROW_DOWN_IMG, ARROW_UP_IMG } from "../constant/img";
-import languageUtil from "../language";
-import { DatetimePickerProps } from "./DatetimePicker";
-import { computed, nextTick, reactive, ref, useSlots, watch } from "vue";
+import Calendar from './Calendar.vue';
+import TimePicker from './TimePicker.vue';
+import YearMonthPicker from './YearMonthPicker.vue';
+import { formatDate } from '../utils/util';
+import { ARROW_DOWN_IMG, ARROW_UP_IMG } from '../constant/img';
+import languageUtil from '../language';
+import { DatetimePickerProps } from './DatetimePicker';
+import { computed, nextTick, reactive, ref, useSlots, watch } from 'vue';
 
 defineOptions({
-  name: "VueHashCalendar",
+  name: 'VueHashCalendar',
 });
 
 const props = defineProps(DatetimePickerProps);
 
 const emit = defineEmits([
-  "update:visible",
-  "update:isShowWeekView",
-  "calendarTypeChange",
-  "click",
-  "confirm",
-  "change",
-  "slidechange",
-  "touchstart",
-  "touchmove",
-  "touchend",
+  'update:visible',
+  'update:isShowWeekView',
+  'calendarTypeChange',
+  'click',
+  'confirm',
+  'change',
+  'slidechange',
+  'touchstart',
+  'touchmove',
+  'touchend',
 ]);
 
 const defaultDate = {
@@ -184,7 +184,7 @@ const calendarBodyHeight = ref(0);
 const calendarTitleHeight = ref(0);
 const firstTimes = ref(true);
 const currDateTime = ref(new Date());
-const yearMonthType = ref("date");
+const yearMonthType = ref('date');
 
 language.value = languageUtil[props.lang.toUpperCase()];
 
@@ -193,11 +193,11 @@ const isShowDatetimePicker = computed({
     return props.visible;
   },
   set(val) {
-    emit("update:visible", val);
+    emit('update:visible', val);
   },
 });
 
-if (props.model === "inline") {
+if (props.model === 'inline') {
   isShowDatetimePicker.value = true;
 }
 
@@ -206,12 +206,12 @@ const isShowWeek = computed({
     return props.isShowWeekView;
   },
   set(val) {
-    emit("update:isShowWeekView", val);
+    emit('update:isShowWeekView', val);
   },
 });
 
 const isShowArrowImg = computed(
-  () => props.isShowArrow && props.model === "inline"
+  () => props.isShowArrow && props.model === 'inline'
 );
 const calendarContentHeight = computed(
   () => calendarBodyHeight.value + calendarTitleHeight.value
@@ -228,8 +228,8 @@ const hasSlot = (slotName) => {
 const toggleWeek = () => {
   isShowWeek.value = !isShowWeek.value;
 
-  if (isShowWeek.value) slideChange("up");
-  else slideChange("down");
+  if (isShowWeek.value) slideChange('up');
+  else slideChange('down');
 };
 
 const today = () => {
@@ -279,22 +279,22 @@ const dateClick = (date) => {
   // 控制点击之后进入下一选择面板
   if (date.type) {
     switch (date.type) {
-      case "yearRange":
-        yearMonthType.value = "year";
+      case 'yearRange':
+        yearMonthType.value = 'year';
         break;
-      case "year":
-        yearMonthType.value = "month";
+      case 'year':
+        yearMonthType.value = 'month';
         break;
-      case "month":
+      case 'month':
         currDateTime.value = new Date(fDate);
-        yearMonthType.value = "date";
+        yearMonthType.value = 'date';
         break;
     }
 
-    emit("calendarTypeChange", yearMonthType.value);
+    emit('calendarTypeChange', yearMonthType.value);
   }
 
-  emit("click", fDate);
+  emit('click', fDate);
 };
 
 const timeChange = (date) => {
@@ -314,8 +314,8 @@ const confirm = () => {
   if (props.format) {
     date = formatDate(date, props.format, props.lang);
   }
-  emit("confirm", date);
-  if (props.model === "dialog") {
+  emit('confirm', date);
+  if (props.model === 'dialog') {
     close();
   }
 };
@@ -330,7 +330,7 @@ const close = () => {
 
 // 小于10，在前面补0
 const fillNumber = (val) => {
-  return val > 9 ? val : "0" + val;
+  return val > 9 ? val : '0' + val;
 };
 
 const formatDatetime = (time, format) => {
@@ -350,29 +350,29 @@ const showTime = () => {
   isShowCalendar.value = false;
 
   // 重置年月选择面板
-  yearMonthType.value = "date";
+  yearMonthType.value = 'date';
 };
 
 // 显示年月选择面板
 const showYearMonthPicker = () => {
   if (!props.changeYearFast) return;
 
-  if (yearMonthType.value === "date") {
-    yearMonthType.value = "month";
-  } else if (yearMonthType.value === "month") {
-    yearMonthType.value = "year";
-  } else if (yearMonthType.value === "year") {
-    yearMonthType.value = "yearRange";
+  if (yearMonthType.value === 'date') {
+    yearMonthType.value = 'month';
+  } else if (yearMonthType.value === 'month') {
+    yearMonthType.value = 'year';
+  } else if (yearMonthType.value === 'year') {
+    yearMonthType.value = 'yearRange';
   } else {
-    yearMonthType.value = "date";
+    yearMonthType.value = 'date';
   }
 
-  emit("calendarTypeChange", yearMonthType.value);
+  emit('calendarTypeChange', yearMonthType.value);
 };
 
 // 高度变化
 const heightChange = (height) => {
-  if (!firstTimes.value && props.model === "dialog") return;
+  if (!firstTimes.value && props.model === 'dialog') return;
 
   calendarBodyHeight.value = height;
   firstTimes.value = false;
@@ -383,36 +383,36 @@ const changeThemeColor = () => {
   const themeColorKeys = Object.keys(props.themeColor || {});
 
   if (themeColorKeys.length) {
-    let cssText = "";
+    let cssText = '';
 
     themeColorKeys.forEach((k) => {
       cssText += `--hash-calendar-${k}: ${props.themeColor[k]};`;
     });
 
     nextTick(() => {
-      document.querySelector(".hash-calendar").style.cssText = cssText;
+      document.querySelector('.hash-calendar').style.cssText = cssText;
     });
   }
 };
 
 // 监听手指开始滑动事件
 const touchStart = (event) => {
-  emit("touchstart", event);
+  emit('touchstart', event);
 };
 
 // 监听手指开始滑动事件
 const touchMove = (event) => {
-  emit("touchmove", event);
+  emit('touchmove', event);
 };
 
 // 监听手指开始滑动事件
 const touchEnd = (event) => {
-  emit("touchend", event);
+  emit('touchend', event);
 };
 
 // 滑动方向改变
 const slideChange = (direction) => {
-  emit("slidechange", direction);
+  emit('slidechange', direction);
 };
 
 watch(
@@ -440,7 +440,7 @@ watch(
 watch(
   () => props.pickerType,
   (val) => {
-    if (val === "time") {
+    if (val === 'time') {
       showTime();
     }
   },
@@ -471,7 +471,7 @@ watch(
     if (props.format) {
       date = formatDate(date, props.format, props.lang);
     }
-    emit("change", date);
+    emit('change', date);
   },
   { deep: true }
 );

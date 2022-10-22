@@ -2,26 +2,21 @@ export default {
   name: 'vue3-hash-calendar',
   build: {
     css: {
-      preprocessor: 'less',
+      removeSourceFile: true,
     },
+    namedExport: true,
     site: {
       publicPath: '/vue3-hash-calendar/',
     },
     // srcDir: process.env.BUILD_TARGET === 'site' ? './src' : './src/calendar',
-    configureVite(config) {
-      const { BUILD_TARGET } = process.env;
-
-      if (BUILD_TARGET === 'package') {
-        // 修改组件库构建配置
-      }
-
-      return config;
-    },
   },
   site: {
     title: 'vue3-hash-calendar',
     logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
     description: '基于 vue3 版本的周 月 时间选择器',
+    baiduAnalytics: {
+      seed: 'b0668f30d62e1597bdb36d05edea8960',
+    },
     nav: [
       {
         title: '开发指南',

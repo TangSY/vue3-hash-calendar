@@ -1,26 +1,42 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from 'vue';
+import {
+  computed,
+  defineComponent,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+} from 'vue';
+import { ARROW_DOWN_IMG, ARROW_UP_IMG } from './constant';
 
 // Types
 import type {
+  CalendarDateType,
+  CalendarPanelType,
+  CanlendarExposeType,
   DisabledScrollType,
+  EmitDateType,
   LangType,
   MarkDateType,
   MarkType,
   ModelType,
   PickerType,
+  ScrollDirectionType,
   ThemeColorType,
   WeekStartType,
 } from './types';
 
 // Utils
 import {
+  formatDate,
   isDate,
   makeArrayProp,
   makeNumberProp,
   makeStringProp,
   truthProp,
-  unknownProp,
 } from './utils';
+import languageUtil from './language';
+import { useExpose } from './hooks/use-expose';
+import { onMountedOrActivated } from './hooks/use-mounted-or-activated';
 
 export const calendarProps = {
   themeColor: {
@@ -49,7 +65,7 @@ export const calendarProps = {
     validator: isDate,
     default: null,
   },
-  format: unknownProp,
+  format: makeStringProp(''),
   model: makeStringProp<ModelType>('inline'),
   markType: makeStringProp<MarkType>('dot'),
   markDate: makeArrayProp<MarkDateType>(),
@@ -95,6 +111,334 @@ export default defineComponent({
   ],
 
   setup(props, { emit, slots }) {
+    const defaultDate: CalendarDateType = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      day: new Date().getDate(),
+      hours: new Date().getHours(),
+      minutes: new Date().getMinutes(),
+    };
+
+    const calendarTitleRef = ref(null);
+    const calendarRef = ref(null);
+    const arrowDownImg = ARROW_DOWN_IMG;
+    const arrowUpImg = ARROW_UP_IMG;
+    const language = ref({});
+    const checkedDate = ref(defaultDate);
+    const isShowCalendar = ref(false);
+    const calendarBodyHeight = ref(0);
+    const calendarTitleHeight = ref(0);
+    const firstTimes = ref(true);
+    const currDateTime = ref(new Date());
+    const yearMonthType = ref<CalendarPanelType>('date');
+
+    language.value = languageUtil[props.lang];
+
+    const isShowDatetimePicker = computed({
+      get() {
+        return props.visible;
+      },
+      set(val) {
+        emit('update:visible', val);
+      },
+    });
+
+    if (props.model === 'inline') {
+      isShowDatetimePicker.value = true;
+    }
+
+    const isShowWeek = computed({
+      get() {
+        return props.isShowWeekView;
+      },
+      set(val) {
+        emit('update:isShowWeekView', val);
+      },
+    });
+
+    const isShowArrowImg = computed(
+      () => props.isShowArrow && props.model === 'inline'
+    );
+    const calendarContentHeight = computed(
+      () => calendarBodyHeight.value + calendarTitleHeight.value
+    );
+
+    // 判断是否有插槽
+    const hasSlot = (slotName: string) => !!slots?.[slotName]?.();
+
+    // 滑动方向改变
+    const slideChange = (direction: ScrollDirectionType) => {
+      emit('slidechange', direction);
+    };
+
+    // 周视图开关
+    const toggleWeek = () => {
+      isShowWeek.value = !isShowWeek.value;
+
+      if (isShowWeek.value) slideChange('up');
+      else slideChange('down');
+    };
+
+    const today = () => {
+      if (props.disabledDate(new Date())) return;
+
+      calendarRef.value?.today();
+    };
+
+    const lastMonth = () => {
+      calendarRef.value?.getLastMonth();
+    };
+
+    const nextMonth = () => {
+      calendarRef.value?.getNextMonth();
+    };
+
+    const lastWeek = () => {
+      calendarRef.value?.getLastMonth();
+      calendarRef.value?.changeWeekView({ isNext: false });
+    };
+
+    const nextWeek = () => {
+      calendarRef.value?.getNextMonth();
+      calendarRef.value?.changeWeekView({ isNext: true });
+    };
+
+    const dateChange = (date: CalendarDateType) => {
+      date.hours = checkedDate.value.hours;
+      date.minutes = checkedDate.value.minutes;
+      checkedDate.value = date;
+    };
+
+    const dateClick = (date: CalendarDateType) => {
+      date.hours = checkedDate.value.hours;
+      date.minutes = checkedDate.value.minutes;
+      checkedDate.value = date;
+
+      let fDate: EmitDateType = new Date(
+        `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
+          checkedDate.value.day
+        } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
+      );
+      if (props.format) {
+        fDate = formatDate(fDate, props.format, props.lang);
+      }
+
+      // 控制点击之后进入下一选择面板
+      if (date.type) {
+        switch (date.type) {
+          case 'yearRange':
+            yearMonthType.value = 'year';
+            break;
+          case 'year':
+            yearMonthType.value = 'month';
+            break;
+          case 'month':
+            currDateTime.value = new Date(fDate);
+            yearMonthType.value = 'date';
+            break;
+        }
+
+        emit('calendarTypeChange', yearMonthType.value);
+      }
+
+      emit('click', fDate);
+    };
+
+    const timeChange = (date: CalendarDateType) => {
+      date.year = checkedDate.value.year;
+      date.month = checkedDate.value.month;
+      date.day = checkedDate.value.day;
+      checkedDate.value = date;
+    };
+
+    const close = () => {
+      isShowDatetimePicker.value = false;
+    };
+
+    // 确认选择时间
+    const confirm = () => {
+      let date: EmitDateType = new Date(
+        `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
+          checkedDate.value.day
+        } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
+      );
+      if (props.format) {
+        date = formatDate(date, props.format, props.lang);
+      }
+      emit('confirm', date);
+      if (props.model === 'dialog') {
+        close();
+      }
+    };
+
+    const show = () => {
+      isShowDatetimePicker.value = true;
+    };
+
+    const formatDatetime = (time: Date, format: string) =>
+      formatDate(time, format, props.lang);
+
+    // 显示年月选择面板
+    const showYearMonthPicker = () => {
+      if (!props.changeYearFast) return;
+
+      if (yearMonthType.value === 'date') {
+        yearMonthType.value = 'month';
+      } else if (yearMonthType.value === 'month') {
+        yearMonthType.value = 'year';
+      } else if (yearMonthType.value === 'year') {
+        yearMonthType.value = 'yearRange';
+      } else {
+        yearMonthType.value = 'date';
+      }
+
+      emit('calendarTypeChange', yearMonthType.value);
+    };
+
+    // 显示日历控件
+    const showCalendar = () => {
+      if (isShowCalendar.value) {
+        showYearMonthPicker();
+      }
+      isShowCalendar.value = true;
+    };
+
+    // 显示时间选择控件
+    const showTime = () => {
+      isShowCalendar.value = false;
+
+      // 重置年月选择面板
+      yearMonthType.value = 'date';
+    };
+
+    // 高度变化
+    const heightChange = (height: number) => {
+      if (!firstTimes.value && props.model === 'dialog') return;
+
+      calendarBodyHeight.value = height;
+      firstTimes.value = false;
+    };
+
+    // 切换主题颜色
+    const changeThemeColor = () => {
+      const themeColorKeys = Object.keys(props.themeColor || {}) as Array<
+        keyof ThemeColorType
+      >;
+
+      if (themeColorKeys.length) {
+        let cssText = '';
+
+        themeColorKeys.forEach((k) => {
+          cssText += `--hash-calendar-${k}: ${props.themeColor[k]};`;
+        });
+
+        requestAnimationFrame(() => {
+          const calendarEle = document.querySelector(
+            '.hash-calendar'
+          ) as HTMLElement;
+          if (calendarEle) {
+            calendarEle.style.cssText = cssText;
+          }
+        });
+      }
+    };
+
+    // 监听手指开始滑动事件
+    const touchStart = (event: TouchEvent) => {
+      emit('touchstart', event);
+    };
+
+    // 监听手指开始滑动事件
+    const touchMove = (event: TouchEvent) => {
+      emit('touchmove', event);
+    };
+
+    // 监听手指开始滑动事件
+    const touchEnd = (event: TouchEvent) => {
+      emit('touchend', event);
+    };
+
+    watch(
+      () => props.themeColor,
+      (val) => {
+        val && changeThemeColor();
+      },
+      { immediate: true }
+    );
+
+    watch(
+      () => props.defaultDatetime,
+      (val) => {
+        currDateTime.value = val;
+      },
+      { immediate: true }
+    );
+
+    watch(
+      () => props.pickerType,
+      (val) => {
+        if (val === 'time') {
+          showTime();
+        }
+      },
+      { immediate: true }
+    );
+
+    watch(
+      () => props.isShowAction,
+      (flag) => {
+        if (!flag) {
+          calendarTitleHeight.value = 0;
+        } else {
+          setTimeout(() => {
+            calendarTitleHeight.value =
+              calendarTitleRef.value?.offsetHeight || 0;
+          });
+        }
+      }
+    );
+
+    watch(
+      checkedDate,
+      () => {
+        let date: EmitDateType = new Date(
+          `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
+            checkedDate.value.day
+          } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
+        );
+        if (props.format) {
+          date = formatDate(date, props.format, props.lang);
+        }
+        emit('change', date);
+      },
+      { deep: true }
+    );
+
+    const init = () => {
+      setTimeout(() => {
+        calendarTitleHeight.value = calendarTitleRef.value?.offsetHeight || 0;
+      });
+    };
+
+    watch(
+      () => props.visible,
+      (val) => {
+        isShowCalendar.value = val;
+        init();
+      },
+      { immediate: true }
+    );
+
+    useExpose<CanlendarExposeType>({
+      today,
+      lastMonth,
+      nextMonth,
+      lastWeek,
+      nextWeek,
+    });
+
+    onMountedOrActivated(init);
+
     return () => <div>123</div>;
   },
 });
