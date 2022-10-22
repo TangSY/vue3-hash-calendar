@@ -1,6 +1,6 @@
 {
   "name": "vue3-hash-calendar",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "author": "HashTang",
   "repository": {
     "type": "git",
@@ -12,27 +12,50 @@
   "homepage": "https://www.hxkj.vip",
   "license": "MIT",
   "description": "vue 周 月 时间选择器，基于 vue 3.x 版本",
-  "main": "lib/vue-hash-calendar.umd.js",
-  "keyword": "vue3-hash-calendar vue-hash-calendar calendar date-picker datetime-picker time-picker week-picker",
-  "private": false,
+  "main": "lib/vue3-hash-calendar.js",
+  "module": "es/index.js",
+  "style": "lib/index.css",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "es"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "dev": "vant-cli dev",
+    "lint": "vant-cli lint",
+    "test": "vant-cli test",
+    "build": "vant-cli build",
+    "changelog": "vant-cli changelog",
+    "build:site": "vant-cli build-site",
+    "release": "vant-cli release --tag next",
+    "release:site": "pnpm build:site && npx gh-pages -d site-dist",
+    "test:watch": "vant-cli test --watch",
+    "test:coverage": "open test/coverage/index.html"
+  },
+  "nano-staged": {
+    "*.md": "prettier --write",
+    "*.{ts,tsx,js,vue,less,scss}": "prettier --write",
+    "*.{ts,tsx,js,vue}": "eslint --fix"
   },
   "peerDependencies": {
-    "vue": "^3.2.25"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@types/estree": "^0.0.51",
-    "@types/node": "^17.0.21",
-    "@types/webpack": "^5.28.0",
-    "@vitejs/plugin-vue": "^2.2.0",
-    "stylus": "^0.56.0",
-    "stylus-loader": "^6.2.0",
-    "typescript": "^4.5.4",
-    "unplugin-vue-define-options": "^0.4.0",
-    "vite": "^2.8.0",
-    "vue-tsc": "^0.29.8"
-  }
+    "@vant/cli": "^5.0.0",
+    "vue": "^3.0.0",
+    "sass": "^1.49.7"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@vant"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "browserslist": [
+    "Chrome >= 51",
+    "iOS >= 10"
+  ]
 }
