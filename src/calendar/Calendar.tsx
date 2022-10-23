@@ -10,9 +10,10 @@ import { ARROW_DOWN_IMG, ARROW_UP_IMG } from './constant';
 
 // Types
 import type {
+  CalendarDateInstance,
   CalendarDateType,
   CalendarPanelType,
-  CanlendarExposeType,
+  CalendarExposeType,
   DisabledScrollType,
   EmitDateType,
   LangType,
@@ -29,16 +30,18 @@ import type {
 import {
   fillNumber,
   formatDate,
-  isDate,
   makeArrayProp,
+  makeDateProp,
   makeNumberProp,
   makeStringProp,
+  pick,
   truthProp,
 } from './utils';
 import languageUtil, { type LanguageEntityType } from './language';
 
 // hooks
 import { useExpose, useMountedOrActivated, useRect } from './hooks';
+import CalendarDate from './CalendarDate';
 
 export const calendarProps = {
   themeColor: {
@@ -49,24 +52,13 @@ export const calendarProps = {
   isShowArrow: Boolean,
   isShowWeekView: Boolean,
   visible: Boolean,
+  disabledWeekView: Boolean,
   isShowAction: truthProp,
   pickerType: makeStringProp<PickerType>('datetime'),
   showTodayButton: truthProp,
-  defaultDatetime: {
-    type: Date,
-    validator: isDate,
-    default: () => new Date(),
-  },
-  minDate: {
-    type: Date,
-    validator: isDate,
-    default: null,
-  },
-  maxDate: {
-    type: Date,
-    validator: isDate,
-    default: null,
-  },
+  defaultDatetime: makeDateProp(new Date()),
+  minDate: makeDateProp(null),
+  maxDate: makeDateProp(null),
   format: makeStringProp(''),
   model: makeStringProp<ModelType>('inline'),
   markType: makeStringProp<MarkType>('dot'),
@@ -77,7 +69,6 @@ export const calendarProps = {
   },
   lang: makeStringProp<LangType>('CN'),
   scrollChangeDate: truthProp,
-  calendarTitleHeight: makeNumberProp(0),
   minuteStep: makeNumberProp(1),
   weekStart: makeStringProp<WeekStartType>('Sunday'),
   disabledScroll: {
@@ -92,7 +83,7 @@ export const calendarProps = {
   disabledClassName: makeStringProp<string>(''),
 };
 
-export type CalendarProps = ExtractPropTypes<typeof calendarProps>;
+export type CalendarPropsType = ExtractPropTypes<typeof calendarProps>;
 
 export default defineComponent({
   name: 'VueHashCalendar',
@@ -122,7 +113,7 @@ export default defineComponent({
     };
 
     const calendarTitleRef = ref<HTMLElement>();
-    const calendarRef = ref<CalendarMonthInstance>();
+    const calendarRef = ref<CalendarDateInstance>();
     const language = ref<LanguageEntityType>({} as LanguageEntityType);
     const checkedDate = ref(defaultDate);
     const isShowCalendar = ref(false);
@@ -143,11 +134,7 @@ export default defineComponent({
       },
     });
 
-    if (props.model === 'inline') {
-      isShowDatetimePicker.value = true;
-    }
-
-    const isShowWeek = computed({
+    const isShowWeek = computed<boolean>({
       get() {
         return props.isShowWeekView;
       },
@@ -266,10 +253,6 @@ export default defineComponent({
       if (props.model === 'dialog') {
         close();
       }
-    };
-
-    const show = () => {
-      isShowDatetimePicker.value = true;
     };
 
     const formatDatetime = (time: Date | string, format: string) =>
@@ -419,13 +402,13 @@ export default defineComponent({
     watch(
       () => props.visible,
       (val) => {
-        isShowCalendar.value = val;
+        isShowCalendar.value = props.model === 'inline' ? true : val;
         init();
       },
       { immediate: true }
     );
 
-    useExpose<CanlendarExposeType>({
+    useExpose<CalendarExposeType>({
       today,
       lastMonth,
       nextMonth,
@@ -526,34 +509,45 @@ export default defineComponent({
       </div>
     );
 
-    const renderCalendar = () => {
-      //     return (
-      //         <calendar
-      //     ref={calendarRef}
-      //     v-if="pickerType !== 'time'"
-      //     :show="isShowCalendar"
-      //     v-model:is-show-week-view="isShowWeek"
-      //     v-bind="{ ...$props, ...$attrs }"
-      //     :calendarTitleHeight="calendarTitleHeight"
-      //     @height="heightChange"
-      //     :default-date="currDateTime"
-      //     @touchstart="touchStart"
-      //     @touchmove="touchMove"
-      //     @touchend="touchEnd"
-      //     @slidechange="slideChange"
-      //     @change="dateChange"
-      //     @click="dateClick"
-      //   >
-      //     <template v-if="hasSlot('week')" v-slot:week="scope">
-      //       <slot name="week" :week="scope.week"> </slot>
-      //     </template>
-      //     <template v-if="hasSlot('day')" v-slot:day="scope">
-      //       <slot name="day" :date="scope.date" :extendAttr="scope.extendAttr">
-      //       </slot>
-      //     </template>
-      //   </calendar>
-      //     )
+    const updateShowWeekView = (val: boolean) => {
+      isShowWeek.value = val;
     };
+
+    const renderCalendar = () => (
+      <CalendarDate
+        ref={calendarRef}
+        v-slots={pick(slots, ['week', 'day'])}
+        show={isShowCalendar.value}
+        calendarTitleHeight={calendarTitleHeight.value}
+        onHeight={heightChange}
+        defaultDate={currDateTime.value}
+        onTouchstart={touchStart}
+        onTouchmove={touchMove}
+        onTouchend={touchEnd}
+        onSlidechange={slideChange}
+        onChange={dateChange}
+        onClick={dateClick}
+        isShowWeekView={isShowWeek.value}
+        onUpdate:isShowWeekView={updateShowWeekView}
+        {...pick(props, [
+          'minDate',
+          'maxDate',
+          'disabledWeekView',
+          'markType',
+          'markDate',
+          'disabledDate',
+          'lang',
+          'weekStart',
+          'disabledScroll',
+          'isShowNotCurrentMonthDay',
+          'firstDayOfMonthClassName',
+          'todayClassName',
+          'checkedDayClassName',
+          'notCurrentMonthDayClassName',
+          'disabledClassName',
+        ])}
+      />
+    );
 
     const renderTimePicker = () => {
       //  return   (<time-picker
@@ -634,7 +628,7 @@ export default defineComponent({
               }}
             >
               {renderCalendarTitle()}
-              {renderCalendar()}
+              {props.pickerType !== 'time' ? renderCalendar() : ''}
               {renderTimePicker()}
               {renderYearMonthPicker()}
             </div>

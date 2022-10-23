@@ -5,11 +5,11 @@ import './index.less';
 export const Calendar = withInstall(_Calendar);
 export default Calendar;
 export { calendarProps } from './Calendar';
-export type { CalendarProps } from './Calendar';
+export type { CalendarPropsType } from './Calendar';
 export type {
   CalendarDateType,
   CalendarPanelType,
-  CanlendarExposeType,
+  CalendarExposeType,
 } from './types';
 
 declare module 'vue' {

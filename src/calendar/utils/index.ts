@@ -1,4 +1,4 @@
 export * from './props';
-export * from './format';
+export * from './basic';
 export * from './validate';
 export * from './with-install';

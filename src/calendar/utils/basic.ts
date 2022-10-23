@@ -1,3 +1,5 @@
+import { isLeap } from '.';
+
 /**
  * 日期格式化
  * @param time
@@ -50,3 +52,44 @@ export const formatDate = function (
 
 // 小于10，在前面补0
 export const fillNumber = (val: number) => (val > 9 ? val : '0' + val);
+
+export const daysOfMonth = (year: number) => [
+  31,
+  28 + isLeap(year),
+  31,
+  30,
+  31,
+  30,
+  31,
+  31,
+  30,
+  31,
+  30,
+  31,
+];
+
+// 获取月份某一天是星期几
+export const getDayOfWeek = (
+  year = new Date().getFullYear(),
+  month = new Date().getMonth(),
+  day = 1
+) => {
+  const dayOfMonth = new Date(year, month, day); // 获取当月的第day天
+  const dayOfWeek = dayOfMonth.getDay(); // 判断第day天是星期几(返回[0-6]中的一个，0代表星期天，1代表星期一)
+  return dayOfWeek;
+};
+
+export type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+
+export function pick<T, U extends keyof T>(
+  obj: T,
+  keys: ReadonlyArray<U>,
+  ignoreUndefined?: boolean
+) {
+  return keys.reduce((ret, key) => {
+    if (!ignoreUndefined || obj[key] !== undefined) {
+      ret[key] = obj[key];
+    }
+    return ret;
+  }, {} as Writeable<Pick<T, U>>);
+}

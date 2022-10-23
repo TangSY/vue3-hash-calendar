@@ -19,8 +19,8 @@ export const checkPlatform = function () {
  * @returns
  */
 export const isDateInRange = (curr: Date, min: Date, max: Date) => {
-  const minDate = min.getTime() - 24 * 60 * 60 * 1000;
-  const maxDate = max.getTime();
+  const minDate = min && min.getTime() - 24 * 60 * 60 * 1000;
+  const maxDate = max && max.getTime();
   const currentDate = curr.getTime();
 
   if (minDate && maxDate) return currentDate > minDate && currentDate < maxDate;
@@ -35,3 +35,7 @@ export const isWindow = (val: any) => val === window;
 export const isDate = (val: unknown): val is Date =>
   Object.prototype.toString.call(val) === '[object Date]' &&
   !Number.isNaN((val as Date).getTime());
+
+// 判断是否为闰年
+export const isLeap = (year: number) =>
+  year % 4 === 0 ? (year % 100 !== 0 ? 1 : year % 400 === 0 ? 1 : 0) : 0;
