@@ -17,6 +17,18 @@ export default {
     baiduAnalytics: {
       seed: 'b0668f30d62e1597bdb36d05edea8960',
     },
+    darkModeClass: 'van-theme-dark',
+    lightModeClass: 'van-theme-light',
+    links: [
+      {
+        logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/weapp.svg',
+        url: 'https://gitee.com/HashTang/vue3-hash-calendar',
+      },
+      {
+        logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/github.svg',
+        url: 'https://github.com/TangSY/vue3-hash-calendar',
+      },
+    ],
     nav: [
       {
         title: '开发指南',

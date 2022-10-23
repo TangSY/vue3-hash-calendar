@@ -1,0 +1,84 @@
+@import './style/common.less';
+
+.hash-calendar {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-size: 4vw;
+
+  &.calendar_inline {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: none;
+    height: .px2vw(710);
+    z-index: 1;
+  }
+
+  .calendar_content {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    padding-bottom: .px2vw(26);
+    flex-wrap: wrap;
+    background: white;
+    height: .px2vw(710);
+    overflow: hidden;
+  }
+
+  .calendar_title {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    .bgColor(background);
+    .borderBottom();
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+  }
+
+  .calendar_title_date {
+    .viceFontColor(color);
+    background: white;
+    padding: .px2vw(30) .px2vw(15);
+  }
+
+  .calendar_title_date_active {
+    .mainFontColor(color);
+    font-weight: bold;
+  }
+
+  .calendar_title_date_time {
+    margin-left: .px2vw(20);
+  }
+
+  .calendar_confirm {
+    .mainColor(color);
+    margin-right: .px2vw(34);
+  }
+
+  .today_disable {
+    .disabledFontColor(color);
+  }
+
+  .ctrl-img {
+    width: 100%;
+    text-align: center;
+
+    img {
+      width: 28px;
+    }
+  }
+}

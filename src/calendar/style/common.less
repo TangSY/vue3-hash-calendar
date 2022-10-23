@@ -1,0 +1,73 @@
+/**
+* @Description:
+* @Author:         TSY
+* @CreateDate:     2018/6/9 13:28
+*/
+
+@import './colorVariable.less';
+
+//设计稿尺寸
+@designSize: 750;
+// 1px 实线边框
+.solidBorder(@color: @bg-color) {
+  border: 1px solid @color
+}
+
+.borderBottom(@color: @bg-color) {
+  border-bottom: 1px solid @color
+}
+
+.borderTop(@color: @bg-color) {
+  border-top: 1px solid @color
+}
+
+.borderLeft(@color: @bg-color) {
+  border-left: 1px solid @color
+}
+
+.borderRight(@color: @bg-color) {
+  border-right: 1px solid @color
+}
+
+.bottomLine(@color: @bg-color) {
+  border-bottom: .px2vw(16) solid @color
+}
+
+.topLine(@color: @bg-color) {
+  border-top: .px2vw(16) solid @color
+}
+
+//px转vw
+.px2vw(@size) {
+  unit((@size / @designSize) * 100, vw)
+}
+
+.fontSize(@size) {
+  font-size: @size
+}
+
+.flexAlign(@align: center) {
+  display: flex;
+  align-items: @align
+}
+
+.flexContent(@align: center, @justify: center) {
+  display: flex;
+  align-items: @align;
+  justify-content: @justify;
+}
+
+
+.click_item:active {
+  background: #eee;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}

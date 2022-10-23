@@ -971,7 +971,7 @@ defineExpose({
 }
 
 .calendar_mark_circle {
-  mainColor(border);
+  border: 1px solid @main-color;
 }
 
 .calendar_day_not {

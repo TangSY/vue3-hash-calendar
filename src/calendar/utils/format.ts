@@ -4,7 +4,11 @@
  * @param format
  * @returns {string}
  */
-export const formatDate = function (time: Date, format: string, lang = 'CN') {
+export const formatDate = function (
+  time: Date | string,
+  format: string,
+  lang = 'CN'
+) {
   lang = lang.toUpperCase();
   const models = import.meta.globEager('../language/index.ts');
   const model = models[Object.keys(models)[0]];
