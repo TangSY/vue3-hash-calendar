@@ -784,18 +784,6 @@ export default defineComponent({
       emit('height', val + calendarWeekTitleHeight.value);
     });
 
-    watch(
-      () => [props.isShowWeekView, props.disabledWeekView],
-      (val) => {
-        if (val[0] && val[1]) {
-          throw new Error(
-            "'isShowWeekView' and 'disabledWeekView' can't be used at the same time"
-          );
-        }
-      },
-      { immediate: true }
-    );
-
     useExpose<CalendarDateExposeType>({
       today,
       getLastMonth,
