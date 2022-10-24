@@ -46,7 +46,7 @@ import CalendarDate from './CalendarDate';
 export const calendarProps = {
   themeColor: {
     type: Object as PropType<ThemeColorType>,
-    default: () => {},
+    default: () => ({}),
   },
   changeYearFast: Boolean,
   isShowArrow: Boolean,

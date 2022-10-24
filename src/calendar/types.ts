@@ -1,6 +1,7 @@
 import { ComponentPublicInstance } from 'vue';
 import { CalendarPropsType } from './Calendar';
 import { CalendarDatePropsType } from './CalendarDate';
+import { CalendarTimePropsType } from './CalendarTime';
 
 export type ThemeColorType = {
   'main-color': string;
@@ -81,3 +82,6 @@ export type CalendarDateInstance = ComponentPublicInstance<
   CalendarDatePropsType,
   CalendarDateExposeType
 >;
+
+export type CalendarTimeInstance =
+  ComponentPublicInstance<CalendarTimePropsType>;
