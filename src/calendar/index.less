@@ -184,4 +184,42 @@
     height: 5px;
     border-radius: 50%;
   }
+
+  .time_body {
+    width: 100%;
+    margin-top: 100px;
+  }
+
+  .time_group {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 360px;
+    margin-top: 100px;
+    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+  }
+
+  .time_content {
+    touch-action: none;
+    padding: 0 40px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .time_item {
+    padding: 20px 0;
+    .viceFontColor(color);
+  }
+
+  .time_item_show {
+    .mainFontColor(color);
+  }
+
+  .time-disabled {
+    background-color: #f5f7fa;
+    opacity: 1;
+    cursor: not-allowed;
+    color: #c0c4cc;
+  }
 }

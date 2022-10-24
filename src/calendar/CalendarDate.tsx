@@ -362,6 +362,7 @@ export default defineComponent({
       checkedDate.value.year = year;
       checkedDate.value.month = month;
     };
+
     // 日历以月份方式展示
     const showMonth = () => {
       calendarY.value = 0;
