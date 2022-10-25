@@ -68,6 +68,10 @@ export const calendarProps = {
     type: Function,
     default: () => false,
   },
+  disabledTime: {
+    type: Function,
+    default: () => false,
+  },
   lang: makeStringProp<LangType>('CN'),
   scrollChangeDate: truthProp,
   minuteStep: makeNumberProp(1),
@@ -558,6 +562,7 @@ export default defineComponent({
             defaultTime={currDateTime.value}
             calendarDate={checkedDate.value}
             onChange={timeChange}
+            {...pick(props, ['minuteStep', 'disabledTime'])}
           />
         );
       }
