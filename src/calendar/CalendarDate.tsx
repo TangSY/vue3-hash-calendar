@@ -827,17 +827,20 @@ export default defineComponent({
       return (
         <div
           class={`calendar_day ${
-            isFirstDayOfMonth(date, i) &&
-            (props.firstDayOfMonthClassName || 'calendar_first_today')
+            isFirstDayOfMonth(date, i)
+              ? props.firstDayOfMonthClassName || 'calendar_first_today'
+              : ''
           } ${
-            isToday(date) && (props.todayClassName || 'calendar_day_today')
+            isToday(date) ? props.todayClassName || 'calendar_day_today' : ''
           } ${
-            isCheckedDay(date) &&
-            (props.checkedDayClassName || 'calendar_day_checked')
+            isCheckedDay(date)
+              ? props.checkedDayClassName || 'calendar_day_checked'
+              : ''
           } ${
-            isNotCurrentMonthDay(date, i) &&
-            (props.notCurrentMonthDayClassName || 'calendar_day_not')
-          } ${markDateColor(date, 'circle') && 'calendar_mark_circle'}`}
+            isNotCurrentMonthDay(date, i)
+              ? props.notCurrentMonthDayClassName || 'calendar_day_not'
+              : ''
+          } ${markDateColor(date, 'circle') ? 'calendar_mark_circle' : ''}`}
           style={{ 'border-color': markDateColor(date, 'circle') }}
         >
           {dayEle}

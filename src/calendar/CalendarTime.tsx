@@ -7,7 +7,12 @@ import {
   watch,
 } from 'vue';
 import { CalendarDateType } from './types';
-import { checkPlatform, makeDateProp, makeNumberProp } from './utils';
+import {
+  checkPlatform,
+  fillNumber,
+  makeDateProp,
+  makeNumberProp,
+} from './utils';
 
 export const calendarTimeProps = {
   show: Boolean,
@@ -191,27 +196,6 @@ export default defineComponent({
       (index === 0 && time === checkedDate.value.hours) ||
       (index === 1 && time === checkedDate.value.minutes);
 
-    // 校验时间范围
-    const checkTimeRange = (range: string) => {
-      if (!range) return;
-      const timeArr = range.split('-');
-      if (timeArr.length === 0 || timeArr.length > 2) return false;
-
-      return timeArr.every((time) => {
-        const mhArr = time.split(':');
-        if (mhArr.length === 0 || mhArr.length > 2) return false;
-
-        // 校验单个时间是否符合规范 00:00 - 24:00
-        if (parseInt(mhArr[0], 10) < 0 || parseInt(mhArr[0], 10) > 24)
-          return false;
-        if (parseInt(mhArr[1], 10) < 0 || parseInt(mhArr[1], 10) > 59)
-          return false;
-        if (parseInt(mhArr[0], 10) === 24 && parseInt(mhArr[1], 10) > 0)
-          return false;
-        return true;
-      });
-    };
-
     watch(
       () => props.defaultTime,
       (val) => {
@@ -256,5 +240,40 @@ export default defineComponent({
       },
       { immediate: true }
     );
+
+    const renderTimeItem = (time: number[], index: number) =>
+      time.map((item, j) => (
+        <div
+          class={`time_item ${
+            isBeSelectedTime(item, index) ? 'time_item_show' : ''
+          } ${hashClass.value} ${
+            formatDisabledDate(item, index) ? 'time-disabled' : ''
+          }`}
+          key={index + j}
+        >
+          {fillNumber(item)}
+        </div>
+      ));
+
+    const renderCalendarTime = () => (
+      <div class="time_body" style={{ display: props.show ? 'block' : 'none' }}>
+        <div class="time_group">
+          {timeArray.value.map((item, index) => (
+            <div
+              class="time_content"
+              id={hashID.value[index]}
+              key={index}
+              onTouchstart={timeTouchStart}
+              onTouchmove={(e) => timeTouchMove(e, index)}
+              onTouchend={(e) => timeTouchEnd(e, index)}
+            >
+              {renderTimeItem(item, index)}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+
+    return () => renderCalendarTime();
   },
 });

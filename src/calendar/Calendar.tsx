@@ -42,6 +42,7 @@ import languageUtil, { type LanguageEntityType } from './language';
 // hooks
 import { useExpose, useMountedOrActivated, useRect } from './hooks';
 import CalendarDate from './CalendarDate';
+import CalendarTime from './CalendarTime';
 
 export const calendarProps = {
   themeColor: {
@@ -550,14 +551,16 @@ export default defineComponent({
     );
 
     const renderTimePicker = () => {
-      //  return   (<time-picker
-      //     v-if="pickerType !== 'date'"
-      //     :show="!isShowCalendar"
-      //     :default-time="currDateTime"
-      //     :calendarDate="checkedDate"
-      //     v-bind="{ ...$props, ...$attrs }"
-      //     @change="timeChange"
-      //   ></time-picker>)
+      if (props.pickerType !== 'date') {
+        return (
+          <CalendarTime
+            show={!isShowCalendar.value}
+            defaultTime={currDateTime.value}
+            calendarDate={checkedDate.value}
+            onChange={timeChange}
+          />
+        );
+      }
     };
 
     const renderYearMonthPicker = () => {
