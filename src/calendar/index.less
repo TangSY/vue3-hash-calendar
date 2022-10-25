@@ -226,4 +226,49 @@
     cursor: not-allowed;
     color: #c0c4cc;
   }
+
+  .year-body {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background: #fff;
+
+    &-item {
+      width: 33%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.is_disabled {
+        .disabledBgColor(background-color);
+        opacity: 1;
+        cursor: not-allowed;
+        .disabledFontColor(color);
+      }
+
+      &-content {
+        /* px-to-viewport-ignore-next */
+        width: 60px;
+        /* px-to-viewport-ignore-next */
+        padding: 3px 0;
+        /* px-to-viewport-ignore-next */
+        border-radius: 3px;
+        text-align: center;
+
+        &.is_checked {
+          .mainColor(background);
+          color: white;
+        }
+
+        &.is_not_current {
+          .disabledFontColor(color);
+        }
+      }
+    }
+  }
 }

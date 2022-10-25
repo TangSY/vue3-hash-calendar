@@ -7,7 +7,7 @@ import {
   truthProp,
 } from './utils';
 
-export const yearMonthPickerProps = {
+export const calendarYearMonthProps = {
   minDate: makeDateProp(null),
   maxDate: makeDateProp(null),
   disabledDate: {
@@ -32,6 +32,6 @@ export const yearMonthPickerProps = {
   lang: makeStringProp<LangType>('CN'),
 };
 
-export type YearMonthPickerPropsType = ExtractPropTypes<
-  typeof yearMonthPickerProps
+export type CalendarYearMonthPropsType = ExtractPropTypes<
+  typeof calendarYearMonthProps
 >;
