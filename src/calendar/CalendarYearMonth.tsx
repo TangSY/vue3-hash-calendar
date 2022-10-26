@@ -8,7 +8,12 @@ import {
 } from 'vue';
 import { ScorllDireType } from './components/scroll-container';
 import languageUtil, { LanguageEntityType, LanguageType } from './language';
-import type { CalendarDateType, DisabledScrollType, LangType } from './types';
+import type {
+  CalendarDateType,
+  CalendarPanelType,
+  DisabledScrollType,
+  LangType,
+} from './types';
 import {
   isDateInRange,
   makeDateProp,
@@ -28,10 +33,7 @@ export const calendarYearMonthProps = {
   checkedDayClassName: makeStringProp<string>(''),
   notCurrentMonthDayClassName: makeStringProp<string>(''),
   disabledClassName: makeStringProp<string>(''),
-  type: {
-    type: String,
-    default: '',
-  },
+  type: makeStringProp<CalendarPanelType>('date'),
   calendarTitleHeight: makeNumberProp(0),
   calendarContentHeight: makeNumberProp(0),
   disabledScroll: {

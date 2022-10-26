@@ -198,7 +198,7 @@ export default defineComponent({
       checkedDate.value = date;
     };
 
-    const dateClick = (date: CalendarDateType) => {
+    const dateClick = (date: CalendarDateType, type?: CalendarPanelType) => {
       date.hours = checkedDate.value.hours;
       date.minutes = checkedDate.value.minutes;
       checkedDate.value = date;
@@ -213,8 +213,8 @@ export default defineComponent({
       }
 
       // 控制点击之后进入下一选择面板
-      if (date.type) {
-        switch (date.type) {
+      if (type) {
+        switch (type) {
           case 'yearRange':
             yearMonthType.value = 'year';
             break;

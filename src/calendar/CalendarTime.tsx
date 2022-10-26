@@ -116,18 +116,20 @@ export default defineComponent({
     const timeTouchStart = (e: TouchEvent) => {
       e.preventDefault();
       timeStartY.value = e.changedTouches[0].pageY;
-      const transform = e.currentTarget?.style.webkitTransform;
+      const { transform } = (e.currentTarget as HTMLElement).style;
       if (transform) {
         timeStartUp.value = parseFloat(transform.split(' ')[1].split('px')[0]);
       }
     };
 
     const timeTouchEnd = (e: TouchEvent, index: number) => {
-      const transform = e.currentTarget?.style.webkitTransform;
+      const { transform } = (e.currentTarget as HTMLElement).style;
       let endUp = timeStartUp.value;
       if (transform) {
         endUp = parseFloat(
-          e.currentTarget.style.webkitTransform.split(' ')[1].split('px')[0]
+          (e.currentTarget as HTMLElement).style.transform
+            .split(' ')[1]
+            .split('px')[0]
         );
       }
 
@@ -173,8 +175,9 @@ export default defineComponent({
           checkedDate.value.minutes = minute * props.minuteStep;
         }
       }
-      e.currentTarget.style.webkitTransition = 'transform 300ms';
-      e.currentTarget.style.webkitTransform =
+      (e.currentTarget as HTMLElement).style.webkitTransition =
+        'transform 300ms';
+      (e.currentTarget as HTMLElement).style.transform =
         'translate3d(0px,' + up + 'px,0px)';
     };
 
@@ -182,7 +185,7 @@ export default defineComponent({
       const moveEndY = e.changedTouches[0].pageY;
       const Y = moveEndY - timeStartY.value;
 
-      e.currentTarget.style.webkitTransform =
+      (e.currentTarget as HTMLElement).style.transform =
         'translate3d(0px,' + (Y + timeStartUp.value) + 'px,0px)';
 
       if (checkPlatform() === '2') {
