@@ -6,6 +6,7 @@ import {
   watch,
   type PropType,
 } from 'vue';
+import CalendarScrollContainer from './CalendarScrollContainer';
 import { ScorllDireType } from './components/scroll-container';
 import languageUtil, { LanguageEntityType, LanguageType } from './language';
 import type {
@@ -19,7 +20,6 @@ import {
   makeDateProp,
   makeNumberProp,
   makeStringProp,
-  truthProp,
 } from './utils';
 
 export const calendarYearMonthProps = {
@@ -29,7 +29,6 @@ export const calendarYearMonthProps = {
     type: Function,
     default: () => false,
   },
-  scrollChangeDate: truthProp,
   checkedDayClassName: makeStringProp<string>(''),
   notCurrentMonthDayClassName: makeStringProp<string>(''),
   disabledClassName: makeStringProp<string>(''),
@@ -323,18 +322,17 @@ export default defineComponent({
             : 'none',
         }}
       >
-        {/* <ScrollContainer
+        <CalendarScrollContainer
           calendarData={yearMonthShow.value}
           disabledScroll={disabledScrollDirec.value}
-          oTouchstart={touchStart}
-          oTouchmove={touchMove}
-          oTouchend={touchEnd}
-          oSlidechange={slideChange}
-        >
-          <template v-slot="scope">
-            {renderYearMonthItem(scope.currArr)}
-          </template>
-        </ScrollContainer> */}
+          onTouchstart={touchStart}
+          onTouchmove={touchMove}
+          onTouchend={touchEnd}
+          onSlidechange={slideChange}
+          v-slot={(data: (YearRangeType & number)[]) =>
+            renderYearMonthItem(data)
+          }
+        />
       </div>
     );
 

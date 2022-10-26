@@ -1,10 +1,6 @@
 import { defineComponent, ExtractPropTypes, PropType, ref } from 'vue';
 import { useRect } from './hooks';
-import {
-  CalendarDateType,
-  DisabledScrollType,
-  ScrollDirectionType,
-} from './types';
+import { DisabledScrollType, ScrollDirectionType } from './types';
 import { makeArrayProp } from './utils';
 
 export const calendarScrollContainerProps = {
@@ -12,7 +8,7 @@ export const calendarScrollContainerProps = {
     type: [Boolean, String] as PropType<DisabledScrollType>,
     default: () => false,
   },
-  calendarData: makeArrayProp<CalendarDateType>(),
+  calendarData: makeArrayProp<any>(),
 };
 
 export type CalendarScrollContainerPropsType = ExtractPropTypes<

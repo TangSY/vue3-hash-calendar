@@ -43,6 +43,7 @@ import languageUtil, { type LanguageEntityType } from './language';
 import { useExpose, useMountedOrActivated, useRect } from './hooks';
 import CalendarDate from './CalendarDate';
 import CalendarTime from './CalendarTime';
+import CalendarYearMonth from './CalendarYearMonth';
 
 export const calendarProps = {
   themeColor: {
@@ -568,23 +569,29 @@ export default defineComponent({
       }
     };
 
-    const renderYearMonthPicker = () => {
-      //  return   (
-      //     <year-month-picker
-      //     v-if="changeYearFast"
-      //     :calendarTitleHeight="calendarTitleHeight"
-      //     :calendarContentHeight="calendarContentHeight"
-      //     :calendarDate="checkedDate"
-      //     @touchstart="touchStart"
-      //     @touchmove="touchMove"
-      //     @touchend="touchEnd"
-      //     @slidechange="slideChange"
-      //     v-bind="{ ...$props, ...$attrs }"
-      //     @click="dateClick"
-      //     :type="yearMonthType"
-      //   ></year-month-picker>
-      //  )
-    };
+    const renderYearMonthPicker = () => (
+      <CalendarYearMonth
+        calendarTitleHeight={calendarTitleHeight.value}
+        calendarContentHeight={calendarContentHeight.value}
+        calendarDate={checkedDate.value}
+        type={yearMonthType.value}
+        onTouchstart={touchStart}
+        onTouchmove={touchMove}
+        onTouchend={touchEnd}
+        onSlidechange={slideChange}
+        onClick={dateClick}
+        {...pick(props, [
+          'minDate',
+          'maxDate',
+          'disabledDate',
+          'lang',
+          'disabledScroll',
+          'checkedDayClassName',
+          'notCurrentMonthDayClassName',
+          'disabledClassName',
+        ])}
+      />
+    );
 
     const renderCtrlImg = () => {
       let confirmEle: any = (
@@ -638,7 +645,7 @@ export default defineComponent({
               {renderCalendarTitle()}
               {props.pickerType !== 'time' ? renderCalendar() : ''}
               {renderTimePicker()}
-              {renderYearMonthPicker()}
+              {props.changeYearFast ? renderYearMonthPicker() : ''}
             </div>
             {renderCtrlImg()}
           </div>
