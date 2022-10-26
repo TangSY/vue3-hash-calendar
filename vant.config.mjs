@@ -44,15 +44,19 @@ export default {
         ],
       },
       {
-        title: '基础组件',
+        title: '配置指南',
         items: [
           {
-            path: 'demo-button',
-            title: 'DemoButton 按钮',
+            path: 'calendar',
+            title: '最简配置',
           },
           {
-            path: 'calendar',
-            title: '日历组件',
+            path: 'calendar-dialog',
+            title: '弹窗形式',
+          },
+          {
+            path: 'calendar-scroll-change-date',
+            title: '滑动不修改选中的日期',
           },
         ],
       },
