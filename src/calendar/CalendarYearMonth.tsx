@@ -28,7 +28,10 @@ export const calendarYearMonthProps = {
   checkedDayClassName: makeStringProp<string>(''),
   notCurrentMonthDayClassName: makeStringProp<string>(''),
   disabledClassName: makeStringProp<string>(''),
-  type: String,
+  type: {
+    type: String,
+    default: '',
+  },
   calendarTitleHeight: makeNumberProp(0),
   calendarContentHeight: makeNumberProp(0),
   disabledScroll: {
@@ -273,5 +276,66 @@ export default defineComponent({
         }
       }
     );
+
+    const renderYearMonthItem = (arr: (YearRangeType & number)[]) =>
+      arr.map((item, index) => (
+        <div
+          class={`year-body-item ${
+            isDisabled(item, index)
+              ? props.disabledClassName || 'is_disabled'
+              : ''
+          }`}
+          style={{ height: itemHeight.value + 'px' }}
+          key={index}
+          onClick={() => dateClick(item, index)}
+        >
+          <p
+            class={`year-body-item-content ${
+              isChecked(item, index)
+                ? props.checkedDayClassName || 'is_checked'
+                : ''
+            } ${
+              isNotCurrent(index)
+                ? props.notCurrentMonthDayClassName || 'is_not_current'
+                : ''
+            }`}
+            style={{ width: props.type === 'yearRange' ? '92px' : '60px' }}
+          >
+            {props.type === 'yearRange'
+              ? `${item.s}-${item.e}`
+              : props.type === 'month'
+              ? language.value.MONTH[index]
+              : item}
+          </p>
+        </div>
+      ));
+
+    const renderYearMonth = () => (
+      <div
+        class="year-body"
+        style={{
+          top: props.calendarTitleHeight + 'px',
+          height: itemHeight.value * 4 + 'px',
+          display: ['year', 'yearRange', 'month'].includes(props.type)
+            ? 'block'
+            : 'none',
+        }}
+      >
+        {/* <ScrollContainer
+          calendarData={yearMonthShow.value}
+          disabledScroll={disabledScrollDirec.value}
+          oTouchstart={touchStart}
+          oTouchmove={touchMove}
+          oTouchend={touchEnd}
+          oSlidechange={slideChange}
+        >
+          <template v-slot="scope">
+            {renderYearMonthItem(scope.currArr)}
+          </template>
+        </ScrollContainer> */}
+      </div>
+    );
+
+    return () => renderYearMonth();
   },
 });
