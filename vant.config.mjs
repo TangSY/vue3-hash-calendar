@@ -1,4 +1,9 @@
-const componentsDir = ['calendar', 'model', 'scroll-change-date'];
+const componentsDir = [
+  'calendar',
+  'model',
+  'scroll-change-date',
+  'default-datetime',
+];
 const configMenu = componentsDir.map((dir) => ({
   path: dir,
   title: dir === 'calendar' ? '最简配置' : dir,
@@ -23,6 +28,13 @@ export default {
     baiduAnalytics: {
       seed: 'b0668f30d62e1597bdb36d05edea8960',
     },
+    headHtml: `<style type="text/css">
+    .hash-demo-title {
+      padding: 24px;
+      font-size: 20px;
+      text-align: center;
+    }
+    </style>`,
     darkModeClass: 'van-theme-dark',
     lightModeClass: 'van-theme-light',
     links: [
