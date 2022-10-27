@@ -3,6 +3,8 @@ const componentsDir = [
   'model',
   'scroll-change-date',
   'default-datetime',
+  'min-date',
+  'max-date',
 ];
 const configMenu = componentsDir.map((dir) => ({
   path: dir,
