@@ -57,7 +57,7 @@ export default {
           },
           {
             path: 'changelog',
-            title: '版本修改记录',
+            title: '更新日志',
           },
           {
             path: 'sponsor',
