@@ -1,4 +1,14 @@
-# 弹窗形式
+# model
+
+## inline
+
+### 代码演示
+
+```html
+<vue-hash-calendar model="inline" v-model:visible="isShow" />
+```
+
+## dialog
 
 ### 代码演示
 

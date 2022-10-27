@@ -1,3 +1,9 @@
+const componentsDir = ['calendar', 'model', 'scroll-change-date'];
+const configMenu = componentsDir.map((dir) => ({
+  path: dir,
+  title: dir === 'calendar' ? '最简配置' : dir,
+}));
+
 export default {
   name: 'vue3-hash-calendar',
   build: {
@@ -41,24 +47,27 @@ export default {
             path: 'quickstart',
             title: '快速上手',
           },
+          {
+            path: 'api',
+            title: 'API',
+          },
+          {
+            path: 'question',
+            title: '常见问题',
+          },
+          {
+            path: 'changelog',
+            title: '版本修改记录',
+          },
+          {
+            path: 'sponsor',
+            title: '赞助',
+          },
         ],
       },
       {
         title: '配置指南',
-        items: [
-          {
-            path: 'calendar',
-            title: '最简配置',
-          },
-          {
-            path: 'calendar-dialog',
-            title: '弹窗形式',
-          },
-          {
-            path: 'calendar-scroll-change-date',
-            title: '滑动不修改选中的日期',
-          },
-        ],
+        items: configMenu,
       },
     ],
   },
