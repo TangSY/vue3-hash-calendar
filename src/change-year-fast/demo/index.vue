@@ -1,9 +1,9 @@
 <template>
-  <h1 class="hash-demo-title">当前时间</h1>
-  <vue-hash-calendar :default-datetime="new Date()" />
+  <h1 class="hash-demo-title">false</h1>
+  <vue-hash-calendar :change-year-fast="false" />
 
-  <h1 class="hash-demo-title">2022/11/05 22:22:22</h1>
-  <vue-hash-calendar :default-datetime="new Date('2022/11/05  22:22:22')" />
+  <h1 class="hash-demo-title">true</h1>
+  <vue-hash-calendar :change-year-fast="true" />
 </template>
 
 <script setup>

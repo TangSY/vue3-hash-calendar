@@ -7,13 +7,13 @@ import {
   type PropType,
 } from 'vue';
 import CalendarScrollContainer from './CalendarScrollContainer';
-import { ScorllDireType } from './components/scroll-container';
 import languageUtil, { LanguageEntityType, LanguageType } from './language';
 import type {
   CalendarDateType,
   CalendarPanelType,
   DisabledScrollType,
   LangType,
+  ScrollDirectionType,
 } from './types';
 import {
   isDateInRange,
@@ -146,7 +146,7 @@ export default defineComponent({
       }
     };
 
-    const slideChange = (direc: ScorllDireType) => {
+    const slideChange = (direc: ScrollDirectionType) => {
       if (direc === 'left') {
         getNextOpitonData();
       } else if (direc === 'right') {
@@ -202,7 +202,7 @@ export default defineComponent({
       if (!date) return; // fix:1月无法选中
       if (isDisabled(date, index)) return;
 
-      let checkedDate = { ...props.calendarDate, type: props.type };
+      let checkedDate = { ...props.calendarDate };
       if (props.type === 'month') {
         checkedDate = {
           ...checkedDate,
@@ -223,7 +223,7 @@ export default defineComponent({
         };
       }
 
-      emit('click', checkedDate);
+      emit('click', checkedDate, props.type);
     };
 
     const isChecked = (date: YearRangeType & number, index: number) => {
@@ -329,7 +329,7 @@ export default defineComponent({
           onTouchmove={touchMove}
           onTouchend={touchEnd}
           onSlidechange={slideChange}
-          v-slot={(data: (YearRangeType & number)[]) =>
+          v-slots={(data: (YearRangeType & number)[]) =>
             renderYearMonthItem(data)
           }
         />

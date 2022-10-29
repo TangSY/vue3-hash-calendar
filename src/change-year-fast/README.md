@@ -1,17 +1,17 @@
-# default-datetime
+# change-year-fast
 
 ### 介绍
 
-指定默认时间
+是否支持点击操作栏（标题栏）的日期区域快速切换年份
 
-### 当前时间
+### false
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar :change-year-fast="false" />
 ```
 
-### 2022/11/05 22:22:22
+### true
 
 ```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+<vue-hash-calendar :change-year-fast="true" />
 ```
