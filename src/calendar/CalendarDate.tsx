@@ -34,7 +34,7 @@ import {
 } from './utils';
 
 export const calendarDateProps = {
-  isShowWeekView: Boolean,
+  showWeekView: Boolean,
   show: Boolean,
   disabledWeekView: Boolean,
   defaultDate: makeDateProp(new Date()),
@@ -54,7 +54,7 @@ export const calendarDateProps = {
     type: [Boolean, String] as PropType<DisabledScrollType>,
     default: () => false,
   },
-  isShowNotCurrentMonthDay: truthProp,
+  showNotCurrentMonthDay: truthProp,
   firstDayOfMonthClassName: makeStringProp<string>(''),
   todayClassName: makeStringProp<string>(''),
   checkedDayClassName: makeStringProp<string>(''),
@@ -73,7 +73,7 @@ export default defineComponent({
 
   emits: [
     'height',
-    'update:isShowWeekView',
+    'update:showWeekView',
     'click',
     'change',
     'slidechange',
@@ -148,10 +148,10 @@ export default defineComponent({
 
     const isShowWeek = computed({
       get() {
-        return props.isShowWeekView;
+        return props.showWeekView;
       },
       set(val) {
-        emit('update:isShowWeekView', val);
+        emit('update:showWeekView', val);
       },
     });
 
@@ -288,7 +288,7 @@ export default defineComponent({
         calendarOfCurrentMonth.push({
           year: lastMonthYear,
           month: lastMonth,
-          day: props.isShowNotCurrentMonthDay
+          day: props.showNotCurrentMonthDay
             ? lastMonthDays - (dayOfWeek - 1 - i)
             : 0,
         });
@@ -310,7 +310,7 @@ export default defineComponent({
         calendarOfCurrentMonth.push({
           year: nextMonthYear,
           month: nextMonth,
-          day: props.isShowNotCurrentMonthDay ? i + 1 : 0,
+          day: props.showNotCurrentMonthDay ? i + 1 : 0,
         });
       }
 

@@ -1,16 +1,16 @@
 # scroll-change-date
 
-## true
+### 介绍
 
-### 代码演示
+控制滑动的时候是否修改选中的日期
+
+### true
 
 ```html
 <vue-hash-calendar :scroll-change-date="true" />
 ```
 
-## false
-
-### 代码演示
+### false
 
 ```html
 <vue-hash-calendar :scroll-change-date="false" />

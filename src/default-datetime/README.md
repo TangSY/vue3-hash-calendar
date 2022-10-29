@@ -1,16 +1,16 @@
 # default-datetime
 
-## 当前时间
+### 介绍
 
-### 代码演示
+指定默认时间
+
+### 当前时间
 
 ```html
 <vue-hash-calendar :default-datetime="new Date()" />
 ```
 
-## 2022/11/05 22:22:22
-
-### 代码演示
+### 2022/11/05 22:22:22
 
 ```html
 <vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />

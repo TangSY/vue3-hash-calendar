@@ -5,6 +5,7 @@ const componentsDir = [
   'default-datetime',
   'min-date',
   'max-date',
+  'format',
 ];
 const configMenu = componentsDir.map((dir) => ({
   path: dir,
@@ -35,6 +36,19 @@ export default {
       padding: 24px;
       font-size: 20px;
       text-align: center;
+    }
+    .hash-notify {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 16px;
+      color: #fff;
+      font-size: 24px;
+      background: #1c71fb;
+      white-space: pre-wrap;
+      text-align: center;
+      word-wrap: break-word;
     }
     </style>`,
     darkModeClass: 'van-theme-dark',

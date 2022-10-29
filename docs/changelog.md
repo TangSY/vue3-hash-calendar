@@ -9,7 +9,7 @@
 - 农历 demo 显示问题修复 [2de606](https://github.com/TangSY/vue3-hash-calendar/commit/2de606bf02b38e9df280b30fc3f293cd46b179ca)
 - 设置了滑动不修改日期，但是使用事件 lastMonth nextMonth 也会改变当前日期( #14) [#14](https://github.com/TangSY/vue3-hash-calendar/issues/14)
 - 修复周视图无法返回今天的 bug [b3c4da](https://github.com/TangSY/vue3-hash-calendar/commit/b3c4da7658835f3b4dbfd5b7779128eaf76aad3c)
-- 修复 isShowWeekView 属性无效的问题（#1、#6） [#1](https://github.com/TangSY/vue3-hash-calendar/issues/1) [#6](https://github.com/TangSY/vue3-hash-calendar/issues/6)
+- 修复 showWeekView 属性无效的问题（#1、#6） [#1](https://github.com/TangSY/vue3-hash-calendar/issues/1) [#6](https://github.com/TangSY/vue3-hash-calendar/issues/6)
 
 **core**
 

@@ -51,11 +51,11 @@ export const calendarProps = {
     default: () => ({}),
   },
   changeYearFast: Boolean,
-  isShowArrow: Boolean,
-  isShowWeekView: Boolean,
+  showArrow: Boolean,
+  showWeekView: Boolean,
   visible: Boolean,
   disabledWeekView: Boolean,
-  isShowAction: truthProp,
+  showAction: truthProp,
   pickerType: makeStringProp<PickerType>('datetime'),
   showTodayButton: truthProp,
   defaultDatetime: makeDateProp(new Date()),
@@ -81,7 +81,7 @@ export const calendarProps = {
     type: [Boolean, String] as PropType<DisabledScrollType>,
     default: () => false,
   },
-  isShowNotCurrentMonthDay: truthProp,
+  showNotCurrentMonthDay: truthProp,
   firstDayOfMonthClassName: makeStringProp<string>(''),
   todayClassName: makeStringProp<string>(''),
   checkedDayClassName: makeStringProp<string>(''),
@@ -98,7 +98,7 @@ export default defineComponent({
 
   emits: [
     'update:visible',
-    'update:isShowWeekView',
+    'update:showWeekView',
     'calendarTypeChange',
     'click',
     'confirm',
@@ -142,15 +142,15 @@ export default defineComponent({
 
     const isShowWeek = computed<boolean>({
       get() {
-        return props.isShowWeekView;
+        return props.showWeekView;
       },
       set(val) {
-        emit('update:isShowWeekView', val);
+        emit('update:showWeekView', val);
       },
     });
 
     const isShowArrowImg = computed(
-      () => props.isShowArrow && props.model === 'inline'
+      () => props.showArrow && props.model === 'inline'
     );
     const calendarContentHeight = computed(
       () => calendarBodyHeight.value + calendarTitleHeight.value
@@ -371,7 +371,7 @@ export default defineComponent({
     );
 
     watch(
-      () => props.isShowAction,
+      () => props.showAction,
       (flag) => {
         if (!flag) {
           calendarTitleHeight.value = 0;
@@ -464,7 +464,7 @@ export default defineComponent({
         return slots.action();
       }
 
-      if (props.isShowAction) {
+      if (props.showAction) {
         return (
           <>
             <div class="calendar_title_date">
@@ -533,8 +533,8 @@ export default defineComponent({
         onSlidechange={slideChange}
         onChange={dateChange}
         onClick={dateClick}
-        isShowWeekView={isShowWeek.value}
-        onUpdate:isShowWeekView={updateShowWeekView}
+        showWeekView={isShowWeek.value}
+        onUpdate:showWeekView={updateShowWeekView}
         {...pick(props, [
           'minDate',
           'maxDate',
@@ -545,7 +545,7 @@ export default defineComponent({
           'lang',
           'weekStart',
           'disabledScroll',
-          'isShowNotCurrentMonthDay',
+          'showNotCurrentMonthDay',
           'firstDayOfMonthClassName',
           'todayClassName',
           'checkedDayClassName',

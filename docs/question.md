@@ -42,7 +42,7 @@ https://github.com/TangSY/vue3-hash-calendar/blob/main/examples/SlotDemo.vue
 ### 能否通过外部的某个按钮来触发日历的展开和收起
 
 ```js
-可以在外部通过修改 isShowWeekView 的值来控制日历的收起与展开
+可以在外部通过修改 showWeekView 的值来控制日历的收起与展开
 ```
 
 ### 如何设置禁用日期
