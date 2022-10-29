@@ -4,18 +4,20 @@
 
 需要被标记的日期，可按不同颜色不同标记类型分组标记（不分组默认蓝色）。标记类型取值：[MarkType](#mark-type)
 
-### 默认
+### 默认标记方式
 
 ```html
 <vue-hash-calendar
   :mark-date="[
-      '2022/11/11',
-      '2022/12/11',
-      '2023/01/11',
-      '2023/02/11',
-      '2023/03/11',
-      '2023/04/11',
-      '2023/05/11',
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
     ]"
 />
 ```
@@ -28,13 +30,15 @@
       {
         color: '#f00',
         date: [
-          '2022/11/11',
-          '2022/12/11',
-          '2023/01/11',
-          '2023/02/11',
-          '2023/03/11',
-          '2023/04/11',
-          '2023/05/11',
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
         ],
       },
     ]"
@@ -47,15 +51,17 @@
 <vue-hash-calendar
   :mark-date="[
       {
-        type: 'dot',
+        type: 'circle',
         date: [
-          '2022/11/11',
-          '2022/12/11',
-          '2023/01/11',
-          '2023/02/11',
-          '2023/03/11',
-          '2023/04/11',
-          '2023/05/11',
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
         ],
       },
     ]"
@@ -69,14 +75,25 @@
   :mark-date="[
       {
         color: '#f00',
-        type: 'dot',
-        date: ['2022/11/11', '2022/12/11', '2023/04/11'],
+        type: 'dot+circle',
+        date: [
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+        ],
       },
       {
-        type: 'dot+circle',
-        date: ['2023/01/11', '2023/02/11', '2023/03/11'],
+        color: '#0f0',
+        type: 'circle',
+        date: [
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+        ],
       },
-      '2023/05/11',
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
     ]"
 />
 ```

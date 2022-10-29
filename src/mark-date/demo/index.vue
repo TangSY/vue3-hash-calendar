@@ -1,14 +1,16 @@
 <template>
-  <h1 class="hash-demo-title">默认</h1>
+  <h1 class="hash-demo-title">默认标记方式</h1>
   <vue-hash-calendar
     :mark-date="[
-      '2022/11/11',
-      '2022/12/11',
-      '2023/01/11',
-      '2023/02/11',
-      '2023/03/11',
-      '2023/04/11',
-      '2023/05/11',
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
     ]"
   />
 
@@ -18,13 +20,15 @@
       {
         color: '#f00',
         date: [
-          '2022/11/11',
-          '2022/12/11',
-          '2023/01/11',
-          '2023/02/11',
-          '2023/03/11',
-          '2023/04/11',
-          '2023/05/11',
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
         ],
       },
     ]"
@@ -34,15 +38,17 @@
   <vue-hash-calendar
     :mark-date="[
       {
-        type: 'dot',
+        type: 'circle',
         date: [
-          '2022/11/11',
-          '2022/12/11',
-          '2023/01/11',
-          '2023/02/11',
-          '2023/03/11',
-          '2023/04/11',
-          '2023/05/11',
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
         ],
       },
     ]"
@@ -54,13 +60,24 @@
       {
         color: '#f00',
         type: 'dot+circle',
-        date: ['2022/11/11', '2022/12/11', '2023/04/11'],
+        date: [
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+        ],
       },
       {
-        type: 'dot',
-        date: ['2023/01/11', '2023/02/11', '2023/03/11'],
+        color: '#0f0',
+        type: 'circle',
+        date: [
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
+          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+        ],
       },
-      '2023/05/11',
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
+      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
     ]"
   />
 </template>
