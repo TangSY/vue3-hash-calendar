@@ -1,11 +1,34 @@
 const componentsDir = [
   'calendar',
+  'picker-type',
   'model',
+  'visible',
   'scroll-change-date',
   'default-datetime',
   'min-date',
   'max-date',
   'format',
+  'week-start',
+  'mark-date',
+  'mark-type',
+  'minute-step',
+  'change-year-fast',
+  'show-today-button',
+  'show-week-view',
+  'show-arrow',
+  'show-action',
+  'show-not-current-month-day',
+  'disabled-week-view',
+  'disabled-date',
+  'disabled-time',
+  'disabled-scroll',
+  'theme-color',
+  'lang',
+  'disabled-class-name',
+  'not-current-month-day-class-name',
+  'checked-day-class-name',
+  'today-class-name',
+  'first-day-of-month-class-name',
 ];
 const configMenu = componentsDir.map((dir) => ({
   path: dir,
@@ -42,9 +65,9 @@ export default {
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
-      padding: 16px;
+      padding: 10px;
       color: #fff;
-      font-size: 24px;
+      font-size: 14px;
       background: #1c71fb;
       white-space: pre-wrap;
       text-align: center;
