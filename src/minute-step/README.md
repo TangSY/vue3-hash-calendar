@@ -1,17 +1,19 @@
-# default-datetime
+# minute-step
 
 ### 介绍
 
-指定默认时间
+间隔时间 -（分钟的步长）
 
-### 当前时间
+**_ 所填数字必须为 60 的约数（60 除以该数字没有余数） _**
+
+### 间隔为 2
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar pick-type="time" :minute-step="2" />
 ```
 
-### 2022/11/05 22:22:22
+### 间隔为 5
 
 ```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+<vue-hash-calendar pick-type="time" :minute-step="5" />
 ```

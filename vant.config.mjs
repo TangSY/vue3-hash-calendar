@@ -10,7 +10,6 @@ const componentsDir = [
   'format',
   'week-start',
   'mark-date',
-  'mark-type',
   'minute-step',
   'change-year-fast',
   'show-today-button',
