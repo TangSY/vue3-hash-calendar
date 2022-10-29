@@ -695,18 +695,17 @@ export default defineComponent({
       () => props.markDate,
       (val) => {
         val.forEach((item, index) => {
-          if (!item.color) {
-            const obj: any = {};
-            obj.color = '#1c71fb';
-            if (typeof item === 'string' || typeof item === 'number') {
-              item = [item] as unknown as MarkDateType;
-            }
-            obj.date = item || [];
+          if (typeof item === 'string' || typeof item === 'number') {
+            const obj: any = { date: [] };
+            obj.date = [item] as unknown as MarkDateType[];
             val[index] = obj;
           }
+
+          val[index].color = item.color || '#1c71fb';
+
           val[index].type = item.type || props.markType || '';
 
-          val[index].date = dateFormat(val[index].date) as string[];
+          val[index].date = dateFormat(val[index].date || []) as string[];
         });
 
         markDateColorObj.value = {};
