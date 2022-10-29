@@ -7,7 +7,7 @@
 ### inline
 
 ```html
-<vue-hash-calendar model="inline" v-model:visible="isShow" />
+<vue-hash-calendar model="inline" />
 ```
 
 ### dialog

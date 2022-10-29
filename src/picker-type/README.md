@@ -1,29 +1,29 @@
-# model
+# picker-type
 
 ### 介绍
 
-日历组件以哪种形式展示。inline：内联的方式。dialog：弹窗的方式
+选择器类型
 
-### inline
+datetime：日期和时间
+
+date：日期
+
+time：时间
+
+### datetime
 
 ```html
-<vue-hash-calendar model="inline" v-model:visible="isShow" />
+<vue-hash-calendar picker-type="datetime" />
 ```
 
-### dialog
+### date
 
 ```html
-<button @click="showCalendar">点击打开日历弹窗</button>
-<vue-hash-calendar model="dialog" v-model:visible="isShow" />
+<vue-hash-calendar picker-type="date" />
 ```
 
-```js
-<script setup>
-import { ref } from 'vue';
+### time
 
-const isShow = ref(false);
-const showCalendar = () => {
-  isShow.value = true;
-};
-</script>
+```html
+<vue-hash-calendar picker-type="time" />
 ```

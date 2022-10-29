@@ -1,17 +1,23 @@
-# default-datetime
+# visible
 
 ### 介绍
 
-指定默认时间
+控制日历组件的显示或隐藏
 
-### 当前时间
+### 代码演示
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<button @click="showCalendar">点击打开日历弹窗</button>
+<vue-hash-calendar model="dialog" v-model:visible="isShow" />
 ```
 
-### 2022/11/05 22:22:22
+```js
+<script setup>
+import { ref } from 'vue';
 
-```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+const isShow = ref(false);
+const showCalendar = () => {
+  isShow.value = true;
+};
+</script>
 ```
