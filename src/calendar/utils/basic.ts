@@ -13,7 +13,7 @@ export const formatDate = function (
 ) {
   lang = lang.toUpperCase();
   const models = import.meta.globEager('../language/index.ts');
-  const model = models[Object.keys(models)[0]];
+  const model: any = models[Object.keys(models)[0]];
   const language = model.default[lang] || {};
   format =
     format || `${language.DEFAULT_DATE_FORMAT} ${language.DEFAULT_TIME_FORMAT}`;
@@ -24,24 +24,23 @@ export const formatDate = function (
   const hour = date.getHours();
   const min = date.getMinutes();
   const sec = date.getSeconds();
-  const preArr = Array.apply(null, Array(10)).map(function (elem, index) {
-    return '0' + index;
-  }); /// /开个长度为10的数组 格式为 00 01 02 03
+  // eslint-disable-next-line prefer-spread
+  const preArr = Array.apply(null, Array(10)).map((elem, index) => '0' + index); /// /开个长度为10的数组 格式为 00 01 02 03
 
   const newTime = format
-    .replace(/YY/g, year)
+    .replace(/YY/g, year + '')
     .replace(/F/g, hour >= 12 ? 'pm' : 'am')
-    .replace(/ss/g, preArr[sec] || sec)
-    .replace(/mm/g, preArr[min] || min)
+    .replace(/ss/g, preArr[sec] || sec + '')
+    .replace(/mm/g, preArr[min] || min + '')
     .replace(
       /hh/g,
       hour > 12 && format.includes('F')
-        ? hour - 12
+        ? hour - 12 + ''
         : format.includes('F')
-        ? hour
-        : preArr[hour] || hour
+        ? hour + ''
+        : preArr[hour] || hour + ''
     )
-    .replace(/DD/g, preArr[day] || day)
+    .replace(/DD/g, preArr[day] || day + '')
     .replace(
       /MM/g,
       lang === 'EN' ? language.MONTH[month - 1] : preArr[month] || month
