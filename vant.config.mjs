@@ -1,4 +1,4 @@
-const componentsApi = [
+const componentsProp = [
   'calendar',
   'picker-type',
   'model',
@@ -29,15 +29,9 @@ const componentsApi = [
   'today-class-name',
   'first-day-of-month-class-name',
 ];
-const apiConfig = componentsApi.map((dir) => ({
+const propConfig = componentsProp.map((dir) => ({
   path: dir,
   title: dir === 'calendar' ? '最简配置' : dir,
-}));
-
-const componentsEvent = [];
-const eventConfig = componentsEvent.map((dir) => ({
-  path: dir,
-  title: dir,
 }));
 
 const componentsSlot = [];
@@ -128,12 +122,25 @@ export default {
         ],
       },
       {
-        title: 'API 使用指南',
-        items: apiConfig,
+        title: 'Props 使用指南',
+        items: propConfig,
       },
       {
-        title: 'Event 使用指南',
-        items: eventConfig,
+        title: 'Method 使用指南',
+        items: [
+          {
+            title: '切换月份',
+            path: 'switch-month',
+          },
+          {
+            title: '切换星期',
+            path: 'switch-week',
+          },
+          {
+            title: '返回今日',
+            path: 'switch-day',
+          },
+        ],
       },
       {
         title: 'Slot 使用指南',
