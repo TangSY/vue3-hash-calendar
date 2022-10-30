@@ -1,17 +1,18 @@
-# default-datetime
+# today-class-name
 
 ### 介绍
 
-指定默认时间
+当天日期的 className。用于修改当天日期的默认样式
 
-### 当前时间
+### 代码演示
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar today-class-name="today-class-name" />
 ```
 
-### 2022/11/05 22:22:22
-
-```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+```css
+.today-class-name {
+  color: blue;
+  background: red;
+}
 ```

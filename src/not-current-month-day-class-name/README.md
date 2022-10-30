@@ -1,17 +1,20 @@
-# default-datetime
+# not-current-month-day-class-name
 
 ### 介绍
 
-指定默认时间
+非当前展示月份日期的 className(例如日历前面几天与后面几天灰色部分)。用于修改非当前展示月份日期的默认样式
 
-### 当前时间
+### 代码演示
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar
+  not-current-month-day-class-name="not-current-month-day-class-name"
+/>
 ```
 
-### 2022/11/05 22:22:22
-
-```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+```css
+.not-current-month-day-class-name {
+  color: blue;
+  background: red;
+}
 ```

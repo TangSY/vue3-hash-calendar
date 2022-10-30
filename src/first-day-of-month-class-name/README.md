@@ -1,17 +1,20 @@
-# default-datetime
+# first-day-of-month-class-name
 
 ### 介绍
 
-指定默认时间
+每月第一天的 className。用于修改每月第一天的默认样式
 
-### 当前时间
+### 代码演示
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar
+  first-day-of-month-class-name="first-day-of-month-class-name"
+/>
 ```
 
-### 2022/11/05 22:22:22
-
-```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+```css
+.first-day-of-month-class-name {
+  color: blue;
+  background: red;
+}
 ```

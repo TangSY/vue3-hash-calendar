@@ -1,17 +1,32 @@
-# default-datetime
+# disabled-class-name
 
 ### 介绍
 
-指定默认时间
+日期被禁用时的 className。用于修改日期被禁用时的默认样式
 
-### 当前时间
+### 代码演示
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar
+  disabled-class-name="disabled-class-name"
+  :disabled-date="disabledAfterCurrentDate"
+/>
 ```
 
-### 2022/11/05 22:22:22
+```js
+const disabledAfterCurrentDate = (date) => {
+  const timestamp = date.getTime();
+  if (timestamp > new Date().getTime()) {
+    return true;
+  }
 
-```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+  return false;
+};
+```
+
+```css
+.disabled-class-name {
+  color: blue;
+  background: red;
+}
 ```

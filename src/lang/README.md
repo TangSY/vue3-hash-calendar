@@ -1,17 +1,19 @@
-# default-datetime
+# lang
 
 ### 介绍
 
-指定默认时间
+选择的语言版本
 
-### 当前时间
+可选值: `'CN' ｜ 'EN'`
+
+### CN
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar lang="CN" />
 ```
 
-### 2022/11/05 22:22:22
+### EN
 
 ```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+<vue-hash-calendar lang="EN" />
 ```

@@ -1,4 +1,4 @@
-const componentsDir = [
+const componentsApi = [
   'calendar',
   'picker-type',
   'model',
@@ -29,9 +29,21 @@ const componentsDir = [
   'today-class-name',
   'first-day-of-month-class-name',
 ];
-const configMenu = componentsDir.map((dir) => ({
+const apiConfig = componentsApi.map((dir) => ({
   path: dir,
   title: dir === 'calendar' ? '最简配置' : dir,
+}));
+
+const componentsEvent = [];
+const eventConfig = componentsEvent.map((dir) => ({
+  path: dir,
+  title: dir,
+}));
+
+const componentsSlot = [];
+const slotConfig = componentsSlot.map((dir) => ({
+  path: dir,
+  title: dir,
 }));
 
 export default {
@@ -116,8 +128,16 @@ export default {
         ],
       },
       {
-        title: '配置指南',
-        items: configMenu,
+        title: 'API 使用指南',
+        items: apiConfig,
+      },
+      {
+        title: 'Event 使用指南',
+        items: eventConfig,
+      },
+      {
+        title: 'Slot 使用指南',
+        items: slotConfig,
       },
     ],
   },

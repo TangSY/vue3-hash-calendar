@@ -1,17 +1,18 @@
-# default-datetime
+# checked-day-class-name
 
 ### 介绍
 
-指定默认时间
+日期被选中时的 className。用于修改日期被选中时的默认样式
 
-### 当前时间
+### 代码演示
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar checked-day-class-name="checked-day-class-name" />
 ```
 
-### 2022/11/05 22:22:22
-
-```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+```css
+.checked-day-class-name {
+  color: blue;
+  background: red;
+}
 ```
