@@ -78,6 +78,28 @@ export default {
       text-align: center;
       word-wrap: break-word;
     }
+    .van-theme-dark .hash-calendar .calendar_group_li {
+      background: var(--van-doc-background-2);
+    }
+    .van-theme-dark .hash-calendar .calendar_week {
+      background: var(--van-doc-background-2);
+    }
+    .van-theme-dark .hash-calendar .calendar_title_date {
+      background: var(--van-doc-background-2);
+    }
+    .van-theme-dark .hash-calendar .calendar_title {
+      background: var(--van-doc-background-2);
+      border-bottom: var(--van-doc-background-2);
+    }
+    .van-theme-dark .hash-calendar .calendar_content {
+      background: var(--van-doc-background-2);
+    }
+    .van-theme-dark .hash-calendar .calendar_group_ul {
+      background: var(--van-doc-background-2);
+    }
+    .van-theme-dark .hash-calendar .year-body {
+      background: rgb(45, 46, 49);
+    }
     </style>`,
     darkModeClass: 'van-theme-dark',
     lightModeClass: 'van-theme-light',
