@@ -1,0 +1,1 @@
+import{C as e}from"./index.96238fc1.js";import{o,a as r,e as a,A as s,F as c,d as t}from"./vue-libs.14c21b5b.js";const n=t("h1",{class:"hash-demo-title"},"false",-1),l=t("h1",{class:"hash-demo-title"},"true",-1),u={__name:"index",setup(_){return(h,d)=>(o(),r(c,null,[n,a(s(e),{"show-arrow":!1}),l,a(s(e),{"show-arrow":!0})],64))}};export{u as default};

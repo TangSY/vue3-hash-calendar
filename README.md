@@ -5,7 +5,7 @@
 ![license](https://img.shields.io/badge/license-MIT-blue.svg?from=hxkj)
 [![author](https://img.shields.io/badge/author-HashTang-orange.svg?from=hxkj)](https://www.hxkj.vip)
 
-[查看文档](https://github.com/TangSY/vue3-hash-calendar/blob/master/README-en_US.md)
+[查看文档](https://hxkj.vip/calendar)
 
 # 效果图
 

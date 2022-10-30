@@ -48,7 +48,7 @@ export default {
     },
     namedExport: true,
     site: {
-      publicPath: '/vue3-hash-calendar/',
+      publicPath: '/calendar/',
     },
     // srcDir: process.env.BUILD_TARGET === 'site' ? './src' : './src/calendar',
   },

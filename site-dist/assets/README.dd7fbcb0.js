@@ -1,0 +1,2 @@
+import{o as s,a as t,z as e}from"./vue-libs.14c21b5b.js";const n={class:"van-doc-markdown-body"},c=e(`<h1>\u6700\u7B80\u914D\u7F6E</h1><div class="van-doc-card"><h3 id="dai-ma-yan-shi" tabindex="-1">\u4EE3\u7801\u6F14\u793A</h3><pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">vue-hash-calendar</span> /&gt;</span>
+</code></pre></div>`,2),o=[c],i={__name:"README",setup(d,{expose:a}){return a({frontmatter:{}}),(l,h)=>(s(),t("div",n,o))}};export{i as default};

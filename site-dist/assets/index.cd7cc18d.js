@@ -1,0 +1,1 @@
+import{C as e}from"./index.96238fc1.js";import{o,a as r,e as a,A as s,F as l,d as t}from"./vue-libs.14c21b5b.js";const c=t("h1",{class:"hash-demo-title"},"false",-1),d=t("h1",{class:"hash-demo-title"},"true",-1),u={__name:"index",setup(n){return(i,_)=>(o(),r(l,null,[c,a(s(e),{"disabled-week-view":!1}),d,a(s(e),{"disabled-week-view":!0})],64))}};export{u as default};
