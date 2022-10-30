@@ -1,17 +1,42 @@
-# default-datetime
+# theme-color
 
 ### 介绍
 
-指定默认时间
+用于修改日历主题色，目前支持以下几个属性：
 
-### 当前时间
-
-```html
-<vue-hash-calendar :default-datetime="new Date()" />
+```js
+{
+    'main-color': string;
+    'bg-color': string;
+    'main-font-color': string;
+    'vice-font-color': string;
+    'disabled-bg-color': string;
+    'disabled-font-color': string;
+}
 ```
 
-### 2022/11/05 22:22:22
+### 代码演示
 
 ```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+<button @click="change">切换主题色</button>
+<vue-hash-calendar :theme-color="themeColor" />
+```
+
+```js
+<script setup>
+import { ref } from 'vue';
+
+const themeColor = ref({});
+
+const change = () => {
+  themeColor.value = {
+    'main-color': 'red',
+    'bg-color': 'grey',
+    'main-font-color': 'blue',
+    'vice-font-color': 'green',
+    'disabled-bg-color': 'black',
+    'disabled-font-color': 'yellow',
+  };
+};
+</script>
 ```

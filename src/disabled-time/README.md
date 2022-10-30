@@ -1,17 +1,27 @@
-# default-datetime
+# disabled-time
 
 ### 介绍
 
-指定默认时间
+设置时间的禁用状态，参数为当前时间，要求返回 Boolean （禁用该时间需返回 true）
 
-### 当前时间
+### 禁用现在之前的时间
+
+以 `picker-type="time"` 为例
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar picker-type="time" :disabled-time="disabledBeforeTime" />
 ```
 
-### 2022/11/05 22:22:22
+```js
+const disabledBeforeTime = (date) => {
+  const hours = date.getHours();
+  const minute = date.getMinutes();
+  const hoursNow = new Date().getHours();
+  const minuteNow = new Date().getMinutes();
 
-```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+  if (hours < hoursNow || (hours === hoursNow && minute < minuteNow)) {
+    return true;
+  }
+  return false;
+};
 ```

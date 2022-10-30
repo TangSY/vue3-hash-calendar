@@ -1,9 +1,15 @@
 <template>
-  <h1 class="hash-demo-title">当前时间</h1>
-  <vue-hash-calendar :default-datetime="new Date()" />
+  <h1 class="hash-demo-title">left</h1>
+  <vue-hash-calendar disabled-scroll="left" />
 
-  <h1 class="hash-demo-title">2022/11/05 22:22:22</h1>
-  <vue-hash-calendar :default-datetime="new Date('2022/11/05  22:22:22')" />
+  <h1 class="hash-demo-title">horizontal</h1>
+  <vue-hash-calendar disabled-scroll="horizontal" />
+
+  <h1 class="hash-demo-title">vertical</h1>
+  <vue-hash-calendar disabled-scroll="vertical" />
+
+  <h1 class="hash-demo-title">true</h1>
+  <vue-hash-calendar :disabled-scroll="true" />
 </template>
 
 <script setup>

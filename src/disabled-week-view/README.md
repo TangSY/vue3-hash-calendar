@@ -1,29 +1,17 @@
-# model
+# disabled-week-view
 
 ### 介绍
 
-日历组件以哪种形式展示。inline：内联的方式。dialog：弹窗的方式
+禁用周视图（设置为 true 后，无法上下滑动进行周/月切换）
 
-### inline
-
-```html
-<vue-hash-calendar model="inline" v-model:visible="isShow" />
-```
-
-### dialog
+### false
 
 ```html
-<button @click="showCalendar">点击打开日历弹窗</button>
-<vue-hash-calendar model="dialog" v-model:visible="isShow" />
+<vue-hash-calendar :disabled-week-view="false" />
 ```
 
-```js
-<script setup>
-import { ref } from 'vue';
+### true
 
-const isShow = ref(false);
-const showCalendar = () => {
-  isShow.value = true;
-};
-</script>
+```html
+<vue-hash-calendar :disabled-week-view="true" />
 ```

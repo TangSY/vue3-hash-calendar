@@ -1,20 +1,14 @@
-# model
+# show-week-view
 
 ### 介绍
 
-日历组件以哪种形式展示。inline：内联的方式。dialog：弹窗的方式
+是否以周视图展示组件
 
-### inline
-
-```html
-<vue-hash-calendar model="inline" v-model:visible="isShow" />
-```
-
-### dialog
+### 代码演示
 
 ```html
-<button @click="showCalendar">点击打开日历弹窗</button>
-<vue-hash-calendar model="dialog" v-model:visible="isShow" />
+<button @click="toggle">点击切换视图</button>
+<vue-hash-calendar v-model:show-week-view="isShow" />
 ```
 
 ```js
@@ -22,8 +16,8 @@
 import { ref } from 'vue';
 
 const isShow = ref(false);
-const showCalendar = () => {
-  isShow.value = true;
+const toggle = () => {
+  isShow.value = !isShow.value;
 };
 </script>
 ```

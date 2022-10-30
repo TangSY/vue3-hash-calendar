@@ -1,29 +1,17 @@
-# model
+# show-today-button
 
 ### 介绍
 
-日历组件以哪种形式展示。inline：内联的方式。dialog：弹窗的方式
+是否显示返回今日按钮
 
-### inline
-
-```html
-<vue-hash-calendar model="inline" v-model:visible="isShow" />
-```
-
-### dialog
+### true
 
 ```html
-<button @click="showCalendar">点击打开日历弹窗</button>
-<vue-hash-calendar model="dialog" v-model:visible="isShow" />
+<vue-hash-calendar :show-today-button="true" />
 ```
 
-```js
-<script setup>
-import { ref } from 'vue';
+### false
 
-const isShow = ref(false);
-const showCalendar = () => {
-  isShow.value = true;
-};
-</script>
+```html
+<vue-hash-calendar :show-today-button="false" />
 ```

@@ -1,10 +1,6 @@
 <template>
-  <h1 class="hash-demo-title">inline</h1>
-  <vue-hash-calendar model="inline" />
-
-  <h1 class="hash-demo-title">dialog</h1>
-  <button @click="showCalendar">点击打开日历弹窗</button>
-  <vue-hash-calendar model="dialog" v-model:visible="isShow" />
+  <button @click="toggle">点击切换视图</button>
+  <vue-hash-calendar v-model:show-week-view="isShow" />
 </template>
 
 <script setup>
@@ -13,7 +9,8 @@ import VueHashCalendar from '../../calendar';
 
 const isShow = ref(false);
 
-const showCalendar = () => {
-  isShow.value = true;
+const toggle = () => {
+  isShow.value = !isShow.value;
+  console.log('isShow.value', isShow.value);
 };
 </script>
