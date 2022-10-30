@@ -2,6 +2,8 @@
 
 ### 如何添加农历？
 
+[day 插槽](#day-slot)
+
 ```js
 https://github.com/TangSY/vue3-hash-calendar/blob/main/examples/lunar/LunarDemo.vue
 ```

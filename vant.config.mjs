@@ -34,9 +34,9 @@ const propConfig = componentsProp.map((dir) => ({
   title: dir === 'calendar' ? '最简配置' : dir,
 }));
 
-const componentsSlot = [];
+const componentsSlot = ['day', 'week', 'arrow'];
 const slotConfig = componentsSlot.map((dir) => ({
-  path: dir,
+  path: `${dir}-slot`,
   title: dir,
 }));
 
