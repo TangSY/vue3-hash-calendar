@@ -1,6 +1,7 @@
 import {
   computed,
   defineComponent,
+  nextTick,
   ref,
   watch,
   type ExtractPropTypes,
@@ -134,7 +135,7 @@ export default defineComponent({
 
     const isShowDatetimePicker = computed({
       get() {
-        return props.visible;
+        return props.model === 'inline' ? true : props.visible;
       },
       set(val) {
         emit('update:visible', val);
@@ -144,9 +145,13 @@ export default defineComponent({
     const isShowArrowImg = computed(
       () => props.showArrow && props.model === 'inline'
     );
-    const calendarContentHeight = computed(
-      () => calendarBodyHeight.value + calendarTitleHeight.value
-    );
+
+    const calendarContentHeight = computed(() => {
+      if (props.pickerType === 'time') {
+        return 245 + calendarTitleHeight.value;
+      }
+      return calendarBodyHeight.value + calendarTitleHeight.value;
+    });
 
     // 滑动方向改变
     const slideChange = (direction: ScrollDirectionType) => {
@@ -275,8 +280,6 @@ export default defineComponent({
 
     // 显示日历控件
     const showCalendar = () => {
-      console.log('showCalendar');
-
       if (isShowCalendar.value) {
         showYearMonthPicker();
       } else {
@@ -288,7 +291,6 @@ export default defineComponent({
     // 显示时间选择控件
     const showTime = () => {
       isShowCalendar.value = false;
-      console.log('isShowCalendar.value', isShowCalendar.value);
 
       emit('calendarTypeChange', 'time');
 
@@ -364,6 +366,8 @@ export default defineComponent({
       (val) => {
         if (val === 'time') {
           showTime();
+        } else {
+          showCalendar();
         }
       },
       { immediate: true }
@@ -398,22 +402,6 @@ export default defineComponent({
       { deep: true }
     );
 
-    const init = () => {
-      setTimeout(() => {
-        calendarTitleHeight.value = useRect(calendarTitleRef).height;
-      });
-    };
-
-    watch(
-      () => props.visible,
-      (val) => {
-        isShowCalendar.value = props.model === 'inline' ? true : val;
-        console.log('watch-isShowCalendar.value', isShowCalendar.value);
-        init();
-      },
-      { immediate: true }
-    );
-
     watch(
       () => props.showWeekView,
       (val) => {
@@ -429,6 +417,12 @@ export default defineComponent({
       lastWeek,
       nextWeek,
     });
+
+    const init = () => {
+      nextTick(() => {
+        calendarTitleHeight.value = useRect(calendarTitleRef).height;
+      });
+    };
 
     useMountedOrActivated(init);
 
@@ -571,11 +565,6 @@ export default defineComponent({
     );
 
     const renderTimePicker = () => {
-      console.log('props.pickerType', props.pickerType);
-      console.log(
-        'renderTimePicker-isShowCalendar.value',
-        isShowCalendar.value
-      );
       if (props.pickerType !== 'date') {
         return (
           <CalendarTime
