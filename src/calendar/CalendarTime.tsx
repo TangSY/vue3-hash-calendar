@@ -78,9 +78,9 @@ export default defineComponent({
           `.${hashClass.value}`
         ) as HTMLElement;
         const timeHeightStr = hashClassEle
-          ? getComputedStyle(hashClassEle).height
-          : '';
-        timeHeight.value = parseFloat(timeHeightStr.split('px')[0]);
+          ? hashClassEle.getBoundingClientRect().height
+          : 0;
+        timeHeight.value = timeHeightStr;
 
         const hoursUp = (2 - checkHours) * timeHeight.value;
         const hashIDEle = document.querySelector(
@@ -225,7 +225,9 @@ export default defineComponent({
       () => props.show,
       (val) => {
         if (val) {
-          initTimeArray();
+          setTimeout(() => {
+            initTimeArray();
+          }, 100);
         }
       },
       { immediate: true }
