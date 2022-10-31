@@ -1,1 +1,0 @@
-import{C as e}from"./index.96238fc1.js";import{o as a,c,A as n}from"./vue-libs.14c21b5b.js";const d={__name:"index",setup(s){return(_,r)=>(a(),c(n(e),{"checked-day-class-name":"checked-day-class-name"}))}};export{d as default};

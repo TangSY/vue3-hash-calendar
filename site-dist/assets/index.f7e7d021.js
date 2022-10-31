@@ -1,1 +1,0 @@
-import{C as e}from"./index.96238fc1.js";import{o,a as r,e as t,A as a,F as n,d as s}from"./vue-libs.14c21b5b.js";const c=s("h1",{class:"hash-demo-title"},"true",-1),l=s("h1",{class:"hash-demo-title"},"false",-1),i={__name:"index",setup(d){return(_,h)=>(o(),r(n,null,[c,t(a(e),{"show-today-button":!0}),l,t(a(e),{"show-today-button":!1})],64))}};export{i as default};

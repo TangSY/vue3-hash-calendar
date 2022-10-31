@@ -1,0 +1,1 @@
+import{C as e}from"./index.7a4fc09d.js";import{o as n,c as a,A as t}from"./vue-libs.14c21b5b.js";const m={__name:"index",setup(r){return(o,s)=>(n(),a(t(e),{"not-current-month-day-class-name":"not-current-month-day-class-name"}))}};export{m as default};

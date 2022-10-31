@@ -1,1 +1,0 @@
-import{C as e}from"./index.96238fc1.js";import{o,a as r,e as a,A as s,F as c,d as t}from"./vue-libs.14c21b5b.js";const l=t("h1",{class:"hash-demo-title"},"true",-1),n=t("h1",{class:"hash-demo-title"},"false",-1),u={__name:"index",setup(d){return(_,h)=>(o(),r(c,null,[l,a(s(e),{"scroll-change-date":!0}),n,a(s(e),{"scroll-change-date":!1})],64))}};export{u as default};

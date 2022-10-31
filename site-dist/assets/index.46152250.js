@@ -1,0 +1,1 @@
+import{C as e}from"./index.7a4fc09d.js";import{o as a,c as n,A as s}from"./vue-libs.14c21b5b.js";const l={__name:"index",setup(t){return(_,o)=>(a(),n(s(e),{"today-class-name":"today-class-name"}))}};export{l as default};

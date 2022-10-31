@@ -1,1 +1,0 @@
-import{C as e}from"./index.96238fc1.js";import{o,a as n,e as a,A as s,F as r,d as t}from"./vue-libs.14c21b5b.js";const c=t("h1",{class:"hash-demo-title"},"CN",-1),l=t("h1",{class:"hash-demo-title"},"EN",-1),p={__name:"index",setup(_){return(d,m)=>(o(),n(r,null,[c,a(s(e),{lang:"CN"}),l,a(s(e),{lang:"EN"})],64))}};export{p as default};

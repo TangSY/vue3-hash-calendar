@@ -1,1 +1,0 @@
-import{C as s}from"./index.96238fc1.js";import{o as n,c as r,A as i}from"./vue-libs.14c21b5b.js";const m={__name:"index",setup(_){const t=e=>e.getTime()>new Date().getTime();return(e,a)=>(n(),r(i(s),{"disabled-class-name":"disabled-class-name","disabled-date":t}))}};export{m as default};
