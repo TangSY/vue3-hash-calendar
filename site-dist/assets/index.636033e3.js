@@ -1,1 +1,0 @@
-import{C as r}from"./index.7a4fc09d.js";import{u as t,o as n,a as o,d as s,h as c,e as l,A as d,F as u}from"./vue-libs.14c21b5b.js";const k={__name:"index",setup(_){const e=t(null),a=()=>{e.value.today()};return(f,m)=>(n(),o(u,null,[s("button",{onClick:a},"\u8FD4\u56DE\u4ECA\u65E5"),c(),l(d(r),{ref_key:"calendar",ref:e},null,512)],64))}};export{k as default};

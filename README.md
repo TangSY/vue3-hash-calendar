@@ -11,11 +11,13 @@
     <img src="https://img.shields.io/npm/v/vue3-hash-calendar.svg?from=hxkj&style=flat-square" alt="version" />
     <img src="https://img.shields.io/npm/dt/vue3-hash-calendar.svg?from=hxkj&style=flat-square" alt="download" />
     <img src="https://visitor-badge.glitch.me/badge?page_id=vue3-hash-calendar&style=flat-square" alt="visitors" />
+    <img src="https://img.badgesize.io/https://unpkg.com/vue3-hash-calendar@1/lib/vue3-hash-calendar.min.js?compression=gzip&style=flat-square&label=gzip%20size&color=#4fc08d" alt="Gzip Size" />
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?from=hxkj&style=flat-square" alt="license" />
 </p>
 
 <p align="center">
   🔥 <a href="https://hxkj.vip/calendar">文档网站</a>
+  &nbsp;&nbsp;
   🌈 <a href="https://github.com/TangSY/vue3-hash-calendar/blob/main/docs/changelog.md">更新日志</a>
 </p>
 
