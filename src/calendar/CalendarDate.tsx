@@ -386,6 +386,7 @@ export default defineComponent({
 
         const calendarItemGroup = calendarItemRef || [];
         calendarItemGroup.forEach((item) => {
+          if (!item) return;
           item.style.height = `${calendarItemHeight.value}px`;
         });
 
@@ -806,6 +807,8 @@ export default defineComponent({
     const renderDay = (date: CalendarMonthType, i: number) => {
       let dayEle: any = isFirstDayOfMonth(date, i)
         ? language.value.MONTH[date.month]
+        : date.day === 0
+        ? ''
         : date.day;
       if (slots.day) {
         dayEle = slots.day({

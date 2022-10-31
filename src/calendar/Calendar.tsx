@@ -123,6 +123,7 @@ export default defineComponent({
     const language = ref<LanguageEntityType>({} as LanguageEntityType);
     const checkedDate = ref(defaultDate);
     const isShowCalendar = ref(false);
+    const isShowWeek = ref(false);
     const calendarBodyHeight = ref(0);
     const calendarTitleHeight = ref(0);
     const firstTimes = ref(true);
@@ -137,15 +138,6 @@ export default defineComponent({
       },
       set(val) {
         emit('update:visible', val);
-      },
-    });
-
-    const isShowWeek = computed<boolean>({
-      get() {
-        return props.showWeekView;
-      },
-      set(val) {
-        emit('update:showWeekView', val);
       },
     });
 
@@ -283,8 +275,12 @@ export default defineComponent({
 
     // 显示日历控件
     const showCalendar = () => {
+      console.log('showCalendar');
+
       if (isShowCalendar.value) {
         showYearMonthPicker();
+      } else {
+        emit('calendarTypeChange', 'date');
       }
       isShowCalendar.value = true;
     };
@@ -292,6 +288,9 @@ export default defineComponent({
     // 显示时间选择控件
     const showTime = () => {
       isShowCalendar.value = false;
+      console.log('isShowCalendar.value', isShowCalendar.value);
+
+      emit('calendarTypeChange', 'time');
 
       // 重置年月选择面板
       yearMonthType.value = 'date';
@@ -409,7 +408,16 @@ export default defineComponent({
       () => props.visible,
       (val) => {
         isShowCalendar.value = props.model === 'inline' ? true : val;
+        console.log('watch-isShowCalendar.value', isShowCalendar.value);
         init();
+      },
+      { immediate: true }
+    );
+
+    watch(
+      () => props.showWeekView,
+      (val) => {
+        isShowWeek.value = val;
       },
       { immediate: true }
     );
@@ -516,6 +524,12 @@ export default defineComponent({
     );
 
     const updateShowWeekView = (val: boolean) => {
+      if (val) {
+        emit('calendarTypeChange', 'week');
+      } else {
+        emit('calendarTypeChange', 'month');
+      }
+
       isShowWeek.value = val;
     };
 
@@ -545,6 +559,7 @@ export default defineComponent({
           'lang',
           'weekStart',
           'disabledScroll',
+          'scrollChangeDate',
           'showNotCurrentMonthDay',
           'firstDayOfMonthClassName',
           'todayClassName',
@@ -556,6 +571,11 @@ export default defineComponent({
     );
 
     const renderTimePicker = () => {
+      console.log('props.pickerType', props.pickerType);
+      console.log(
+        'renderTimePicker-isShowCalendar.value',
+        isShowCalendar.value
+      );
       if (props.pickerType !== 'date') {
         return (
           <CalendarTime

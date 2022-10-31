@@ -1,6 +1,6 @@
 <template>
   <button @click="toggle">点击切换视图</button>
-  <vue-hash-calendar v-model:show-week-view="isShow" />
+  <vue-hash-calendar :show-week-view="isShow" />
 </template>
 
 <script setup>

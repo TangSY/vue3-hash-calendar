@@ -278,8 +278,9 @@ export default defineComponent({
       }
     );
 
-    const renderYearMonthItem = (arr: (YearRangeType & number)[]) =>
-      arr.map((item, index) => (
+    const renderYearMonthItem = (arr: (YearRangeType & number)[]) => {
+      console.log('arr', arr);
+      return arr.map((item, index) => (
         <div
           class={`year-body-item ${
             isDisabled(item, index)
@@ -310,31 +311,35 @@ export default defineComponent({
           </p>
         </div>
       ));
+    };
 
-    const renderYearMonth = () => (
-      <div
-        class="year-body"
-        style={{
-          top: props.calendarTitleHeight + 'px',
-          height: itemHeight.value * 4 + 'px',
-          display: ['year', 'yearRange', 'month'].includes(props.type)
-            ? 'block'
-            : 'none',
-        }}
-      >
-        <CalendarScrollContainer
-          calendarData={yearMonthShow.value}
-          disabledScroll={disabledScrollDirec.value}
-          onTouchstart={touchStart}
-          onTouchmove={touchMove}
-          onTouchend={touchEnd}
-          onSlidechange={slideChange}
-          v-slots={(data: (YearRangeType & number)[]) =>
-            renderYearMonthItem(data)
-          }
-        />
-      </div>
-    );
+    const renderYearMonth = () => {
+      console.log('props.type', props.type);
+      return (
+        <div
+          class="year-body"
+          style={{
+            top: props.calendarTitleHeight + 'px',
+            height: itemHeight.value * 4 + 'px',
+            display: ['year', 'yearRange', 'month'].includes(props.type)
+              ? 'block'
+              : 'none',
+          }}
+        >
+          <CalendarScrollContainer
+            calendarData={yearMonthShow.value}
+            disabledScroll={disabledScrollDirec.value}
+            onTouchstart={touchStart}
+            onTouchmove={touchMove}
+            onTouchend={touchEnd}
+            onSlidechange={slideChange}
+            v-slots={(data: (YearRangeType & number)[]) =>
+              renderYearMonthItem(data)
+            }
+          />
+        </div>
+      );
+    };
 
     return () => renderYearMonth();
   },

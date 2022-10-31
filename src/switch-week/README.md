@@ -4,7 +4,7 @@
 
 lastWeek(): 上一星期
 
-ne xtWeek(): 下一星期
+nextWeek(): 下一星期
 
 ### lastWeek
 

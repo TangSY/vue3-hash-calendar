@@ -128,8 +128,9 @@ export default defineComponent({
       }
     };
 
-    const renderDateItem = () =>
-      props.calendarData.map((item, i) => (
+    const renderDateItem = () => {
+      console.log('props.calendarData', props.calendarData);
+      return props.calendarData.map((item, i) => (
         <li
           class="calendar_group_li"
           key={i}
@@ -149,6 +150,7 @@ export default defineComponent({
           {slots.default ? slots.default(item) : ''}
         </li>
       ));
+    };
 
     const renderContainer = () => (
       <ul
