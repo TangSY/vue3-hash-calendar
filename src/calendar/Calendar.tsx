@@ -274,7 +274,6 @@ export default defineComponent({
       } else {
         yearMonthType.value = 'date';
       }
-
       emit('calendarTypeChange', yearMonthType.value);
     };
 
