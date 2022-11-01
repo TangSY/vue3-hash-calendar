@@ -4,8 +4,8 @@
  * @CreateDate:     2020/3/22 22:01
  */
 
-import CN from "./cn";
-import EN from "./en";
+import CN from './cn';
+import EN from './en';
 
 export type LanguageEntityType = {
   CONFIRM: string;
@@ -16,7 +16,7 @@ export type LanguageEntityType = {
   DEFAULT_TIME_FORMAT: string;
 };
 
-export const LanguageTypes = ["CN", "EN"] as const;
+export const LanguageTypes = ['CN', 'EN'] as const;
 
 export type LanguageType = typeof LanguageTypes[number];
 

@@ -871,8 +871,9 @@ export default defineComponent({
           {item.map((date, j) => (
             <div
               class={`calendar_item ${
-                formatDisabledDate(date) &&
-                (props.disabledClassName || 'calendar_item_disable')
+                formatDisabledDate(date)
+                  ? props.disabledClassName || 'calendar_item_disable'
+                  : ''
               }`}
               ref={(el) => {
                 calendarItemRef.length = 0;
