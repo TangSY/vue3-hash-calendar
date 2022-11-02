@@ -1,12 +1,17 @@
-### [v1.0.0](https://github.com/TangSY/vue3-hash-calendar/compare/...v1.0.0)
+### [v1.0.4](https://github.com/TangSY/vue3-hash-calendar/compare/f7cc6f9b92fb2176262c0badbf878736be779159...v1.0.4)
 
-`2022-10-30`
+`2022-11-02`
 
 **Bug Fixes**
 
 - 农历 demo 显示问题修复 [2de606](https://github.com/TangSY/vue3-hash-calendar/commit/2de606bf02b38e9df280b30fc3f293cd46b179ca)
 - 设置了滑动不修改日期，但是使用事件 lastMonth nextMonth 也会改变当前日期( #14) [#14](https://github.com/TangSY/vue3-hash-calendar/issues/14)
 - 修复 globEager 类型错误 [4533c8](https://github.com/TangSY/vue3-hash-calendar/commit/4533c89851447b9b2bf91e7b778181d2c5e2aa5c)
+- 修复 import_meta.glob is not a function [70f581](https://github.com/TangSY/vue3-hash-calendar/commit/70f58111fe024d097c5e403fea98f6364939bd0b)
+- 修复当 change-year-fast 等于 true 时，切换日历报错 invalid node 的问题 [a44a7e](https://github.com/TangSY/vue3-hash-calendar/commit/a44a7eb1f32bba28cd00bd33c082a523fd158bd9)
+- 修复当 pick-type 等于 time 时，日期无法显示的问题 [f00cdf](https://github.com/TangSY/vue3-hash-calendar/commit/f00cdf60cc9e50582b298f7ec0bd5fb631677986)
+- 修复当 pick-type 等于 time 时，日期显示错位的问题 [c69306](https://github.com/TangSY/vue3-hash-calendar/commit/c69306e63604e272dbc66c0a04d7ae1e5f4d2123)
+- 修复一些 bug [a1f291](https://github.com/TangSY/vue3-hash-calendar/commit/a1f29164283a2ddafe63e96c307c1afbe677d5c1)
 - 修复周视图无法返回今天的 bug [b3c4da](https://github.com/TangSY/vue3-hash-calendar/commit/b3c4da7658835f3b4dbfd5b7779128eaf76aad3c)
 - 修复 isShowWeekView 属性无效的问题（#1、#6） [#1](https://github.com/TangSY/vue3-hash-calendar/issues/1) [#6](https://github.com/TangSY/vue3-hash-calendar/issues/6)
 - 修复 mark-date 属性失效的问题 [3c7fcb](https://github.com/TangSY/vue3-hash-calendar/commit/3c7fcb25cf8533003cdb155dbc1c3e1a5c718358)
@@ -18,7 +23,10 @@
 **Document**
 
 - 初始化所有 API 配置 [6619f3](https://github.com/TangSY/vue3-hash-calendar/commit/6619f3d2d78118fa6667aa36579d9a7bb3d1e613)
+- 更新文档 [f4d639](https://github.com/TangSY/vue3-hash-calendar/commit/f4d639da41c942d47acc5689b3266baf60caf789)
 - 更新文档 [757e94](https://github.com/TangSY/vue3-hash-calendar/commit/757e94d2542ea86745e4e8bb6f90b10e364d5997)
+- 更新文档链接 [361400](https://github.com/TangSY/vue3-hash-calendar/commit/361400e006bb5ed4077b990203da4b4c263828ea)
+- 更新 changelog [a0ebc7](https://github.com/TangSY/vue3-hash-calendar/commit/a0ebc73226ebdb357457bb5bc651e53f2392e8df)
 - 添加 default-datetime 属性文档 [444e59](https://github.com/TangSY/vue3-hash-calendar/commit/444e594fe88c8bb6167f8ec70130a2d57a262575)
 - 添加 min-date、max-date 属性文档 [3678ad](https://github.com/TangSY/vue3-hash-calendar/commit/3678adf31f374ea5000d0e6b36cc3d1bc9aa287e)
 - 添加部分文档 [509342](https://github.com/TangSY/vue3-hash-calendar/commit/50934256576995e0d1594b3516add2c854baf4e0)
@@ -38,9 +46,16 @@
 - 优化文档结构 [72f5bb](https://github.com/TangSY/vue3-hash-calendar/commit/72f5bb374a35de9a000fffa82a50657511ee271a)
 - 优化文档属性 [121d18](https://github.com/TangSY/vue3-hash-calendar/commit/121d18916efdb67b6a275cbaa498d779269134c3)
 
+**dosc**
+
+- 优化文档 [5f1a97](https://github.com/TangSY/vue3-hash-calendar/commit/5f1a9790886c3c1c296ca7f9ef6bd8424ff8a44a)
+
+- 1.0.4 [c11129](https://github.com/TangSY/vue3-hash-calendar/commit/c11129ac59c274bfb43412d1796d83765bc769a5)
+
 **Feature**
 
 - 调整暗黑模式样式 [9a12d9](https://github.com/TangSY/vue3-hash-calendar/commit/9a12d999b9c868eb0df2d081bbafb8dc5b158309)
+- 发布 1.0.1 版本 [a344c1](https://github.com/TangSY/vue3-hash-calendar/commit/a344c1ad15e0e843113af71639a9f14fbde1f87c)
 - 更新文档 [b3195c](https://github.com/TangSY/vue3-hash-calendar/commit/b3195c91a87990d4f710c4685f449251292c8446)
 - 去除 isShowWeekView & disabledWeekView 校验 [2e191a](https://github.com/TangSY/vue3-hash-calendar/commit/2e191ad292a95d572f5e810011712ff1f4784116)
 - 去除 vue-ba [b95846](https://github.com/TangSY/vue3-hash-calendar/commit/b958465e26857b0de4bc68d62cb5836efc368d9a)
@@ -48,6 +63,7 @@
 - 升级至 0.1.1 版本 [e47f67](https://github.com/TangSY/vue3-hash-calendar/commit/e47f677461d1cc5595ff9e086636fc86071ba003)
 - 使用 vant-cli 创建文档库 [609663](https://github.com/TangSY/vue3-hash-calendar/commit/60966353ece58a6d4a3ca37cd66a243f69c86612)
 - 添加农历示例代码 [ec369d](https://github.com/TangSY/vue3-hash-calendar/commit/ec369d6096e4517eca52bb8ca9b8fedd08e77dda)
+- 添加 logo [449c43](https://github.com/TangSY/vue3-hash-calendar/commit/449c43e361b8fc649460609e293e6cec046b85c8)
 - 添加 postcss-px-to-viewport 插件 [ad03ad](https://github.com/TangSY/vue3-hash-calendar/commit/ad03ad3b88435955bd2808788d48dfb2d0647886)
 - 整理 props [7efeb1](https://github.com/TangSY/vue3-hash-calendar/commit/7efeb1c0333b4359c0efb138433e721da2abf362)
 - add ts [c29d2a](https://github.com/TangSY/vue3-hash-calendar/commit/c29d2ae317e9c4559cd823cd850df01adc2c1f87)
