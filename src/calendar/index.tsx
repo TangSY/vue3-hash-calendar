@@ -1,6 +1,5 @@
 import _Calendar from './Calendar';
 import { withInstall } from './utils';
-import './index.less';
 
 export const Calendar = withInstall(_Calendar);
 export default Calendar;

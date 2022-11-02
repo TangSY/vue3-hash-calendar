@@ -1,6 +1,6 @@
 <template>
   <h1 class="hash-demo-title">修改当天的日期为 今</h1>
-  <vue-hash-calendar>
+  <vue-hash-calendar :default-datetime="new Date(2022, 0, 1, 1, 1)">
     <template v-slot:day="scope">
       <div v-if="scope?.extendAttr?.isToday">今</div>
       <div v-else>{{ scope?.date?.day }}</div>
@@ -8,7 +8,7 @@
   </vue-hash-calendar>
 
   <h1 class="hash-demo-title">农历</h1>
-  <vue-hash-calendar>
+  <vue-hash-calendar :default-datetime="new Date(2022, 0, 1, 1, 1)">
     <template v-slot:day="scope">
       <div class="lunar-content">
         <div>{{ scope?.date.day }}</div>

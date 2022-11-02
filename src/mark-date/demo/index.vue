@@ -1,6 +1,7 @@
 <template>
   <h1 class="hash-demo-title">默认标记方式</h1>
   <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
     :mark-date="[
       `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
       `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
@@ -16,6 +17,7 @@
 
   <h1 class="hash-demo-title">自定义颜色</h1>
   <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
     :mark-date="[
       {
         color: '#f00',
@@ -36,6 +38,7 @@
 
   <h1 class="hash-demo-title">自定义标记类型</h1>
   <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
     :mark-date="[
       {
         type: 'circle',
@@ -56,6 +59,7 @@
 
   <h1 class="hash-demo-title">交叉使用</h1>
   <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
     :mark-date="[
       {
         color: '#f00',

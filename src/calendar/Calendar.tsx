@@ -153,6 +153,14 @@ export default defineComponent({
       return calendarBodyHeight.value + calendarTitleHeight.value;
     });
 
+    const init = () => {
+      nextTick(() => {
+        calendarTitleHeight.value = useRect(calendarTitleRef).height;
+      });
+    };
+
+    useMountedOrActivated(init);
+
     // 滑动方向改变
     const slideChange = (direction: ScrollDirectionType) => {
       emit('slidechange', direction);
@@ -378,7 +386,7 @@ export default defineComponent({
         if (!flag) {
           calendarTitleHeight.value = 0;
         } else {
-          setTimeout(() => {
+          nextTick(() => {
             calendarTitleHeight.value = useRect(calendarTitleRef).height;
           });
         }
@@ -409,6 +417,13 @@ export default defineComponent({
       { immediate: true }
     );
 
+    watch(
+      () => props.visible,
+      () => {
+        init();
+      }
+    );
+
     useExpose<CalendarExposeType>({
       today,
       lastMonth,
@@ -416,14 +431,6 @@ export default defineComponent({
       lastWeek,
       nextWeek,
     });
-
-    const init = () => {
-      nextTick(() => {
-        calendarTitleHeight.value = useRect(calendarTitleRef).height;
-      });
-    };
-
-    useMountedOrActivated(init);
 
     const renderTodayButton = () => {
       let todayEle: any = language.value.TODAY;

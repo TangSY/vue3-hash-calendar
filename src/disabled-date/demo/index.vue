@@ -1,9 +1,15 @@
 <template>
   <h1 class="hash-demo-title">禁用当前时间之后的所有日期</h1>
-  <vue-hash-calendar :disabled-date="disabledAfterCurrentDate" />
+  <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+    :disabled-date="disabledAfterCurrentDate"
+  />
 
   <h1 class="hash-demo-title">禁用指定日期</h1>
-  <vue-hash-calendar :disabled-date="disabledDate" />
+  <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+    :disabled-date="disabledDate"
+  />
 </template>
 
 <script setup>

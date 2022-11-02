@@ -1,12 +1,4 @@
-import { h, defineComponent } from 'vue';
 import { mount, later } from '.';
-
-const EmptyComponent = defineComponent({
-  inheritAttrs: false,
-  render() {
-    return h('div', [this.$slots.default?.()]);
-  },
-});
 
 export function snapshotDemo(Demo: any, option: any = {}) {
   test('should render demo and match snapshot', async () => {
@@ -15,10 +7,8 @@ export function snapshotDemo(Demo: any, option: any = {}) {
     }
 
     const wrapper = mount(Demo, {
-      global: {
-        components: {
-          'demo-block': EmptyComponent,
-        },
+      props: {
+        defaultDatetime: new Date('1994/10/21 22:22:22'),
       },
     });
 

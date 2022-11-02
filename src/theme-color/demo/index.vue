@@ -1,6 +1,9 @@
 <template>
   <button @click="change">切换主题色</button>
-  <vue-hash-calendar :theme-color="themeColor" />
+  <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+    :theme-color="themeColor"
+  />
 </template>
 
 <script setup>

@@ -1,5 +1,9 @@
 <template>
-  <button @click="today">返回今日</button> <vue-hash-calendar ref="calendar" />
+  <button @click="today">返回今日</button>
+  <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+    ref="calendar"
+  />
 </template>
 
 <script setup>

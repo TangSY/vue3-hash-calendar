@@ -1,6 +1,9 @@
 <template>
   <button @click="toggle">点击切换视图</button>
-  <vue-hash-calendar :show-week-view="isShow" />
+  <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+    :show-week-view="isShow"
+  />
 </template>
 
 <script setup>

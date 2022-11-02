@@ -1,7 +1,10 @@
 <template>
   <button @click="lastMonth">上一月</button>
   <button @click="nextMonth">下一月</button>
-  <vue-hash-calendar ref="calendar" />
+  <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+    ref="calendar"
+  />
 </template>
 
 <script setup>
