@@ -2,7 +2,7 @@
 
 exports[`should render demo and match snapshot 1`] = `
 <h1 class="hash-demo-title">
-  禁用当前时间之后的所有日期
+  禁用 2022年1月15号 之后的所有日期
 </h1>
 <div class="hash-calendar calendar_inline"
      style="height: 800px;"
@@ -19,7 +19,7 @@ exports[`should render demo and match snapshot 1`] = `
           01:01
         </span>
       </div>
-      <div class="calendar_confirm ">
+      <div class="calendar_confirm today_disable">
         今天
       </div>
     </div>
@@ -515,147 +515,147 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 16
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 17
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 18
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 19
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 20
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 21
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 22
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 23
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 24
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 25
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 26
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 27
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 28
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 29
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 30
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 31
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 1
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 2
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 3
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 4
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 5
               </div>
@@ -666,294 +666,294 @@ exports[`should render demo and match snapshot 1`] = `
           <li class="calendar_group_li"
               style="transform: translate3d(100%, 0px, 0); transition-duration: 0.3s;"
           >
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 30
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 31
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day calendar_first_today    ">
                 2月
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 2
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 3
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 4
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 5
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 6
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 7
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 8
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 9
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 10
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 11
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 12
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 13
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 14
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 15
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 16
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 17
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 18
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 19
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 20
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 21
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 22
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 23
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 24
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 25
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 26
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 27
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 28
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 1
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 2
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 3
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 4
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 5
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 6
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 7
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 8
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 9
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 10
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 11
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item "
+            <div class="calendar_item calendar_item_disable"
                  style="height: 100px;"
             >
               <div class="calendar_day    calendar_day_not ">
@@ -1281,8 +1281,8 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
-              <div class="calendar_day   calendar_day_checked calendar_day_not ">
+            <div class="calendar_item calendar_item_disable">
+              <div class="calendar_day    calendar_day_not ">
                 1
               </div>
               <div class="calendar_dot">
@@ -1309,7 +1309,7 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day    calendar_day_not ">
                 5
               </div>
@@ -1383,8 +1383,8 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
-              <div class="calendar_day calendar_first_today  calendar_day_checked  ">
+            <div class="calendar_item calendar_item_disable">
+              <div class="calendar_day calendar_first_today    ">
                 1月
               </div>
               <div class="calendar_dot">
@@ -1411,7 +1411,7 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 5
               </div>
@@ -1446,7 +1446,7 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 10
               </div>
@@ -1481,14 +1481,14 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 15
               </div>
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 16
               </div>
@@ -1502,7 +1502,7 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 18
               </div>
@@ -1516,7 +1516,7 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 20
               </div>
@@ -1551,7 +1551,7 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 25
               </div>
@@ -1572,7 +1572,7 @@ exports[`should render demo and match snapshot 1`] = `
               <div class="calendar_dot">
               </div>
             </div>
-            <div class="calendar_item ">
+            <div class="calendar_item calendar_item_disable">
               <div class="calendar_day     ">
                 28
               </div>

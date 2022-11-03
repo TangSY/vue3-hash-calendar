@@ -15,15 +15,15 @@ date: 需要被标记的日期
 ```html
 <vue-hash-calendar
   :mark-date="[
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
+      `2022/01/01`,
+      `2022/01/05`,
+      `2022/01/10`,
+      `2022/01/15`,
+      `2022/01/20`,
+      `2022/01/25`,
+      `2022/01/28`,
+      `2022/01/16`,
+      `2022/01/18`,
     ]"
 />
 ```
@@ -36,15 +36,15 @@ date: 需要被标记的日期
       {
         color: '#f00',
         date: [
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
+          `2022/01/01`,
+          `2022/01/05`,
+          `2022/01/10`,
+          `2022/01/15`,
+          `2022/01/20`,
+          `2022/01/25`,
+          `2022/01/28`,
+          `2022/01/16`,
+          `2022/01/18`,
         ],
       },
     ]"
@@ -59,15 +59,15 @@ date: 需要被标记的日期
       {
         type: 'circle',
         date: [
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
+          `2022/01/01`,
+          `2022/01/05`,
+          `2022/01/10`,
+          `2022/01/15`,
+          `2022/01/20`,
+          `2022/01/25`,
+          `2022/01/28`,
+          `2022/01/16`,
+          `2022/01/18`,
         ],
       },
     ]"
@@ -83,23 +83,23 @@ date: 需要被标记的日期
         color: '#f00',
         type: 'dot+circle',
         date: [
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/01`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/05`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/10`,
+          `2022/01/01`,
+          `2022/01/05`,
+          `2022/01/10`,
         ],
       },
       {
         color: '#0f0',
         type: 'circle',
         date: [
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/15`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/20`,
-          `${new Date().getFullYear()}/${new Date().getMonth() + 1}/25`,
+          `2022/01/15`,
+          `2022/01/20`,
+          `2022/01/25`,
         ],
       },
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/28`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/16`,
-      `${new Date().getFullYear()}/${new Date().getMonth() + 1}/18`,
+      `2022/01/28`,
+      `2022/01/16`,
+      `2022/01/18`,
     ]"
 />
 ```

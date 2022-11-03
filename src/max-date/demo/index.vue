@@ -1,15 +1,5 @@
 <template>
-  <h1 class="hash-demo-title">当前时间</h1>
-  <vue-hash-calendar
-    :default-datetime="new Date(2022, 0, 1, 1, 1)"
-    :max-date="new Date()"
-  />
-
-  <h1 class="hash-demo-title">2022/11/05 22:22:22</h1>
-  <vue-hash-calendar
-    :default-datetime="new Date(2022, 0, 1, 1, 1)"
-    :max-date="new Date('2022/11/05  22:22:22')"
-  />
+  <vue-hash-calendar :max-date="new Date('2022/11/01')" />
 </template>
 
 <script setup>

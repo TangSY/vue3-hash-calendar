@@ -1,10 +1,6 @@
 <template>
   <button @click="showCalendar">点击打开日历弹窗</button>
-  <vue-hash-calendar
-    :default-datetime="new Date(2022, 0, 1, 1, 1)"
-    model="dialog"
-    v-model:visible="isShow"
-  />
+  <vue-hash-calendar model="dialog" v-model:visible="isShow" />
 </template>
 
 <script setup>

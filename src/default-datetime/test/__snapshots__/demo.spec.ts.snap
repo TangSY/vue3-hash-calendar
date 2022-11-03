@@ -1310,14 +1310,14 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day  calendar_day_today  calendar_day_not ">
+              <div class="calendar_day    calendar_day_not ">
                 2
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day  calendar_day_today  calendar_day_not ">
                 3
               </div>
               <div class="calendar_dot">
@@ -1363,14 +1363,14 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day  calendar_day_today   ">
+              <div class="calendar_day     ">
                 2
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day     ">
+              <div class="calendar_day  calendar_day_today   ">
                 3
               </div>
               <div class="calendar_dot">

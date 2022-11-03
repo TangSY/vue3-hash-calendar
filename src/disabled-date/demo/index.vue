@@ -1,5 +1,5 @@
 <template>
-  <h1 class="hash-demo-title">禁用当前时间之后的所有日期</h1>
+  <h1 class="hash-demo-title">禁用 2022年1月15号 之后的所有日期</h1>
   <vue-hash-calendar
     :default-datetime="new Date(2022, 0, 1, 1, 1)"
     :disabled-date="disabledAfterCurrentDate"
@@ -17,7 +17,7 @@ import VueHashCalendar from '../../calendar';
 
 const disabledAfterCurrentDate = (date) => {
   const timestamp = date.getTime();
-  if (timestamp > new Date().getTime()) {
+  if (timestamp > new Date(2022, 0, 15).getTime()) {
     return true;
   }
 
@@ -30,15 +30,15 @@ const disabledDate = (date) => {
   const day = date.getDate();
   const currDate = `${year}/${month}/${day}`;
   const disabledDateArr = [
-    `${new Date().getFullYear()}/${new Date().getMonth()}/1`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/5`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/10`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/15`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/20`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/25`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/28`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/16`,
-    `${new Date().getFullYear()}/${new Date().getMonth()}/18`,
+    `2022/0/1`,
+    `2022/0/5`,
+    `2022/0/10`,
+    `2022/0/15`,
+    `2022/0/20`,
+    `2022/0/25`,
+    `2022/0/28`,
+    `2022/0/16`,
+    `2022/0/18`,
   ];
   if (disabledDateArr.includes(currDate)) {
     return true;

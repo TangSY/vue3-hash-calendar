@@ -157,10 +157,12 @@ export default defineComponent({
 
     // 日历以星期方式展示
     const showWeek = (checkedDatetime = checkedDate.value) => {
+      console.log('showWeek-checkedDatetime', checkedDatetime);
       const daysArr: number[] = [];
       calendarOfMonth.value[1].forEach((item) => {
         daysArr.push(item.day);
       });
+      console.log('calendarOfMonth.value[1]', calendarOfMonth.value[1]);
       let dayIndexOfMonth = daysArr.indexOf(checkedDatetime.day);
       // 当day为月底的天数时，有可能在daysArr的前面也存在上一个月对应的日期，所以需要取lastIndexOf
       if (checkedDatetime.day > 15) {
@@ -197,11 +199,14 @@ export default defineComponent({
           calendarOfMonth.value[0].slice(28, 35)[6].month !==
           checkedDatetime.month
         ) {
+          console.log('1', 1);
           lastWeek.value = calendarOfMonth.value[0].slice(28, 35);
         } else {
+          console.log('2', 2);
           lastWeek.value = calendarOfMonth.value[0].slice(21, 28);
         }
       } else {
+        console.log('3', 3);
         lastWeek.value = calendarOfMonth.value[1].slice(
           sliceStart - 7,
           sliceEnd - 7
@@ -210,6 +215,7 @@ export default defineComponent({
           lastWeek.value[selectedDayIndex.value] &&
           lastWeek.value[selectedDayIndex.value].month === checkedDatetime.month
         ) {
+          console.log('4', 4);
           isLastWeekInCurrentMonth.value = true;
         }
       }
@@ -236,6 +242,9 @@ export default defineComponent({
           isNextWeekInCurrentMonth.value = true;
         }
       }
+      console.log('lastWeek.value[0]', lastWeek.value[0]);
+      console.log('currentWeek.value[0]', currentWeek[0]);
+      console.log('nextWeek.value[0]', nextWeek.value[0]);
       calendarOfMonthShow.value[0].splice(sliceStart, 7, ...lastWeek.value);
       calendarOfMonthShow.value[2].splice(sliceStart, 7, ...nextWeek.value);
     };
@@ -322,6 +331,8 @@ export default defineComponent({
       year = new Date().getFullYear(),
       month = new Date().getMonth()
     ) => {
+      console.log('year', year);
+      console.log('month', month);
       lastMonthYear.value = month === 0 ? year - 1 : year; // 上个月的年份
       lastMonth.value = month === 0 ? 11 : month - 1; // 上个月的月份
       nextMonthYear.value = month === 11 ? year + 1 : year; // 下个月的年份
@@ -365,6 +376,8 @@ export default defineComponent({
 
     // 日历以月份方式展示
     const showMonth = () => {
+      console.log('showMonth--------------------');
+
       calendarY.value = 0;
       isShowWeek.value = false;
       calendarGroupHeight.value = calendarItemHeight.value * 6;
@@ -434,6 +447,7 @@ export default defineComponent({
     // 显示下一周
     const getNextWeek = () => {
       const checked = nextWeek.value[selectedDayIndex.value];
+      console.log('nextWeek.value', nextWeek.value);
       showWeek(checked);
 
       if (formatDisabledDate(checked)) return;
@@ -459,6 +473,8 @@ export default defineComponent({
 
     // 获取下个月日历
     const getNextMonth = () => {
+      console.log('getNextMonth');
+
       translateIndex.value -= 1;
 
       if (!isNextWeekInCurrentMonth.value) {
