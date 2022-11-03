@@ -16,5 +16,5 @@ es
 lib
 dist
 site
-# site-dist
+site-dist
 changelog.generated.md
