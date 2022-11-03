@@ -1,3 +1,21 @@
+### [v1.0.6](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.5...v1.0.6)
+
+`2022-11-03`
+
+**Bug Fixes**
+
+- 修复默认日期引起星期切换错误的问题 [54bc1e](https://github.com/TangSY/vue3-hash-calendar/commit/54bc1e65abaf987e84f0e306d2fca90e8d1b2a66)
+
+**Document**
+
+- 更新 v1.0.5 版本日志 [e828c7](https://github.com/TangSY/vue3-hash-calendar/commit/e828c7c4ed9b5ea148baac914b96434e2273234e)
+
+- 1.0.6 [f0e97e](https://github.com/TangSY/vue3-hash-calendar/commit/f0e97e973ceb9d87ebc2a1c84a104123ee8d04e8)
+
+**Feature**
+
+- 更新部分测试用例 [63f73f](https://github.com/TangSY/vue3-hash-calendar/commit/63f73fe05c27c02a4a30540229e7989834324b14)
+
 ### [v1.0.5](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.4...v1.0.5)
 
 `2022-11-02`
