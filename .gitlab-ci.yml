@@ -1,12 +1,13 @@
 stages:
+  - test
   - deploy
 
 deploy_develop:
-  stage: deploy
+  stage: test
   script:
-    - ci/deploy_develop.sh
+    - yarn test
   only:
-    - develop
+    - dev
 
 deploy_stage:
   stage: deploy
