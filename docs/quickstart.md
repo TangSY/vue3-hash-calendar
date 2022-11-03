@@ -18,6 +18,7 @@ pnpm add vue3-hash-calendar
 ```js
 import Vue from 'vue';
 import VueHashCalendar from 'vue3-hash-calendar';
+import 'vue3-hash-calendar/es/index.css';
 
 Vue.use(VueHashCalendar);
 ```
