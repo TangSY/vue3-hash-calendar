@@ -3,14 +3,14 @@ stages:
   - test
   - deploy
 
-deploy_develop:
+install_stage:
   stage: install
   script:
     - node -v
     - yarn -v
     - yarn
 
-deploy_develop:
+test_stage:
   stage: test
   script:
     - yarn test
