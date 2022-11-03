@@ -1,5 +1,4 @@
 #!/bin/bash
-yarn
 yarn build:site
 cd ./site-dist
 tar -zcvf calendar.tar.gz *
