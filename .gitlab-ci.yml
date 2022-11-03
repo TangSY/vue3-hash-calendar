@@ -14,4 +14,4 @@ deploy_stage:
     - chmod +x ci/deploy_stage.sh
     - ci/deploy_stage.sh
   only:
-    - master
+    - main
