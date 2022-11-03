@@ -1,3 +1,17 @@
+### [v1.0.5](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.4...v1.0.5)
+
+`2022-11-02`
+
+**Document**
+
+- 更新 changelog [9dd75f](https://github.com/TangSY/vue3-hash-calendar/commit/9dd75f216b9ab6c0362b1c2f3893b6c23a7d1df5)
+
+- 1.0.5 [b93887](https://github.com/TangSY/vue3-hash-calendar/commit/b9388729b42d7fbea1783a3615d4e56dbad9fdfc)
+
+**Feature**
+
+- 为每个 demo 加上测试用例快照 [a7b7d2](https://github.com/TangSY/vue3-hash-calendar/commit/a7b7d23a04b95ea0e9317cf643d557b8594e3e86)
+
 ### [v1.0.4](https://github.com/TangSY/vue3-hash-calendar/compare/f7cc6f9b92fb2176262c0badbf878736be779159...v1.0.4)
 
 `2022-11-02`
