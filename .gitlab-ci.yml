@@ -1,18 +1,11 @@
 stages:
-  - install
   - test
   - deploy
-
-install_stage:
-  stage: install
-  script:
-    - node -v
-    - yarn -v
-    - yarn
 
 test_stage:
   stage: test
   script:
+    - yarn
     - yarn test
 
 deploy_stage:
