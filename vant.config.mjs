@@ -40,6 +40,15 @@ const slotConfig = componentsSlot.map((dir) => ({
   title: dir,
 }));
 
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'process', {
+    get() {
+      return { env: {} };
+    },
+    set() {},
+  });
+}
+
 export default {
   name: 'vue3-hash-calendar',
   build: {
@@ -50,7 +59,8 @@ export default {
     site: {
       publicPath: '/calendar/',
     },
-    // srcDir: process.env.BUILD_TARGET === 'site' ? './src' : './src/calendar',
+    srcDir:
+      process.env.npm_lifecycle_event === 'build' ? './src/calendar' : './src',
   },
   site: {
     title: 'vue3-hash-calendar',
