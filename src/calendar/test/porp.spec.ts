@@ -1,5 +1,12 @@
 import { Calendar } from '..';
 import { mount, later } from '../../../test';
+import {
+  defalutDateText,
+  defalutMonthText,
+  defaultDate,
+  nowDateText,
+  nowMonthText,
+} from './utils';
 
 test('theme-color prop', async () => {
   const wrapper = mount(Calendar, {
@@ -105,4 +112,16 @@ test('today-class-name prop', async () => {
     todayClassName: 'today-class-name',
   });
   expect(wrapper.find('.today-class-name').exists()).toBeTruthy();
+});
+
+test('default-datetime prop', async () => {
+  const wrapper = mount(Calendar, { props: { defaultDatetime: defaultDate } });
+
+  await later();
+
+  const date = wrapper.find('.calendar_title_date_active');
+  const firstDay = wrapper.findAll('.calendar_first_today');
+
+  expect(date.text()).toBe(defalutDateText);
+  expect(firstDay[1].text()).toBe(defalutMonthText);
 });
