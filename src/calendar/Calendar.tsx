@@ -313,28 +313,22 @@ export default defineComponent({
       firstTimes.value = false;
     };
 
-    // 切换主题颜色
-    const changeThemeColor = () => {
-      const themeColorKeys = Object.keys(props.themeColor || {}) as Array<
-        keyof ThemeColorType
-      >;
+    // 获取主题颜色
+    const getThemeColor = () => {
+      const cssVar: any = {};
+      if (props.themeColor) {
+        const themeColorKeys = Object.keys(props.themeColor || {}) as Array<
+          keyof ThemeColorType
+        >;
 
-      if (themeColorKeys.length) {
-        let cssText = '';
-
-        themeColorKeys.forEach((k) => {
-          cssText += `--hash-calendar-${k}: ${props.themeColor[k]};`;
-        });
-
-        requestAnimationFrame(() => {
-          const calendarEle = document.querySelector(
-            '.hash-calendar'
-          ) as HTMLElement;
-          if (calendarEle) {
-            calendarEle.style.cssText = cssText;
-          }
-        });
+        if (themeColorKeys.length) {
+          themeColorKeys.forEach((k) => {
+            cssVar[`--hash-calendar-${k}`] = props.themeColor[k];
+          });
+        }
       }
+
+      return cssVar;
     };
 
     // 监听手指开始滑动事件
@@ -351,14 +345,6 @@ export default defineComponent({
     const touchEnd = (event: TouchEvent) => {
       emit('touchend', event);
     };
-
-    watch(
-      () => props.themeColor,
-      (val) => {
-        val && changeThemeColor();
-      },
-      { immediate: true }
-    );
 
     watch(
       () => props.defaultDatetime,
@@ -643,6 +629,7 @@ export default defineComponent({
                     (isShowArrowImg.value ? 30 : 0)
                   : undefined
               }px`,
+              ...getThemeColor(),
             }}
             onClick={close}
           >

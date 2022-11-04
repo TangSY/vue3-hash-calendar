@@ -10,8 +10,8 @@
 <vue-hash-calendar :default-datetime="new Date()" />
 ```
 
-### 2022/11/05 22:22:22
+### 2022/10/01 22:22:22
 
 ```html
-<vue-hash-calendar :default-datetime="new Date(2022/11/05 22:22:22)" />
+<vue-hash-calendar :default-datetime="new Date(2022/10/01 22:22:22)" />
 ```
