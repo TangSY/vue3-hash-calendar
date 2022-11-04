@@ -1,6 +1,5 @@
 import { Calendar } from '..';
 import { mount, later } from '../../../test';
-import { minDate, maxDate } from './utils';
 
 test('should change color when set theme-color', async () => {
   const wrapper = mount(Calendar, {
@@ -24,8 +23,22 @@ test('should change color when set theme-color', async () => {
   );
 });
 
-test('change-year-fast prop', () => {
+test('change-year-fast prop', async () => {
   const wrapper = mount(Calendar);
 
-  const date = wrapper.find({ name: 'CalendarYearMonth' });
+  await later();
+
+  const date = wrapper.find('.calendar_title_date_year');
+  date.trigger('click');
+  await later();
+
+  expect(wrapper.find('.year-body').exists()).toBeFalsy();
+
+  await wrapper.setProps({ changeYearFast: true });
+  date.trigger('click');
+  await later();
+
+  expect(wrapper.find('.year-body').attributes('style')).toContain(
+    'display: block'
+  );
 });
