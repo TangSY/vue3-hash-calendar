@@ -1,7 +1,7 @@
 import { Calendar } from '..';
 import { mount, later } from '../../../test';
 
-test('should change color when set theme-color', async () => {
+test('theme-color prop', async () => {
   const wrapper = mount(Calendar, {
     props: {
       themeColor: {
@@ -15,7 +15,7 @@ test('should change color when set theme-color', async () => {
     },
   });
 
-  await later(200);
+  await later();
 
   const calendar = wrapper.find('.hash-calendar');
   expect(calendar.attributes('style')).toContain(
@@ -41,4 +41,68 @@ test('change-year-fast prop', async () => {
   expect(wrapper.find('.year-body').attributes('style')).toContain(
     'display: block'
   );
+});
+
+test('checked-day-class-name prop', async () => {
+  const wrapper = mount(Calendar);
+
+  await later();
+
+  expect(wrapper.find('.checked-day-class-name').exists()).toBeFalsy();
+  await wrapper.setProps({ checkedDayClassName: 'checked-day-class-name' });
+  expect(wrapper.find('.checked-day-class-name').exists()).toBeTruthy();
+});
+
+test('disabled-class-name prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: {
+      disabledDate: () => true,
+    },
+  });
+
+  await later();
+
+  expect(wrapper.find('.disabled-class-name').exists()).toBeFalsy();
+  await wrapper.setProps({ disabledClassName: 'disabled-class-name' });
+  expect(wrapper.find('.disabled-class-name').exists()).toBeTruthy();
+});
+
+test('first-day-of-month-class-name prop', async () => {
+  const wrapper = mount(Calendar);
+
+  await later();
+
+  expect(wrapper.find('.first-day-of-month-class-name').exists()).toBeFalsy();
+  await wrapper.setProps({
+    firstDayOfMonthClassName: 'first-day-of-month-class-name',
+  });
+  expect(wrapper.find('.first-day-of-month-class-name').exists()).toBeTruthy();
+});
+
+test('not-current-month-day-class-name prop', async () => {
+  const wrapper = mount(Calendar);
+
+  await later();
+
+  expect(
+    wrapper.find('.not-current-month-day-class-name').exists()
+  ).toBeFalsy();
+  await wrapper.setProps({
+    notCurrentMonthDayClassName: 'not-current-month-day-class-name',
+  });
+  expect(
+    wrapper.find('.not-current-month-day-class-name').exists()
+  ).toBeTruthy();
+});
+
+test('today-class-name prop', async () => {
+  const wrapper = mount(Calendar);
+
+  await later();
+
+  expect(wrapper.find('.today-class-name').exists()).toBeFalsy();
+  await wrapper.setProps({
+    todayClassName: 'today-class-name',
+  });
+  expect(wrapper.find('.today-class-name').exists()).toBeTruthy();
 });
