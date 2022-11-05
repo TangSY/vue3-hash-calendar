@@ -1,3 +1,18 @@
+### [v1.0.7](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.6...v1.0.7)
+
+`2022-11-05`
+
+**Bug Fixes**
+
+- 修复一些 bug
+
+**Document**
+
+- 更新 v1.0.6 版本日志 [db7ef1](https://github.com/TangSY/vue3-hash-calendar/commit/db7ef1ae95b0a0054e4c96e5e586618b89e79bb3)
+- 更新 css 引入文档 [123498](https://github.com/TangSY/vue3-hash-calendar/commit/123498e5fcda9d88ac199c0f5db3cc7ad32f14c6)
+
+- 1.0.7 [318c95](https://github.com/TangSY/vue3-hash-calendar/commit/318c95ed74cd4a020684374785a27c8f01eff409)
+
 ### [v1.0.6](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.5...v1.0.6)
 
 `2022-11-03`
