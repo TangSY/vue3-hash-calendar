@@ -345,6 +345,37 @@ test('lang prop', async () => {
   expect(firstDay[1].text()).toBe('Jan');
 });
 
+test('mark-date prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: {
+      defaultDatetime: defaultDate,
+      markDate: [
+        {
+          color: '#f00',
+          type: 'dot+circle',
+          date: [`2022/01/01`, `2022/01/05`, `2022/01/10`],
+        },
+        {
+          color: '#0f0',
+          type: 'circle',
+          date: [`2022/01/15`, `2022/01/20`, `2022/01/25`],
+        },
+        `2022/01/28`,
+        `2022/01/16`,
+        `2022/01/18`,
+      ],
+    },
+  });
+  await later();
+
+  const days = wrapper.findAll('.calendar_day');
+  const dots = wrapper.findAll('.calendar_dot');
+  console.log('dots.length', dots.length);
+
+  expect(days[55].attributes('style')).toContain('border-color: #f00;');
+  expect(dots[55].attributes('style')).toContain('border-color: #f00;');
+});
+
 test('disabled-time prop', async () => {
   const wrapper = mount(Calendar);
   await later();

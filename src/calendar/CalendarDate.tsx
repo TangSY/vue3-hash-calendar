@@ -692,23 +692,33 @@ export default defineComponent({
     watch(
       () => props.markDate,
       (val) => {
-        val.forEach((item, index) => {
+        const objArr: {
+          date: string[];
+          type?: MarkType | undefined;
+          color: string;
+        }[] = [];
+
+        val.forEach((item) => {
+          const obj: MarkDateType = {
+            date: [],
+            color: '#1c71fb',
+            type: props.markType,
+          };
+
           if (typeof item === 'string' || typeof item === 'number') {
-            const obj: any = { date: [] };
-            obj.date = [item] as unknown as MarkDateType[];
-            val[index] = obj;
+            obj.date = [item];
+          } else {
+            obj.color = item.color || '#1c71fb';
+            obj.type = item.type || props.markType;
+            obj.date = dateFormat(item.date || []) as string[];
           }
 
-          val[index].color = item.color || '#1c71fb';
-
-          val[index].type = item.type || props.markType || '';
-
-          val[index].date = dateFormat(val[index].date || []) as string[];
+          objArr.push(obj);
         });
 
         markDateColorObj.value = {};
         markDateTypeObj.value = {};
-        val.forEach((item) => {
+        objArr.forEach((item) => {
           item.date.forEach((date) => {
             markDateColorObj.value[date] = item.color;
             markDateTypeObj.value[date] = item.type;

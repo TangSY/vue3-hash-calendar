@@ -22,11 +22,13 @@ export type LangType = 'EN' | 'CN';
 
 export type MarkType = 'dot' | 'circle' | 'dot+circle';
 
-export type MarkDateType = {
-  date: string[];
-  type?: MarkType;
-  color: string;
-} & string;
+export type MarkDateType =
+  | {
+      date: string[];
+      type?: MarkType;
+      color: string;
+    }
+  | string;
 
 export type WeekStartType =
   | 'Sunday'
