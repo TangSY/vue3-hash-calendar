@@ -38,7 +38,7 @@ import {
   pick,
   truthProp,
 } from './utils';
-import languageUtil, { type LanguageEntityType } from './language';
+import languageUtil from './language';
 
 // hooks
 import { useExpose, useMountedOrActivated, useRect } from './hooks';
@@ -121,7 +121,6 @@ export default defineComponent({
 
     const calendarTitleRef = ref<HTMLElement>();
     const calendarRef = ref<CalendarDateInstance>();
-    const language = ref<LanguageEntityType>({} as LanguageEntityType);
     const checkedDate = ref(defaultDate);
     const isShowCalendar = ref(false);
     const isShowWeek = ref(false);
@@ -130,8 +129,6 @@ export default defineComponent({
     const firstTimes = ref(true);
     const currDateTime = ref(new Date());
     const yearMonthType = ref<CalendarPanelType>('date');
-
-    language.value = languageUtil[props.lang];
 
     const isShowDatetimePicker = computed({
       get() {
@@ -419,7 +416,7 @@ export default defineComponent({
     });
 
     const renderTodayButton = () => {
-      let todayEle: any = language.value.TODAY;
+      let todayEle: any = languageUtil[props.lang].TODAY;
       if (slots.today) {
         todayEle = slots.today();
       }
@@ -439,7 +436,7 @@ export default defineComponent({
     };
 
     const renderConfirmButton = () => {
-      let confirmEle: any = language.value.CONFIRM;
+      let confirmEle: any = languageUtil[props.lang].CONFIRM;
       if (slots.confirm) {
         confirmEle = slots.confirm();
       }
@@ -473,7 +470,7 @@ export default defineComponent({
                     `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
                       checkedDate.value.day
                     }`,
-                    language.value.DEFAULT_DATE_FORMAT
+                    languageUtil[props.lang].DEFAULT_DATE_FORMAT
                   )}
                 </span>
               ) : null}
@@ -491,7 +488,7 @@ export default defineComponent({
                     } ${fillNumber(checkedDate.value.hours)}:${fillNumber(
                       checkedDate.value.minutes
                     )}`,
-                    language.value.DEFAULT_TIME_FORMAT
+                    languageUtil[props.lang].DEFAULT_TIME_FORMAT
                   )}
                 </span>
               ) : null}

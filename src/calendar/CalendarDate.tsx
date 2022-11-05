@@ -8,7 +8,7 @@ import {
   nextTick,
   watch,
 } from 'vue';
-import languageUtil, { LanguageEntityType, LanguageType } from './language';
+import languageUtil from './language';
 import { useExpose, useMountedOrActivated, useRect } from './hooks';
 import {
   CalendarDateExposeType,
@@ -88,7 +88,6 @@ export default defineComponent({
     const weekTitleRef = ref(null);
     const calendarRef = ref(null);
     const calendarItemRef = reactive<HTMLElement[]>([]);
-    const language = ref({} as LanguageEntityType);
     const yearOfCurrentShow = ref(new Date().getFullYear());
     const monthOfCurrentShow = ref(new Date().getMonth());
     const yearOfToday = ref(new Date().getFullYear());
@@ -134,9 +133,7 @@ export default defineComponent({
     const markDateColorObj = ref<any>({});
     const markDateTypeObj = ref<any>({});
 
-    const lang = props.lang.toUpperCase() as LanguageType;
-    language.value = languageUtil[lang];
-    calendarWeek.value = language.value.WEEK;
+    calendarWeek.value = languageUtil[props.lang].WEEK;
     weekStartIndex.value = weekArray.indexOf(props.weekStart.toLowerCase());
     calendarWeek.value = [
       ...calendarWeek.value.slice(
@@ -809,7 +806,7 @@ export default defineComponent({
 
     const renderDay = (date: CalendarMonthType, i: number) => {
       let dayEle: any = isFirstDayOfMonth(date, i)
-        ? language.value.MONTH[date.month]
+        ? languageUtil[props.lang].MONTH[date.month]
         : date.day === 0
         ? ''
         : date.day;

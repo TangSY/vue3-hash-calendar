@@ -45,7 +45,6 @@ test('theme-color prop', async () => {
       },
     },
   });
-
   await later();
 
   const calendar = wrapper.find('.hash-calendar');
@@ -56,7 +55,6 @@ test('theme-color prop', async () => {
 
 test('change-year-fast prop', async () => {
   const wrapper = mount(Calendar);
-
   await later();
 
   const date = wrapper.find('.calendar_title_date_year');
@@ -76,7 +74,6 @@ test('change-year-fast prop', async () => {
 
 test('checked-day-class-name prop', async () => {
   const wrapper = mount(Calendar);
-
   await later();
 
   expect(wrapper.find('.checked-day-class-name').exists()).toBeFalsy();
@@ -90,7 +87,6 @@ test('disabled-class-name prop', async () => {
       disabledDate: () => true,
     },
   });
-
   await later();
 
   expect(wrapper.find('.disabled-class-name').exists()).toBeFalsy();
@@ -100,7 +96,6 @@ test('disabled-class-name prop', async () => {
 
 test('first-day-of-month-class-name prop', async () => {
   const wrapper = mount(Calendar);
-
   await later();
 
   expect(wrapper.find('.first-day-of-month-class-name').exists()).toBeFalsy();
@@ -112,7 +107,6 @@ test('first-day-of-month-class-name prop', async () => {
 
 test('not-current-month-day-class-name prop', async () => {
   const wrapper = mount(Calendar);
-
   await later();
 
   expect(
@@ -128,7 +122,6 @@ test('not-current-month-day-class-name prop', async () => {
 
 test('today-class-name prop', async () => {
   const wrapper = mount(Calendar);
-
   await later();
 
   expect(wrapper.find('.today-class-name').exists()).toBeFalsy();
@@ -140,7 +133,6 @@ test('today-class-name prop', async () => {
 
 test('default-datetime prop', async () => {
   const wrapper = mount(Calendar, { props: { defaultDatetime: defaultDate } });
-
   await later();
 
   const date = wrapper.find('.calendar_title_date_active');
@@ -160,7 +152,6 @@ test('disabled-date prop', async () => {
   const wrapper = mount(Calendar, {
     props: { defaultDatetime: defaultDate, disabledDate, onClick },
   });
-
   await later();
 
   const days = wrapper.findAll('.calendar_day');
@@ -323,8 +314,38 @@ test('disabled-week-view prop', async () => {
   expect(wrapper.emitted('slidechange')).toEqual([['up'], ['down']]);
 });
 
+test('format prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: { defaultDatetime: defaultDate, format: 'YY/MM/DD hh:mm' },
+  });
+  await later();
+
+  const days = wrapper.findAll('.calendar_day');
+  days[55].trigger('click');
+  expect(wrapper.emitted('click')![0][0]).toEqual('2022/01/01 01:01');
+
+  await wrapper.setProps({ format: 'YY-MM-DD' });
+  days[55].trigger('click');
+  expect(wrapper.emitted('click')![1][0]).toEqual('2022-01-01');
+});
+
+test('lang prop', async () => {
+  const wrapper = mount(Calendar, { props: { defaultDatetime: defaultDate } });
+  await later();
+
+  const date = wrapper.find('.calendar_title_date_active');
+  const firstDay = wrapper.findAll('.calendar_first_today');
+
+  expect(date.text()).toBe(defalutDateText);
+  expect(firstDay[1].text()).toBe(defalutMonthText);
+
+  await wrapper.setProps({ lang: 'EN' });
+  await later();
+  expect(date.text()).toBe('Jan 01,2022');
+  expect(firstDay[1].text()).toBe('Jan');
+});
+
 test('disabled-time prop', async () => {
   const wrapper = mount(Calendar);
-
   await later();
 });
