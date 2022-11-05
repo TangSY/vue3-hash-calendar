@@ -1,12 +1,36 @@
+import { DOMWrapper, VueWrapper } from '@vue/test-utils';
 import { Calendar } from '..';
-import { mount, later } from '../../../test';
-import {
-  defalutDateText,
-  defalutMonthText,
-  defaultDate,
-  nowDateText,
-  nowMonthText,
-} from './utils';
+import { mount, later, trigger } from '../../../test';
+import { ScrollDirectionType } from '../types';
+import { defalutDateText, defalutMonthText, defaultDate } from './utils';
+
+const slidechange = (
+  wrapper: Element | Window | DOMWrapper<Element> | VueWrapper<any>,
+  dire: ScrollDirectionType
+) => {
+  switch (dire) {
+    case 'left':
+      trigger(wrapper, 'touchstart', 0, 0);
+      trigger(wrapper, 'touchmove', -200, 0);
+      trigger(wrapper, 'touchend', -200, 0);
+      break;
+    case 'right':
+      trigger(wrapper, 'touchstart', 0, 0);
+      trigger(wrapper, 'touchmove', 200, 0);
+      trigger(wrapper, 'touchend', 200, 0);
+      break;
+    case 'up':
+      trigger(wrapper, 'touchstart', 0, 0);
+      trigger(wrapper, 'touchmove', 0, -200);
+      trigger(wrapper, 'touchend', 0, -200);
+      break;
+    case 'down':
+      trigger(wrapper, 'touchstart', 0, 0);
+      trigger(wrapper, 'touchmove', 0, 200);
+      trigger(wrapper, 'touchend', 0, 200);
+      break;
+  }
+};
 
 test('theme-color prop', async () => {
   const wrapper = mount(Calendar, {
@@ -144,4 +168,143 @@ test('disabled-date prop', async () => {
   expect(onClick).toHaveBeenCalledTimes(0);
   days[55].trigger('click');
   expect(onClick).toHaveBeenCalledTimes(1);
+});
+
+test('disabled-scroll prop default', async () => {
+  const wrapper = mount(Calendar);
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([
+    ['right'],
+    ['left'],
+    ['up'],
+    ['down'],
+  ]);
+});
+
+test('disabled-scroll prop set true', async () => {
+  const wrapper = mount(Calendar, { props: { disabledScroll: true } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toBeFalsy();
+});
+
+test('disabled-scroll prop set left', async () => {
+  const wrapper = mount(Calendar, { props: { disabledScroll: 'left' } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['right'], ['up'], ['down']]);
+});
+
+test('disabled-scroll prop set right', async () => {
+  const wrapper = mount(Calendar, { props: { disabledScroll: 'right' } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['left'], ['up'], ['down']]);
+});
+
+test('disabled-scroll prop set up', async () => {
+  const wrapper = mount(Calendar, { props: { disabledScroll: 'up' } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['right'], ['left']]);
+});
+
+test('disabled-scroll prop set down', async () => {
+  const wrapper = mount(Calendar, { props: { disabledScroll: 'down' } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['right'], ['left'], ['up']]);
+});
+
+test('disabled-scroll prop set horizontal', async () => {
+  const wrapper = mount(Calendar, { props: { disabledScroll: 'horizontal' } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['up'], ['down']]);
+});
+
+test('disabled-scroll prop set vertical', async () => {
+  const wrapper = mount(Calendar, { props: { disabledScroll: 'vertical' } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['right'], ['left']]);
+});
+
+test('disabled-time prop', async () => {
+  const wrapper = mount(Calendar);
+
+  await later();
 });
