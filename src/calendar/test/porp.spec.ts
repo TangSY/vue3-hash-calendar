@@ -489,6 +489,36 @@ test('picker-type prop', async () => {
   expect(wrapper.find('.calendar_title_date_time').exists()).toBeTruthy();
 });
 
+test('scroll-change-date prop', async () => {
+  const wrapper = mount(Calendar, { props: { defaultDatetime: defaultDate } });
+  await later();
+
+  const calendar = wrapper.find('.calendar_group');
+  const days = wrapper.findAll('.calendar_day');
+
+  expect(days[55].attributes('class')).toContain('calendar_day_checked');
+  slidechange(calendar, 'left');
+  await later();
+  expect(days[51].attributes('class')).toContain('calendar_day_checked');
+  slidechange(calendar, 'right');
+  await later();
+
+  await wrapper.setProps({ scrollChangeDate: false });
+  expect(days[55].attributes('class')).toContain('calendar_day_checked');
+  slidechange(calendar, 'left');
+  await later();
+  expect(days[51].attributes('class')).not.toContain('calendar_day_checked');
+});
+
+test('show-action prop', async () => {
+  const wrapper = mount(Calendar);
+  await later();
+
+  expect(wrapper.find('.calendar_title').exists()).toBeTruthy();
+  await wrapper.setProps({ showAction: false });
+  expect(wrapper.find('.calendar_title').exists()).toBeFalsy();
+});
+
 test('disabled-time prop', async () => {
   const wrapper = mount(Calendar);
   await later();

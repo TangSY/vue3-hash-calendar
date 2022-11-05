@@ -978,15 +978,13 @@ exports[`should render demo and match snapshot 1`] = `
   false
 </h1>
 <div class="hash-calendar calendar_inline"
-     style="height: 800px;"
+     style="height: 700px;"
 >
   <div class="calendar_content"
-       style="height: 800px; bottom: 0px;"
+       style="height: 700px; bottom: 0px;"
   >
-    <div class="calendar_title">
-    </div>
     <div class="calendar_body"
-         style="margin-top: 100px; display: block;"
+         style="margin-top: 0px; display: block;"
     >
       <div class="calendar_week">
         <div class="calendar_item">

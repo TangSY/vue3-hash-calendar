@@ -457,7 +457,7 @@ export default defineComponent({
 
       if (props.showAction) {
         return (
-          <>
+          <div class="calendar_title" ref={calendarTitleRef}>
             <div class="calendar_title_date">
               {props.pickerType !== 'time' ? (
                 <span
@@ -495,16 +495,12 @@ export default defineComponent({
             </div>
             {renderTodayButton()}
             {renderConfirmButton()}
-          </>
+          </div>
         );
       }
-    };
 
-    const renderCalendarTitle = () => (
-      <div class="calendar_title" ref={calendarTitleRef}>
-        {renderAction()}
-      </div>
-    );
+      return null;
+    };
 
     const updateShowWeekView = (val: boolean) => {
       if (val) {
@@ -641,7 +637,7 @@ export default defineComponent({
                 e.stopImmediatePropagation();
               }}
             >
-              {renderCalendarTitle()}
+              {renderAction()}
               {props.pickerType !== 'time' ? renderCalendar() : ''}
               {renderTimePicker()}
               {props.changeYearFast ? renderYearMonthPicker() : ''}
