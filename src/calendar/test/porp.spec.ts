@@ -469,13 +469,24 @@ test('model prop', async () => {
 
 test('picker-type prop', async () => {
   const wrapper = mount(Calendar, {
-    props: { model: 'dialog', visible: true, defaultDatetime: defaultDate },
+    props: { defaultDatetime: defaultDate },
   });
   await later();
 
-  expect(wrapper.html()).toMatchSnapshot();
-  await wrapper.setProps({ visible: false });
-  expect(wrapper.html()).toMatchSnapshot();
+  expect(wrapper.find('.calendar_title_date_year').exists()).toBeTruthy();
+  expect(wrapper.find('.calendar_title_date_time').exists()).toBeTruthy();
+
+  await wrapper.setProps({ pickerType: 'datetime' });
+  expect(wrapper.find('.calendar_title_date_year').exists()).toBeTruthy();
+  expect(wrapper.find('.calendar_title_date_time').exists()).toBeTruthy();
+
+  await wrapper.setProps({ pickerType: 'date' });
+  expect(wrapper.find('.calendar_title_date_year').exists()).toBeTruthy();
+  expect(wrapper.find('.calendar_title_date_time').exists()).toBeFalsy();
+
+  await wrapper.setProps({ pickerType: 'time' });
+  expect(wrapper.find('.calendar_title_date_year').exists()).toBeFalsy();
+  expect(wrapper.find('.calendar_title_date_time').exists()).toBeTruthy();
 });
 
 test('disabled-time prop', async () => {
