@@ -303,6 +303,26 @@ test('disabled-scroll prop set vertical', async () => {
   expect(wrapper.emitted('slidechange')).toEqual([['right'], ['left']]);
 });
 
+test('disabled-week-view prop', async () => {
+  const wrapper = mount(Calendar, { props: { disabledWeekView: true } });
+  await later();
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toBeFalsy();
+
+  await wrapper.setProps({ disabledWeekView: false });
+
+  slidechange(calendar, 'up');
+  await later();
+  slidechange(calendar, 'down');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['up'], ['down']]);
+});
+
 test('disabled-time prop', async () => {
   const wrapper = mount(Calendar);
 
