@@ -456,6 +456,28 @@ test('minute-step prop', async () => {
   expect(time[25].text()).toBe('02');
 });
 
+test('model prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: { model: 'dialog', visible: true, defaultDatetime: defaultDate },
+  });
+  await later();
+
+  expect(wrapper.html()).toMatchSnapshot();
+  await wrapper.setProps({ visible: false });
+  expect(wrapper.html()).toMatchSnapshot();
+});
+
+test('picker-type prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: { model: 'dialog', visible: true, defaultDatetime: defaultDate },
+  });
+  await later();
+
+  expect(wrapper.html()).toMatchSnapshot();
+  await wrapper.setProps({ visible: false });
+  expect(wrapper.html()).toMatchSnapshot();
+});
+
 test('disabled-time prop', async () => {
   const wrapper = mount(Calendar);
   await later();
