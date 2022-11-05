@@ -370,10 +370,20 @@ test('mark-date prop', async () => {
 
   const days = wrapper.findAll('.calendar_day');
   const dots = wrapper.findAll('.calendar_dot');
-  console.log('dots.length', dots.length);
 
-  expect(days[55].attributes('style')).toContain('border-color: #f00;');
-  expect(dots[55].attributes('style')).toContain('border-color: #f00;');
+  expect(days[55].attributes('style')).toContain('border-color: #f00');
+  expect(dots[48].attributes('style')).toContain('background: rgb(255, 0, 0)');
+
+  expect(days[69].attributes('style')).toContain('border-color: #0f0');
+  expect(dots[62].attributes('style')).toBeFalsy();
+
+  expect(days[70].attributes('style')).toBeFalsy();
+  expect(dots[63].attributes('style')).toContain(
+    'background: rgb(28, 113, 251)'
+  );
+
+  expect(days[71].attributes('style')).toBeFalsy();
+  expect(dots[64].attributes('style')).toBeFalsy();
 });
 
 test('disabled-time prop', async () => {
