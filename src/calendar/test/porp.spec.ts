@@ -5,6 +5,7 @@ import { ScrollDirectionType } from '../types';
 import {
   defalutDateText,
   defalutMonthText,
+  defalutTimeText,
   defaultDate,
   maxDate,
   minDate,
@@ -559,13 +560,29 @@ test('show-week-view prop', async () => {
   expect(li[1].attributes('style')).toContain('translate3d(-100%, 0px, 0)');
 
   await wrapper.setProps({ showWeekView: true });
-  await later(1000);
+  await later(200);
   slidechange(calendar, 'right');
-  await later(1000);
-  expect(li[1].attributes('style')).toContain('translate3d(0%, -400px, 0)');
+  await later(200);
+  expect(li[1].attributes('style')).toContain('translate3d(0%, -100px, 0)');
 });
 
 test('disabled-time prop', async () => {
-  const wrapper = mount(Calendar);
-  await later();
+  const wrapper = mount(Calendar, {
+    props: { pickerType: 'time', defaultDatetime: defaultDate },
+  });
+  await later(200);
+
+  expect(wrapper.find('.time-disabled').exists()).toBeFalsy();
+  await wrapper.setProps({
+    disabledTime: (date: Date) => {
+      const hours = date.getHours();
+      const minute = date.getMinutes();
+
+      if (hours > 2 || (hours === 2 && minute > 2)) {
+        return true;
+      }
+      return false;
+    },
+  });
+  expect(wrapper.find('.time-disabled').exists()).toBeTruthy();
 });

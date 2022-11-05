@@ -118,7 +118,9 @@ export default defineComponent({
       timeStartY.value = e.changedTouches[0].pageY;
       const { transform } = (e.currentTarget as HTMLElement).style;
       if (transform) {
-        timeStartUp.value = parseFloat(transform.split(' ')[1].split('px')[0]);
+        timeStartUp.value = parseFloat(
+          transform?.split(' ')[1]?.split('px')[0]
+        );
       }
     };
 
@@ -128,8 +130,8 @@ export default defineComponent({
       if (transform) {
         endUp = parseFloat(
           (e.currentTarget as HTMLElement).style.transform
-            .split(' ')[1]
-            .split('px')[0]
+            ?.split(' ')[1]
+            ?.split('px')[0]
         );
       }
 
