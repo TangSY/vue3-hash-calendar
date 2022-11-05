@@ -4,20 +4,14 @@
 
 是否以周视图展示组件
 
-### 代码演示
+### false
 
 ```html
-<button @click="toggle">点击切换视图</button>
-<vue-hash-calendar :show-week-view="isShow" />
+<vue-hash-calendar :show-week-view="false" />
 ```
 
-```js
-<script setup>
-import { ref } from 'vue';
+### true
 
-const isShow = ref(false);
-const toggle = () => {
-  isShow.value = !isShow.value;
-};
-</script>
+```html
+<vue-hash-calendar :show-week-view="true" />
 ```

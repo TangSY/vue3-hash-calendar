@@ -519,6 +519,52 @@ test('show-action prop', async () => {
   expect(wrapper.find('.calendar_title').exists()).toBeFalsy();
 });
 
+test('show-arrow prop', async () => {
+  const wrapper = mount(Calendar);
+  await later();
+
+  expect(wrapper.find('.ctrl-img').exists()).toBeFalsy();
+  await wrapper.setProps({ showArrow: true });
+  expect(wrapper.find('.ctrl-img').exists()).toBeTruthy();
+});
+
+test('show-not-current-month-day prop', async () => {
+  const wrapper = mount(Calendar);
+  await later();
+
+  expect(wrapper.find('.calendar_day_not').exists()).toBeTruthy();
+  await wrapper.setProps({ showNotCurrentMonthDay: false });
+  expect(wrapper.find('.calendar_day_not').exists()).toBeFalsy();
+});
+
+test('show-today-button prop', async () => {
+  const wrapper = mount(Calendar);
+  await later();
+
+  expect(wrapper.find('.calendar_confirm').exists()).toBeTruthy();
+  await wrapper.setProps({ showTodayButton: false });
+  expect(wrapper.find('.calendar_confirm').exists()).toBeFalsy();
+});
+
+test('show-week-view prop', async () => {
+  const wrapper = mount(Calendar);
+  await later();
+
+  const calendar = wrapper.find('.calendar_group');
+  const li = wrapper.findAll('.calendar_group_li');
+
+  expect(li[1].attributes('style')).toContain('translate3d(0%, 0px, 0)');
+  slidechange(calendar, 'left');
+  await later();
+  expect(li[1].attributes('style')).toContain('translate3d(-100%, 0px, 0)');
+
+  await wrapper.setProps({ showWeekView: true });
+  await later(1000);
+  slidechange(calendar, 'right');
+  await later(1000);
+  expect(li[1].attributes('style')).toContain('translate3d(0%, -400px, 0)');
+});
+
 test('disabled-time prop', async () => {
   const wrapper = mount(Calendar);
   await later();

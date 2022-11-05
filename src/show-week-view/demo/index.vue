@@ -1,19 +1,17 @@
 <template>
-  <button @click="toggle">点击切换视图</button>
+  <h1 class="hash-demo-title">false</h1>
   <vue-hash-calendar
     :default-datetime="new Date(2022, 0, 1, 1, 1)"
-    :show-week-view="isShow"
+    :show-week-view="false"
+  />
+
+  <h1 class="hash-demo-title">true</h1>
+  <vue-hash-calendar
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+    :show-week-view="true"
   />
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import VueHashCalendar from '../../calendar';
-
-const isShow = ref(false);
-
-const toggle = () => {
-  isShow.value = !isShow.value;
-  console.log('isShow.value', isShow.value);
-};
 </script>

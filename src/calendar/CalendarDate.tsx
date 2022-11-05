@@ -850,7 +850,7 @@ export default defineComponent({
               ? props.checkedDayClassName || 'calendar_day_checked'
               : ''
           } ${
-            isNotCurrentMonthDay(date, i)
+            isNotCurrentMonthDay(date, i) && props.showNotCurrentMonthDay
               ? props.notCurrentMonthDayClassName || 'calendar_day_not'
               : ''
           } ${markDateColor(date, 'circle') ? 'calendar_mark_circle' : ''}`}

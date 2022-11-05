@@ -1044,19 +1044,19 @@ exports[`should render demo and match snapshot 1`] = `
               style="transform: translate3d(-100%, 0px, 0); transition-duration: 0.3s;"
           >
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
@@ -1279,49 +1279,49 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
@@ -1331,37 +1331,37 @@ exports[`should render demo and match snapshot 1`] = `
               style="transform: translate3d(0%, 0px, 0); transition-duration: 0.3s;"
           >
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
@@ -1584,31 +1584,31 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
@@ -1618,13 +1618,13 @@ exports[`should render demo and match snapshot 1`] = `
               style="transform: translate3d(100%, 0px, 0); transition-duration: 0.3s;"
           >
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
@@ -1826,67 +1826,67 @@ exports[`should render demo and match snapshot 1`] = `
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
             </div>
             <div class="calendar_item ">
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
@@ -1894,7 +1894,7 @@ exports[`should render demo and match snapshot 1`] = `
             <div class="calendar_item "
                  style="height: 100px;"
             >
-              <div class="calendar_day    calendar_day_not ">
+              <div class="calendar_day     ">
               </div>
               <div class="calendar_dot">
               </div>
