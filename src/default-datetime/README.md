@@ -4,14 +4,14 @@
 
 指定默认时间
 
-### 当前时间
+### 2022/01/01 01:01
 
 ```html
-<vue-hash-calendar :default-datetime="new Date()" />
+<vue-hash-calendar :default-datetime="new Date(2022, 0, 1, 1, 1)" />
 ```
 
-### 2022/10/01 22:22:22
+### 2021/01/01 01:01
 
 ```html
-<vue-hash-calendar :default-datetime="new Date(2022/10/01 22:22:22)" />
+<vue-hash-calendar :default-datetime="new Date('2021/01/01 01:01')" />
 ```
