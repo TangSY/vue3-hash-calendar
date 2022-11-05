@@ -444,6 +444,18 @@ test('min-date prop', async () => {
   expect(wrapper.emitted('slidechange')).toEqual([['left'], ['right']]);
 });
 
+test('minute-step prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: { pickerType: 'time', minuteStep: 2 },
+  });
+  await later(200);
+
+  const time = wrapper.findAll('.time_item');
+
+  expect(time[24].text()).toBe('00');
+  expect(time[25].text()).toBe('02');
+});
+
 test('disabled-time prop', async () => {
   const wrapper = mount(Calendar);
   await later();
