@@ -2,7 +2,13 @@ import { DOMWrapper, VueWrapper } from '@vue/test-utils';
 import { Calendar } from '..';
 import { mount, later, trigger } from '../../../test';
 import { ScrollDirectionType } from '../types';
-import { defalutDateText, defalutMonthText, defaultDate } from './utils';
+import {
+  defalutDateText,
+  defalutMonthText,
+  defaultDate,
+  maxDate,
+  minDate,
+} from './utils';
 
 const slidechange = (
   wrapper: Element | Window | DOMWrapper<Element> | VueWrapper<any>,
@@ -384,6 +390,58 @@ test('mark-date prop', async () => {
 
   expect(days[71].attributes('style')).toBeFalsy();
   expect(dots[64].attributes('style')).toBeFalsy();
+});
+
+test('max-date prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: { maxDate, defaultDatetime: maxDate },
+  });
+  await later();
+
+  const days = wrapper.findAll('.calendar_item');
+
+  await days[52].trigger('click');
+  expect(wrapper.emitted('click')).toBeFalsy();
+  expect(days[52].attributes('class')).toContain('calendar_item_disable');
+
+  await days[51].trigger('click');
+  expect(wrapper.emitted('click')).toBeTruthy();
+  expect(days[51].attributes('class')).not.toContain('calendar_item_disable');
+
+  const calendar = wrapper.find('.calendar_group');
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'left');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['right'], ['left']]);
+});
+
+test('min-date prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: { minDate, defaultDatetime: minDate },
+  });
+  await later();
+
+  const days = wrapper.findAll('.calendar_item');
+
+  await days[54].trigger('click');
+  expect(wrapper.emitted('click')).toBeFalsy();
+  expect(days[54].attributes('class')).toContain('calendar_item_disable');
+
+  await days[55].trigger('click');
+  expect(wrapper.emitted('click')).toBeTruthy();
+  expect(days[55].attributes('class')).not.toContain('calendar_item_disable');
+
+  const calendar = wrapper.find('.calendar_group');
+  slidechange(calendar, 'left');
+  await later();
+  slidechange(calendar, 'right');
+  await later();
+  slidechange(calendar, 'right');
+  await later();
+  expect(wrapper.emitted('slidechange')).toEqual([['left'], ['right']]);
 });
 
 test('disabled-time prop', async () => {

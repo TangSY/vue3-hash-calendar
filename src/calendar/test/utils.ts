@@ -13,5 +13,5 @@ export const defalutMonthText = '1月';
 export const defalutDayText = '1月';
 export const defalutTimeText = '01:01';
 
-export const minDate = new Date(2010, 0, 10);
-export const maxDate = new Date(2010, 0, 20);
+export const minDate = new Date(2022, 0, 1, 1, 1);
+export const maxDate = new Date(2022, 1, 1, 1, 1);

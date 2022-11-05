@@ -25,6 +25,8 @@ import {
   fillNumber,
   formatDate,
   getDayOfWeek,
+  getMaxDate,
+  getMinDate,
   isDateInRange,
   makeArrayProp,
   makeDateProp,
@@ -511,9 +513,8 @@ export default defineComponent({
 
     // 禁止继续往横向的当前方向滑动 （当设置 minDate 或 maxDate 时生效）
     const isDisabledHorizontalScroll = (direc: ScrollDirectionType) => {
-      const minDate =
-        props.minDate && props.minDate.getTime() - 24 * 60 * 60 * 1000;
-      const maxDate = props.maxDate && props.maxDate.getTime();
+      const minDate = getMinDate(props.minDate);
+      const maxDate = getMaxDate(props.maxDate);
 
       if (isShowWeek.value) {
         const lastWeekLastedDay = new Date(

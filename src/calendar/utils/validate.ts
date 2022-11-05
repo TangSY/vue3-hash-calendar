@@ -1,3 +1,5 @@
+import { getMaxDate, getMinDate } from '.';
+
 /**
  * 判断安卓与IOS平台
  * @returns {string}
@@ -19,9 +21,9 @@ export const checkPlatform = function () {
  * @returns
  */
 export const isDateInRange = (curr: Date, min: Date, max: Date) => {
-  const minDate = min && min.getTime() - 24 * 60 * 60 * 1000;
-  const maxDate = max && max.getTime();
-  const currentDate = curr.getTime();
+  const minDate = getMinDate(min);
+  const maxDate = getMaxDate(max);
+  const currentDate = new Date(curr.setHours(0, 0, 0, 0)).getTime();
 
   if (minDate && maxDate) return currentDate > minDate && currentDate < maxDate;
   if (minDate) return currentDate > minDate;

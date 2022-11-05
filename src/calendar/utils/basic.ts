@@ -94,3 +94,9 @@ export function pick<T, U extends keyof T>(
     return ret;
   }, {} as Writeable<Pick<T, U>>);
 }
+
+export const getMinDate = (min: Date) =>
+  min && new Date(min.setHours(0, 0, 0, 0)).getTime() - 24 * 60 * 60 * 1000;
+
+export const getMaxDate = (max: Date) =>
+  max && new Date(max.setHours(0, 0, 0, 0)).getTime() + 24 * 60 * 60 * 1000;
