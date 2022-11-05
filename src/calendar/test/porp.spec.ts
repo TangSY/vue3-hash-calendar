@@ -125,3 +125,23 @@ test('default-datetime prop', async () => {
   expect(date.text()).toBe(defalutDateText);
   expect(firstDay[1].text()).toBe(defalutMonthText);
 });
+
+test('disabled-date prop', async () => {
+  const onClick = jest.fn();
+  const disabledDate = (date: Date) => {
+    if (new Date(date.setHours(0, 0, 0, 0)).getTime() > defaultDate.getTime()) {
+      return true;
+    }
+  };
+  const wrapper = mount(Calendar, {
+    props: { defaultDatetime: defaultDate, disabledDate, onClick },
+  });
+
+  await later();
+
+  const days = wrapper.findAll('.calendar_day');
+  days[56].trigger('click');
+  expect(onClick).toHaveBeenCalledTimes(0);
+  days[55].trigger('click');
+  expect(onClick).toHaveBeenCalledTimes(1);
+});
