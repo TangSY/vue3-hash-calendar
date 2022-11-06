@@ -5,7 +5,6 @@ import { ScrollDirectionType } from '../types';
 import {
   defalutDateText,
   defalutMonthText,
-  defalutTimeText,
   defaultDate,
   maxDate,
   minDate,
