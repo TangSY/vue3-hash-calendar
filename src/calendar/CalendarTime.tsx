@@ -3,9 +3,11 @@ import {
   ExtractPropTypes,
   nextTick,
   PropType,
+  reactive,
   ref,
   watch,
 } from 'vue';
+import { useRect } from './hooks';
 import { CalendarDateType } from './types';
 import {
   checkPlatform,
@@ -38,8 +40,8 @@ export default defineComponent({
   emits: ['change'],
 
   setup(props, { emit }) {
-    const hashID = ref<string[]>([]);
-    const hashClass = ref('');
+    const timeContentRef = reactive<HTMLElement[]>([]);
+    const timeItemRef = reactive<HTMLElement[]>([]);
     const checkedDate = ref({
       hours: new Date().getHours(),
       minutes: new Date().getMinutes(),
@@ -48,12 +50,6 @@ export default defineComponent({
     const timeArray = ref<number[][]>([]);
     const timeStartY = ref(0);
     const timeStartUp = ref(0);
-
-    hashID.value = [
-      `time${Math.floor(Math.random() * 1000000)}`,
-      `time${Math.floor(Math.random() * 1000000)}`,
-    ];
-    hashClass.value = `time_item_${Math.floor(Math.random() * 1000000)}`;
 
     // 初始化时间选择器数据
     const initTimeArray = () => {
@@ -74,29 +70,19 @@ export default defineComponent({
         const checkHours = checkedDate.value.hours;
         const checkMinutes = checkedDate.value.minutes;
 
-        const hashClassEle = document.querySelector(
-          `.${hashClass.value}`
-        ) as HTMLElement;
-        const timeHeightStr = hashClassEle
-          ? hashClassEle.getBoundingClientRect().height
-          : 0;
-        timeHeight.value = timeHeightStr;
+        timeHeight.value = useRect(timeItemRef[0]).height;
+        console.log('timeHeight.value', timeHeight.value);
 
+        const [timeContentFirst, timeContentSecond] = timeContentRef;
         const hoursUp = (2 - checkHours) * timeHeight.value;
-        const hashIDEle = document.querySelector(
-          `#${hashID.value[0]}`
-        ) as HTMLElement;
-        if (hashIDEle) {
-          hashIDEle.style.transform = 'translate3d(0px,' + hoursUp + 'px,0px)';
+        if (timeContentFirst) {
+          timeContentFirst.style.transform =
+            'translate3d(0px,' + hoursUp + 'px,0px)';
         }
-
         const minutesUp =
           (2 - checkMinutes / props.minuteStep) * timeHeight.value;
-        const hashIDEle1 = document.querySelector(
-          `#${hashID.value[1]}`
-        ) as HTMLElement;
-        if (hashIDEle1) {
-          hashIDEle1.style.transform =
+        if (timeContentSecond) {
+          timeContentSecond.style.transform =
             'translate3d(0px,' + minutesUp + 'px,0px)';
         }
       });
@@ -118,9 +104,7 @@ export default defineComponent({
       timeStartY.value = e.changedTouches[0].pageY;
       const { transform } = (e.currentTarget as HTMLElement).style;
       if (transform) {
-        timeStartUp.value = parseFloat(
-          transform?.split(' ')[1]?.split('px')[0]
-        );
+        timeStartUp.value = parseFloat(transform.split(' ')[1].split('px')[0]);
       }
     };
 
@@ -130,8 +114,8 @@ export default defineComponent({
       if (transform) {
         endUp = parseFloat(
           (e.currentTarget as HTMLElement).style.transform
-            ?.split(' ')[1]
-            ?.split('px')[0]
+            .split(' ')[1]
+            .split('px')[0]
         );
       }
 
@@ -251,11 +235,13 @@ export default defineComponent({
     const renderTimeItem = (time: number[], index: number) =>
       time.map((item, j) => (
         <div
+          ref={(ref) => {
+            timeItemRef.length = 0;
+            timeItemRef.push(ref as HTMLElement);
+          }}
           class={`time_item ${
             isBeSelectedTime(item, index) ? 'time_item_show' : ''
-          } ${hashClass.value} ${
-            formatDisabledDate(item, index) ? 'time-disabled' : ''
-          }`}
+          } ${formatDisabledDate(item, index) ? 'time-disabled' : ''}`}
           key={index + j}
         >
           {fillNumber(item)}
@@ -268,7 +254,9 @@ export default defineComponent({
           {timeArray.value.map((item, index) => (
             <div
               class="time_content"
-              id={hashID.value[index]}
+              ref={(ref) => {
+                timeContentRef.push(ref as HTMLElement);
+              }}
               key={index}
               onTouchstart={timeTouchStart}
               onTouchmove={(e) => timeTouchMove(e, index)}

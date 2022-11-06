@@ -25,262 +25,262 @@ exports[`should render demo and match snapshot 1`] = `
     >
       <div class="time_group">
         <div class="time_content"
-             id="time896265"
+             style="transform: translate3d(0px,100px,0px);"
         >
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             00
           </div>
-          <div class="time_item time_item_show time_item_332128 ">
+          <div class="time_item time_item_show ">
             01
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             02
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             03
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             04
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             05
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             06
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             07
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             08
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             09
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             10
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             11
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             12
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             13
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             14
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             15
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             16
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             17
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             18
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             19
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             20
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             21
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             22
           </div>
-          <div class="time_item  time_item_332128 time-disabled">
+          <div class="time_item  time-disabled">
             23
           </div>
         </div>
         <div class="time_content"
-             id="time947405"
+             style="transform: translate3d(0px,100px,0px);"
         >
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             00
           </div>
-          <div class="time_item time_item_show time_item_332128 ">
+          <div class="time_item time_item_show ">
             01
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             02
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             03
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             04
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             05
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             06
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             07
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             08
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             09
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             10
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             11
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             12
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             13
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             14
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             15
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             16
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             17
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             18
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             19
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             20
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             21
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             22
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             23
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             24
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             25
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             26
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             27
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             28
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             29
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             30
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             31
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             32
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             33
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             34
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             35
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             36
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             37
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             38
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             39
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             40
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             41
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             42
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             43
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             44
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             45
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             46
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             47
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             48
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             49
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             50
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             51
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             52
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             53
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             54
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             55
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             56
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             57
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             58
           </div>
-          <div class="time_item  time_item_332128 ">
+          <div class="time_item  ">
             59
           </div>
         </div>
