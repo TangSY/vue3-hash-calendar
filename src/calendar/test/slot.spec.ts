@@ -22,7 +22,7 @@ test('day slot', async () => {
     if (data.extendAttr.isFirstDayOfMonth) {
       return '本月第一天';
     }
-    return data.date.day;
+    return `${data.date.year}年${data.date.month + 1}月${data.date.day}日`;
   };
 
   const disabledDate = (date: Date) => {
@@ -44,7 +44,14 @@ test('day slot', async () => {
       day: daySlot,
     },
   });
-  await later();
+  await later(500);
 
-  expect(wrapper.html()).toMatchSnapshot();
+  const days = wrapper.findAll('.calendar_day');
+  expect(days[7].text()).toBe('非本月日期');
+  expect(days[10].text()).toBe('本月第一天');
+  expect(days[11].text()).toBe('2021年12月2日');
+  expect(days[55].text()).toBe('选中');
+  expect(days[68].text()).toBe('禁用');
+  expect(days[76].text()).toBe('标记');
+  expect(days.length).toBe(133);
 });
