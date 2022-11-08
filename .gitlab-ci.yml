@@ -18,4 +18,4 @@ deploy_stage:
     - echo "$NPM_USER_NAME"
     - npm publish
   only:
-    - dev
+    - main
