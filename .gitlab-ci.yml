@@ -14,8 +14,7 @@ deploy_stage:
   script:
     - chmod +x ci/deploy_stage.sh
     - ci/deploy_stage.sh
-    - yarn build
-    - echo "$NPM_USER_NAME"
-    - npm publish
+    - chmod +x ci/publish.sh
+    - ci/publish.sh
   only:
     - main
