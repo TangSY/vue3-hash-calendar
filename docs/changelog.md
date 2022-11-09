@@ -1,3 +1,17 @@
+### [v1.0.8](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.7...v1.0.8)
+
+`2022-11-09`
+
+- 1.0.8 [a3da11](https://github.com/TangSY/vue3-hash-calendar/commit/a3da113fceb676a2c945b41efeea2887ecf88dd8)
+
+**Feature**
+
+- CalendarTime 使用 ref 替代随机 ID 和类名 [5cf5b0](https://github.com/TangSY/vue3-hash-calendar/commit/5cf5b05b80ea92d204bfdbae5384c6b095898b3b)
+
+**style**
+
+- 重置标签默认样式 [0ae943](https://github.com/TangSY/vue3-hash-calendar/commit/0ae943ba5aa16ccc63bca95a647e573bb5b011dc)
+
 ### [v1.0.7](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.6...v1.0.7)
 
 `2022-11-05`
