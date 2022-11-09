@@ -2,4 +2,16 @@
 
 ### 介绍
 
-使用方法参考 day 插槽
+自定义星期栏显示的内容
+
+参数为 { week: string }
+
+### 代码演示
+
+```html
+<vue-hash-calendar>
+  <template v-slot:week="scope">
+    <div>{{ `|${scope?.week}|` }}</div>
+  </template>
+</vue-hash-calendar>
+```

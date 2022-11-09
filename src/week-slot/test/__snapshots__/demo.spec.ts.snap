@@ -26,37 +26,51 @@ exports[`should render demo and match snapshot 1`] = `
       <div class="calendar_week">
         <div class="calendar_item">
           <p class="calendar_day">
-            日
+            <div>
+              |日|
+            </div>
           </p>
         </div>
         <div class="calendar_item">
           <p class="calendar_day">
-            一
+            <div>
+              |一|
+            </div>
           </p>
         </div>
         <div class="calendar_item">
           <p class="calendar_day">
-            二
+            <div>
+              |二|
+            </div>
           </p>
         </div>
         <div class="calendar_item">
           <p class="calendar_day">
-            三
+            <div>
+              |三|
+            </div>
           </p>
         </div>
         <div class="calendar_item">
           <p class="calendar_day">
-            四
+            <div>
+              |四|
+            </div>
           </p>
         </div>
         <div class="calendar_item">
           <p class="calendar_day">
-            五
+            <div>
+              |五|
+            </div>
           </p>
         </div>
         <div class="calendar_item">
           <p class="calendar_day">
-            六
+            <div>
+              |六|
+            </div>
           </p>
         </div>
       </div>

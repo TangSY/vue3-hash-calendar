@@ -76,3 +76,29 @@ test('week slot', async () => {
   expect(days[5].text()).toBe('星期五');
   expect(days[6].text()).toBe('星期六');
 });
+
+test('arrow slot', async () => {
+  const arrowSlot = (data: any) => {
+    if (data.isShowWeek) {
+      return '展开';
+    }
+    return '收起';
+  };
+
+  const wrapper = mount(Calendar, {
+    props: { showArrow: true },
+    slots: {
+      arrow: arrowSlot,
+    },
+  });
+  await later(500);
+
+  const ctrl = wrapper.find('.ctrl-img');
+  expect(ctrl.text()).toBe('收起');
+
+  await ctrl.trigger('click');
+  expect(ctrl.text()).toBe('展开');
+
+  await ctrl.trigger('click');
+  expect(ctrl.text()).toBe('收起');
+});

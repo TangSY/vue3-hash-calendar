@@ -592,7 +592,7 @@ export default defineComponent({
         <img src={isShowWeek.value ? ARROW_DOWN_IMG : ARROW_UP_IMG} />
       );
       if (slots.arrow) {
-        confirmEle = slots.arrow({ show: isShowWeek.value });
+        confirmEle = slots.arrow({ isShowWeek: isShowWeek.value });
       }
 
       if (isShowArrowImg.value) {
