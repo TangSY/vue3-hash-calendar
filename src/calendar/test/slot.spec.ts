@@ -55,3 +55,24 @@ test('day slot', async () => {
   expect(days[76].text()).toBe('标记');
   expect(days.length).toBe(133);
 });
+
+test('week slot', async () => {
+  const weekSlot = (data: any) => `星期${data.week}`;
+
+  const wrapper = mount(Calendar, {
+    slots: {
+      week: weekSlot,
+    },
+  });
+  await later(500);
+
+  const days = wrapper.findAll('.calendar_day');
+
+  expect(days[0].text()).toBe('星期日');
+  expect(days[1].text()).toBe('星期一');
+  expect(days[2].text()).toBe('星期二');
+  expect(days[3].text()).toBe('星期三');
+  expect(days[4].text()).toBe('星期四');
+  expect(days[5].text()).toBe('星期五');
+  expect(days[6].text()).toBe('星期六');
+});
