@@ -8,8 +8,8 @@
 
 <p align="center">
     <img src="https://travis-ci.com/TangSY/vue-hash-calendar.svg?branch=master&from=hxkj&style=flat-square" alt="Build Status" />
-    <img src="https://img.shields.io/npm/v/vue3-hash-calendar.svg?from=hxkj&style=flat-square" alt="version" />
-    <img src="https://img.shields.io/npm/dt/vue3-hash-calendar.svg?from=hxkj&style=flat-square" alt="download" />
+    <a href="https://www.npmjs.com/package/vue3-hash-calendar"><img src="https://img.shields.io/npm/v/vue3-hash-calendar.svg?from=hxkj&style=flat-square" alt="version" /></a>
+    <a href="https://www.npmjs.com/package/vue3-hash-calendar"><img src="https://img.shields.io/npm/dt/vue3-hash-calendar.svg?from=hxkj&style=flat-square" alt="download" /></a>
     <img src="https://visitor-badge.glitch.me/badge?page_id=vue3-hash-calendar&style=flat-square" alt="visitors" />
     <img src="https://img.badgesize.io/https://unpkg.com/vue3-hash-calendar@1/lib/vue3-hash-calendar.min.js?compression=gzip&style=flat-square&label=gzip%20size&color=#4fc08d" alt="Gzip Size" />
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?from=hxkj&style=flat-square" alt="license" />

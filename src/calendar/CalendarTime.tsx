@@ -249,7 +249,7 @@ export default defineComponent({
       ));
 
     const renderCalendarTime = () => (
-      <div class="time_body" style={{ display: props.show ? 'block' : 'none' }}>
+      <div class="time_body" style={{ display: props.show ? 'flex' : 'none' }}>
         <div class="time_group">
           {timeArray.value.map((item, index) => (
             <div

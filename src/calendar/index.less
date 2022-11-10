@@ -19,11 +19,18 @@
     width: 100%;
     height: auto;
     background: none;
-    height: 710px;
     z-index: 1;
 
     .calendar_content {
-      top: 0;
+      position: relative;
+      left: unset;
+      bottom: unset;
+    }
+
+    .calendar_title {
+      position: relative;
+      left: unset;
+      bottom: unset;
     }
   }
 
@@ -43,7 +50,7 @@
     position: absolute;
     width: 100%;
     left: 0;
-    top: 0;
+    bottom: 710px;
     .bgColor(background);
     .borderBottom();
     display: flex;
@@ -89,7 +96,6 @@
   .calendar_body {
     position: relative;
     width: 100%;
-    margin-top: 100px;
   }
 
   .calendar_week {
@@ -198,7 +204,7 @@
 
   .time_body {
     width: 100%;
-    margin-top: 100px;
+    .flexContent();
   }
 
   .time_group {
@@ -207,7 +213,6 @@
     align-items: flex-start;
     justify-content: center;
     height: 360px;
-    margin-top: 100px;
     -webkit-overflow-scrolling: touch;
     overflow: hidden;
   }

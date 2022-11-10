@@ -1,7 +1,6 @@
 import {
   computed,
   defineComponent,
-  nextTick,
   ref,
   watch,
   type ExtractPropTypes,
@@ -41,7 +40,7 @@ import {
 import languageUtil from './language';
 
 // hooks
-import { useExpose, useMountedOrActivated, useRect } from './hooks';
+import { useExpose } from './hooks';
 import CalendarDate from './CalendarDate';
 import CalendarTime from './CalendarTime';
 import CalendarYearMonth from './CalendarYearMonth';
@@ -119,13 +118,11 @@ export default defineComponent({
       minutes: new Date().getMinutes(),
     };
 
-    const calendarTitleRef = ref<HTMLElement>();
     const calendarRef = ref<CalendarDateInstance>();
     const checkedDate = ref(defaultDate);
     const isShowCalendar = ref(false);
     const isShowWeek = ref(false);
     const calendarBodyHeight = ref(0);
-    const calendarTitleHeight = ref(0);
     const firstTimes = ref(true);
     const currDateTime = ref(new Date());
     const yearMonthType = ref<CalendarPanelType>('date');
@@ -145,18 +142,10 @@ export default defineComponent({
 
     const calendarContentHeight = computed(() => {
       if (props.pickerType === 'time') {
-        return 245 + calendarTitleHeight.value;
+        return 245;
       }
-      return calendarBodyHeight.value + calendarTitleHeight.value;
+      return calendarBodyHeight.value;
     });
-
-    const init = () => {
-      nextTick(() => {
-        calendarTitleHeight.value = useRect(calendarTitleRef).height;
-      });
-    };
-
-    useMountedOrActivated(init);
 
     // 滑动方向改变
     const slideChange = (direction: ScrollDirectionType) => {
@@ -364,19 +353,6 @@ export default defineComponent({
     );
 
     watch(
-      () => props.showAction,
-      (flag) => {
-        if (!flag) {
-          calendarTitleHeight.value = 0;
-        } else {
-          nextTick(() => {
-            calendarTitleHeight.value = useRect(calendarTitleRef).height;
-          });
-        }
-      }
-    );
-
-    watch(
       checkedDate,
       () => {
         let date: EmitDateType = new Date(
@@ -398,13 +374,6 @@ export default defineComponent({
         isShowWeek.value = val;
       },
       { immediate: true }
-    );
-
-    watch(
-      () => props.visible,
-      () => {
-        init();
-      }
     );
 
     useExpose<CalendarExposeType>({
@@ -451,50 +420,66 @@ export default defineComponent({
     };
 
     const renderAction = () => {
-      if (slots.action) {
-        return slots.action();
-      }
-
       if (props.showAction) {
         return (
-          <div class="calendar_title" ref={calendarTitleRef}>
-            <div class="calendar_title_date">
-              {props.pickerType !== 'time' ? (
-                <span
-                  class={`calendar_title_date_year ${
-                    isShowCalendar.value ? 'calendar_title_date_active' : ''
-                  }`}
-                  onClick={showCalendar}
-                >
-                  {formatDatetime(
-                    `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
-                      checkedDate.value.day
-                    }`,
-                    languageUtil[props.lang].DEFAULT_DATE_FORMAT
-                  )}
-                </span>
-              ) : null}
+          <div
+            class="calendar_title"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            style={{
+              bottom:
+                props.model === 'dialog'
+                  ? `${calendarContentHeight.value}px`
+                  : 'unset',
+            }}
+          >
+            {slots.action ? (
+              slots.action()
+            ) : (
+              <>
+                <div class="calendar_title_date">
+                  {props.pickerType !== 'time' ? (
+                    <span
+                      class={`calendar_title_date_year ${
+                        isShowCalendar.value ? 'calendar_title_date_active' : ''
+                      }`}
+                      onClick={showCalendar}
+                    >
+                      {formatDatetime(
+                        `${checkedDate.value.year}/${
+                          checkedDate.value.month + 1
+                        }/${checkedDate.value.day}`,
+                        languageUtil[props.lang].DEFAULT_DATE_FORMAT
+                      )}
+                    </span>
+                  ) : null}
 
-              {props.pickerType !== 'date' ? (
-                <span
-                  class={`calendar_title_date_time ${
-                    !isShowCalendar.value ? 'calendar_title_date_active' : ''
-                  }`}
-                  onClick={showTime}
-                >
-                  {formatDatetime(
-                    `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
-                      checkedDate.value.day
-                    } ${fillNumber(checkedDate.value.hours)}:${fillNumber(
-                      checkedDate.value.minutes
-                    )}`,
-                    languageUtil[props.lang].DEFAULT_TIME_FORMAT
-                  )}
-                </span>
-              ) : null}
-            </div>
-            {renderTodayButton()}
-            {renderConfirmButton()}
+                  {props.pickerType !== 'date' ? (
+                    <span
+                      class={`calendar_title_date_time ${
+                        !isShowCalendar.value
+                          ? 'calendar_title_date_active'
+                          : ''
+                      }`}
+                      onClick={showTime}
+                    >
+                      {formatDatetime(
+                        `${checkedDate.value.year}/${
+                          checkedDate.value.month + 1
+                        }/${checkedDate.value.day} ${fillNumber(
+                          checkedDate.value.hours
+                        )}:${fillNumber(checkedDate.value.minutes)}`,
+                        languageUtil[props.lang].DEFAULT_TIME_FORMAT
+                      )}
+                    </span>
+                  ) : null}
+                </div>
+                {renderTodayButton()}
+                {renderConfirmButton()}
+              </>
+            )}
           </div>
         );
       }
@@ -517,7 +502,6 @@ export default defineComponent({
         ref={calendarRef}
         v-slots={pick(slots, ['week', 'day'])}
         show={isShowCalendar.value}
-        calendarTitleHeight={calendarTitleHeight.value}
         onHeight={heightChange}
         defaultDate={currDateTime.value}
         onTouchstart={touchStart}
@@ -565,7 +549,6 @@ export default defineComponent({
 
     const renderYearMonthPicker = () => (
       <CalendarYearMonth
-        calendarTitleHeight={calendarTitleHeight.value}
         calendarContentHeight={calendarContentHeight.value}
         calendarDate={checkedDate.value}
         type={yearMonthType.value}
@@ -600,7 +583,12 @@ export default defineComponent({
           <div
             class="ctrl-img"
             onClick={toggleWeek}
-            style={{ 'margin-top': `${calendarContentHeight.value}px` }}
+            style={{
+              'margin-top':
+                props.model === 'dialog'
+                  ? `${calendarContentHeight.value}px`
+                  : 'unset',
+            }}
           >
             {confirmEle}
           </div>
@@ -616,28 +604,21 @@ export default defineComponent({
               props.model === 'inline' ? 'calendar_inline' : ''
             }`}
             style={{
-              height: `${
-                props.model === 'inline'
-                  ? calendarContentHeight.value +
-                    (isShowArrowImg.value ? 30 : 0)
-                  : undefined
-              }px`,
               ...getThemeColor(),
             }}
             onClick={close}
           >
+            {renderAction()}
             <div
               class="calendar_content"
               style={{
                 height: `${calendarContentHeight.value}px`,
-                bottom: `${isShowArrowImg.value ? 30 : 0}px`,
               }}
               onClick={(e: MouseEvent) => {
                 e.preventDefault();
                 e.stopImmediatePropagation();
               }}
             >
-              {renderAction()}
               {props.pickerType !== 'time' ? renderCalendar() : ''}
               {renderTimePicker()}
               {props.changeYearFast ? renderYearMonthPicker() : ''}

@@ -102,3 +102,18 @@ test('arrow slot', async () => {
   await ctrl.trigger('click');
   expect(ctrl.text()).toBe('收起');
 });
+
+test('action slot', async () => {
+  const text = '自定义操作栏';
+  const actionSlot = () => text;
+
+  const wrapper = mount(Calendar, {
+    slots: {
+      action: actionSlot,
+    },
+  });
+  await later(500);
+
+  const action = wrapper.find('.calendar_title');
+  //   expect(action.text()).toBe(text);
+});

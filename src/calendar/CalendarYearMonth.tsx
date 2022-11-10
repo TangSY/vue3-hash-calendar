@@ -33,7 +33,6 @@ export const calendarYearMonthProps = {
   notCurrentMonthDayClassName: makeStringProp<string>(''),
   disabledClassName: makeStringProp<string>(''),
   type: makeStringProp<CalendarPanelType>('date'),
-  calendarTitleHeight: makeNumberProp(0),
   calendarContentHeight: makeNumberProp(0),
   disabledScroll: {
     type: [Boolean, String] as PropType<DisabledScrollType>,
@@ -68,9 +67,7 @@ export default defineComponent({
     const lang = props.lang.toUpperCase() as LanguageType;
     language.value = languageUtil[lang];
 
-    const itemHeight = computed(
-      () => (props.calendarContentHeight - props.calendarTitleHeight) / 4
-    );
+    const itemHeight = computed(() => props.calendarContentHeight / 4);
 
     const initYear = (year: number) => {
       const yearArr = [];
@@ -315,7 +312,6 @@ export default defineComponent({
       <div
         class="year-body"
         style={{
-          top: props.calendarTitleHeight + 'px',
           height: itemHeight.value * 4 + 'px',
           display: ['year', 'yearRange', 'month'].includes(props.type)
             ? 'block'

@@ -30,7 +30,6 @@ import {
   isDateInRange,
   makeArrayProp,
   makeDateProp,
-  makeNumberProp,
   makeStringProp,
   truthProp,
 } from './utils';
@@ -50,7 +49,6 @@ export const calendarDateProps = {
   },
   lang: makeStringProp<LangType>('CN'),
   scrollChangeDate: truthProp,
-  calendarTitleHeight: makeNumberProp(0),
   weekStart: makeStringProp<WeekStartType>('Sunday'),
   disabledScroll: {
     type: [Boolean, String] as PropType<DisabledScrollType>,
@@ -907,7 +905,6 @@ export default defineComponent({
       <div
         class="calendar_body"
         style={{
-          'margin-top': props.calendarTitleHeight + 'px',
           display: props.show ? 'block' : 'none',
         }}
       >
