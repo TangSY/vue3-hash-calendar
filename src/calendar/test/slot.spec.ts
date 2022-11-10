@@ -117,3 +117,37 @@ test('action slot', async () => {
   const action = wrapper.find('.calendar_title');
   expect(action.text()).toBe(text);
 });
+
+test('today slot', async () => {
+  const text = '今天按钮';
+  const todaySlot = () => text;
+
+  const wrapper = mount(Calendar, {
+    slots: {
+      today: todaySlot,
+    },
+  });
+  await later(500);
+
+  const btn = wrapper.findAll('.calendar_confirm');
+  expect(btn[0].text()).toBe(text);
+});
+
+test('confirm slot', async () => {
+  const text = '确定按钮';
+  const confirmSlot = () => text;
+
+  const wrapper = mount(Calendar, {
+    props: {
+      model: 'dialog',
+      visible: true,
+    },
+    slots: {
+      confirm: confirmSlot,
+    },
+  });
+  await later(500);
+
+  const btn = wrapper.findAll('.calendar_confirm');
+  expect(btn[1].text()).toBe(text);
+});
