@@ -555,13 +555,13 @@ test('show-week-view prop', async () => {
 
   expect(li[1].attributes('style')).toContain('translate3d(0%, 0px, 0)');
   slidechange(calendar, 'left');
-  await later();
+  await later(400);
   expect(li[1].attributes('style')).toContain('translate3d(-100%, 0px, 0)');
 
   await wrapper.setProps({ showWeekView: true });
-  await later(200);
+  await later(400);
   slidechange(calendar, 'right');
-  await later(200);
+  await later(400);
   expect(li[1].attributes('style')).toContain('translate3d(0%, -100px, 0)');
 });
 

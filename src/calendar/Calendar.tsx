@@ -166,6 +166,10 @@ export default defineComponent({
       calendarRef.value?.today();
     };
 
+    const reset = (date: Date) => {
+      currDateTime.value = date;
+    };
+
     const lastMonth = () => {
       calendarRef.value?.getLastMonth();
     };
@@ -378,6 +382,7 @@ export default defineComponent({
 
     useExpose<CalendarExposeType>({
       today,
+      reset,
       lastMonth,
       nextMonth,
       lastWeek,

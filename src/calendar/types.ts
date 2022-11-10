@@ -62,6 +62,7 @@ export type EmitDateType = Date | string;
 
 export type CalendarExposeType = {
   today: () => void;
+  reset: (date: Date) => void;
   lastMonth: () => void;
   nextMonth: () => void;
   lastWeek: () => void;
