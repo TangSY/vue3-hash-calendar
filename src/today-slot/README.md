@@ -1,4 +1,4 @@
-# arrow 插槽
+# today 插槽
 
 ### 介绍
 
@@ -7,7 +7,7 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar show-arrow>
+<vue-hash-calendar>
   <template #today>
     <span style="color: red">今天按钮</span>
   </template>

@@ -1,7 +1,7 @@
 <template>
-  <vue-hash-calendar>
-    <template #today>
-      <span style="color: red">今天按钮</span>
+  <vue-hash-calendar model="dialog" :visible="true">
+    <template #confirm>
+      <span style="color: red">确定按钮</span>
     </template>
   </vue-hash-calendar>
 </template>
