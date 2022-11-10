@@ -115,5 +115,5 @@ test('action slot', async () => {
   await later(500);
 
   const action = wrapper.find('.calendar_title');
-  //   expect(action.text()).toBe(text);
+  expect(action.text()).toBe(text);
 });
