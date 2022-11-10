@@ -4,24 +4,22 @@ exports[`should render demo and match snapshot 1`] = `
 <h1 class="hash-demo-title">
   禁用2点2分之后的时间
 </h1>
-<div class="hash-calendar calendar_inline"
-     style="height: 345px;"
->
-  <div class="calendar_content"
-       style="height: 345px; bottom: 0px;"
-  >
-    <div class="calendar_title">
-      <div class="calendar_title_date">
-        <span class="calendar_title_date_time calendar_title_date_active">
-          01:01
-        </span>
-      </div>
-      <div class="calendar_confirm ">
-        今天
-      </div>
+<div class="hash-calendar calendar_inline">
+  <div class="calendar_title">
+    <div class="calendar_title_date">
+      <span class="calendar_title_date_time calendar_title_date_active">
+        01:01
+      </span>
     </div>
+    <div class="calendar_confirm ">
+      今天
+    </div>
+  </div>
+  <div class="calendar_content"
+       style="height: 245px;"
+  >
     <div class="time_body"
-         style="display: block;"
+         style="display: flex;"
     >
       <div class="time_group">
         <div class="time_content"

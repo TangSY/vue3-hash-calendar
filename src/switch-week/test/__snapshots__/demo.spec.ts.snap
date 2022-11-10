@@ -7,27 +7,25 @@ exports[`should render demo and match snapshot 1`] = `
 <button>
   下一星期
 </button>
-<div class="hash-calendar calendar_inline"
-     style="height: 300px;"
->
-  <div class="calendar_content"
-       style="height: 300px; bottom: 0px;"
-  >
-    <div class="calendar_title">
-      <div class="calendar_title_date">
-        <span class="calendar_title_date_year calendar_title_date_active">
-          2022年01月01日
-        </span>
-        <span class="calendar_title_date_time ">
-          01:01
-        </span>
-      </div>
-      <div class="calendar_confirm ">
-        今天
-      </div>
+<div class="hash-calendar calendar_inline">
+  <div class="calendar_title">
+    <div class="calendar_title_date">
+      <span class="calendar_title_date_year calendar_title_date_active">
+        2022年01月01日
+      </span>
+      <span class="calendar_title_date_time ">
+        01:01
+      </span>
     </div>
+    <div class="calendar_confirm ">
+      今天
+    </div>
+  </div>
+  <div class="calendar_content"
+       style="height: 200px;"
+  >
     <div class="calendar_body"
-         style="margin-top: 100px; display: block;"
+         style="display: block;"
     >
       <div class="calendar_week">
         <div class="calendar_item">
