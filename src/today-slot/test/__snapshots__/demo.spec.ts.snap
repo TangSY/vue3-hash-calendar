@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render demo and match snapshot 1`] = `
-<div class="hash-calendar ">
-  <div class="calendar_title"
-       style="bottom: 700px;"
-  >
+<div class="hash-calendar calendar_inline">
+  <div class="calendar_title">
     <div class="calendar_title_date">
       <span class="calendar_title_date_year calendar_title_date_active">
         1994年10月21日
@@ -14,11 +12,8 @@ exports[`should render demo and match snapshot 1`] = `
       </span>
     </div>
     <div class="calendar_confirm ">
-      今天
-    </div>
-    <div class="calendar_confirm">
       <span style="color: red;">
-        确定按钮
+        今天按钮
       </span>
     </div>
   </div>
