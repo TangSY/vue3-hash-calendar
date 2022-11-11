@@ -71,7 +71,6 @@ export default defineComponent({
         const checkMinutes = checkedDate.value.minutes;
 
         timeHeight.value = useRect(timeItemRef[0]).height;
-        console.log('timeHeight.value', timeHeight.value);
 
         const [timeContentFirst, timeContentSecond] = timeContentRef;
         const hoursUp = (2 - checkHours) * timeHeight.value;

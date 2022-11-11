@@ -166,7 +166,7 @@ export default defineComponent({
       calendarRef.value?.today();
     };
 
-    const reset = (date: Date) => {
+    const reset = (date: Date = new Date()) => {
       currDateTime.value = date;
     };
 

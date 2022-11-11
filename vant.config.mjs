@@ -170,7 +170,11 @@ export default {
           },
           {
             title: '返回今日',
-            path: 'switch-day',
+            path: 'today',
+          },
+          {
+            title: '重置日历到指定日期',
+            path: 'reset',
           },
         ],
       },
