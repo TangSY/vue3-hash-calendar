@@ -7,7 +7,9 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar today-class-name="today-class-name" />
+<template>
+  <vue-hash-calendar today-class-name="today-class-name" />
+</template>
 ```
 
 ```css

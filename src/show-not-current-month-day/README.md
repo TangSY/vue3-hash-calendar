@@ -7,11 +7,15 @@
 ### true
 
 ```html
-<vue-hash-calendar :show-not-current-month-day="true" />
+<template>
+  <vue-hash-calendar :show-not-current-month-day="true" />
+</template>
 ```
 
 ### false
 
 ```html
-<vue-hash-calendar :show-not-current-month-day="false" />
+<template>
+  <vue-hash-calendar :show-not-current-month-day="false" />
+</template>
 ```

@@ -9,11 +9,15 @@
 ### CN
 
 ```html
-<vue-hash-calendar lang="CN" />
+<template>
+  <vue-hash-calendar lang="CN" />
+</template>
 ```
 
 ### EN
 
 ```html
-<vue-hash-calendar lang="EN" />
+<template>
+  <vue-hash-calendar lang="EN" />
+</template>
 ```

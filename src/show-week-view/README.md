@@ -7,11 +7,15 @@
 ### false
 
 ```html
-<vue-hash-calendar :show-week-view="false" />
+<template>
+  <vue-hash-calendar :show-week-view="false" />
+</template>
 ```
 
 ### true
 
 ```html
-<vue-hash-calendar :show-week-view="true" />
+<template>
+  <vue-hash-calendar :show-week-view="true" />
+</template>
 ```

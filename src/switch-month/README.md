@@ -9,9 +9,11 @@ nextMonth(): 下一月
 ### lastMonth
 
 ```html
-<button @click="lastMonth">上一月</button>
-<button @click="nextMonth">下一月</button>
-<vue-hash-calendar ref="calendar" />
+<template>
+  <button @click="lastMonth">上一月</button>
+  <button @click="nextMonth">下一月</button>
+  <vue-hash-calendar ref="calendar" />
+</template>
 ```
 
 ```js

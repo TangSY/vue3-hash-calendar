@@ -7,9 +7,11 @@
 ### 代码演示
 
 ```html
-<button @click="today">返回今日</button>
+<template>
+  <button @click="today">返回今日</button>
 
-<vue-hash-calendar ref="calendar" />
+  <vue-hash-calendar ref="calendar" />
+</template>
 ```
 
 ```js

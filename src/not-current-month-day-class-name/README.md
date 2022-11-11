@@ -7,9 +7,11 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar
-  not-current-month-day-class-name="not-current-month-day-class-name"
-/>
+<template>
+  <vue-hash-calendar
+    not-current-month-day-class-name="not-current-month-day-class-name"
+  />
+</template>
 ```
 
 ```css

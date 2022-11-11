@@ -7,9 +7,11 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar
-  first-day-of-month-class-name="first-day-of-month-class-name"
-/>
+<template>
+  <vue-hash-calendar
+    first-day-of-month-class-name="first-day-of-month-class-name"
+  />
+</template>
 ```
 
 ```css

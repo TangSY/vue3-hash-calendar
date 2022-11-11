@@ -7,10 +7,13 @@
 ### 禁用 2022 年 1 月 15 号 之后的所有日期
 
 ```html
-<vue-hash-calendar :disabled-date="disabledAfterCurrentDate" />
+<template>
+  <vue-hash-calendar :disabled-date="disabledAfterCurrentDate" />
+</template>
 ```
 
 ```js
+<script setup>
 const disabledAfterCurrentDate = (date) => {
   const timestamp = date.getTime();
   if (timestamp > new Date(2022, 0, 15).getTime()) {
@@ -19,15 +22,19 @@ const disabledAfterCurrentDate = (date) => {
 
   return false;
 };
+</script>
 ```
 
 ### 禁用指定日期
 
 ```html
-<vue-hash-calendar :disabled-date="disabledDate" />
+<template>
+  <vue-hash-calendar :disabled-date="disabledDate" />
+</template>
 ```
 
 ```js
+<script setup>
 const disabledDate = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth();
@@ -51,4 +58,5 @@ const disabledDate = (date) => {
 
   return false;
 };
+</script>
 ```

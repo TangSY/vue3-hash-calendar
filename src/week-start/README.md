@@ -7,11 +7,15 @@
 ### sunday
 
 ```html
-<vue-hash-calendar week-start="sunday" />
+<template>
+  <vue-hash-calendar week-start="sunday" />
+</template>
 ```
 
 ### monday
 
 ```html
-<vue-hash-calendar week-start="monday" />
+<template>
+  <vue-hash-calendar week-start="monday" />
+</template>
 ```

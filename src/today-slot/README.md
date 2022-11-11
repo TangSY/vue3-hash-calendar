@@ -7,9 +7,11 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar>
-  <template #today>
-    <span style="color: red">今天按钮</span>
-  </template>
-</vue-hash-calendar>
+<template>
+  <vue-hash-calendar>
+    <template #today>
+      <span style="color: red">今天按钮</span>
+    </template>
+  </vue-hash-calendar>
+</template>
 ```

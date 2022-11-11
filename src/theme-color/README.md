@@ -18,8 +18,10 @@
 ### 代码演示
 
 ```html
-<button @click="change">切换主题色</button>
-<vue-hash-calendar :theme-color="themeColor" />
+<template>
+  <button @click="change">切换主题色</button>
+  <vue-hash-calendar :theme-color="themeColor" />
+</template>
 ```
 
 ```js

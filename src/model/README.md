@@ -7,14 +7,18 @@
 ### inline
 
 ```html
-<vue-hash-calendar model="inline" />
+<template>
+  <vue-hash-calendar model="inline" />
+</template>
 ```
 
 ### dialog
 
 ```html
-<button @click="showCalendar">点击打开日历弹窗</button>
-<vue-hash-calendar model="dialog" v-model:visible="isShow" />
+<template>
+  <button @click="showCalendar">点击打开日历弹窗</button>
+  <vue-hash-calendar model="dialog" v-model:visible="isShow" />
+</template>
 ```
 
 ```js

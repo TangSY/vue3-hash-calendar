@@ -9,11 +9,15 @@
 ### 间隔为 2
 
 ```html
-<vue-hash-calendar pick-type="time" :minute-step="2" />
+<template>
+  <vue-hash-calendar pick-type="time" :minute-step="2" />
+</template>
 ```
 
 ### 间隔为 5
 
 ```html
-<vue-hash-calendar pick-type="time" :minute-step="5" />
+<template>
+  <vue-hash-calendar pick-type="time" :minute-step="5" />
+</template>
 ```

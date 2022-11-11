@@ -7,8 +7,10 @@
 ### 代码演示
 
 ```html
-<button @click="showCalendar">点击打开日历弹窗</button>
-<vue-hash-calendar model="dialog" v-model:visible="isShow" />
+<template>
+  <button @click="showCalendar">点击打开日历弹窗</button>
+  <vue-hash-calendar model="dialog" v-model:visible="isShow" />
+</template>
 ```
 
 ```js

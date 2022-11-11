@@ -7,11 +7,15 @@
 ### true
 
 ```html
-<vue-hash-calendar :scroll-change-date="true" />
+<template>
+  <vue-hash-calendar :scroll-change-date="true" />
+</template>
 ```
 
 ### false
 
 ```html
-<vue-hash-calendar :scroll-change-date="false" />
+<template>
+  <vue-hash-calendar :scroll-change-date="false" />
+</template>
 ```

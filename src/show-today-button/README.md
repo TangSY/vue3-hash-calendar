@@ -7,11 +7,15 @@
 ### true
 
 ```html
-<vue-hash-calendar :show-today-button="true" />
+<template>
+  <vue-hash-calendar :show-today-button="true" />
+</template>
 ```
 
 ### false
 
 ```html
-<vue-hash-calendar :show-today-button="false" />
+<template>
+  <vue-hash-calendar :show-today-button="false" />
+</template>
 ```

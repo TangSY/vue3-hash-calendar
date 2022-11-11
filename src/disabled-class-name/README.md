@@ -7,13 +7,16 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar
-  disabled-class-name="disabled-class-name"
-  :disabled-date="disabledAfterCurrentDate"
-/>
+<template>
+  <vue-hash-calendar
+    disabled-class-name="disabled-class-name"
+    :disabled-date="disabledAfterCurrentDate"
+  />
+</template>
 ```
 
 ```js
+<script setup>
 const disabledAfterCurrentDate = (date) => {
   const timestamp = date.getTime();
   if (timestamp > new Date().getTime()) {
@@ -22,6 +25,7 @@ const disabledAfterCurrentDate = (date) => {
 
   return false;
 };
+</script>
 ```
 
 ```css

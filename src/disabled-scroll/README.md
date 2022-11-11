@@ -13,7 +13,9 @@
 禁止向左滑动
 
 ```html
-<vue-hash-calendar disabled-scroll="left" />
+<template>
+  <vue-hash-calendar disabled-scroll="left" />
+</template>
 ```
 
 ### horizontal
@@ -21,7 +23,9 @@
 禁止横向滑动
 
 ```html
-<vue-hash-calendar disabled-scroll="horizontal" />
+<template>
+  <vue-hash-calendar disabled-scroll="horizontal" />
+</template>
 ```
 
 ### vertical
@@ -29,7 +33,9 @@
 禁止竖向滑动
 
 ```html
-<vue-hash-calendar disabled-scroll="vertical" />
+<template>
+  <vue-hash-calendar disabled-scroll="vertical" />
+</template>
 ```
 
 ### true
@@ -37,5 +43,7 @@
 禁止所有方向的滑动
 
 ```html
-<vue-hash-calendar :disabled-scroll="true" />
+<template>
+  <vue-hash-calendar :disabled-scroll="true" />
+</template>
 ```

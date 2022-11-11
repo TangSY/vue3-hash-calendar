@@ -7,11 +7,15 @@
 ### false
 
 ```html
-<vue-hash-calendar :change-year-fast="false" />
+<template>
+  <vue-hash-calendar :change-year-fast="false" />
+</template>
 ```
 
 ### true
 
 ```html
-<vue-hash-calendar :change-year-fast="true" />
+<template>
+  <vue-hash-calendar :change-year-fast="true" />
+</template>
 ```

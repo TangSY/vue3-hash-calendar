@@ -13,17 +13,23 @@ time：时间
 ### datetime
 
 ```html
-<vue-hash-calendar picker-type="datetime" />
+<template>
+  <vue-hash-calendar picker-type="datetime" />
+</template>
 ```
 
 ### date
 
 ```html
-<vue-hash-calendar picker-type="date" />
+<template>
+  <vue-hash-calendar picker-type="date" />
+</template>
 ```
 
 ### time
 
 ```html
-<vue-hash-calendar picker-type="time" />
+<template>
+  <vue-hash-calendar picker-type="time" />
+</template>
 ```

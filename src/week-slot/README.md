@@ -9,9 +9,11 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar>
-  <template v-slot:week="scope">
-    <div>{{ `|${scope?.week}|` }}</div>
-  </template>
-</vue-hash-calendar>
+<template>
+  <vue-hash-calendar>
+    <template v-slot:week="scope">
+      <div>{{ `|${scope?.week}|` }}</div>
+    </template>
+  </vue-hash-calendar>
+</template>
 ```

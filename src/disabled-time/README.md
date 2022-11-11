@@ -9,10 +9,13 @@
 以 `picker-type="time"` 为例
 
 ```html
-<vue-hash-calendar picker-type="time" :disabled-time="disabledBeforeTime" />
+<template>
+  <vue-hash-calendar picker-type="time" :disabled-time="disabledBeforeTime" />
+</template>
 ```
 
 ```js
+<script setup>
 const disabledBeforeTime = (date) => {
   const hours = date.getHours();
   const minute = date.getMinutes();
@@ -22,4 +25,5 @@ const disabledBeforeTime = (date) => {
   }
   return false;
 };
+</script>
 ```

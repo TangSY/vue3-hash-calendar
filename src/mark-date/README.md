@@ -13,8 +13,9 @@ date: 需要被标记的日期
 ### 默认标记方式
 
 ```html
-<vue-hash-calendar
-  :mark-date="[
+<template>
+  <vue-hash-calendar
+    :mark-date="[
       `2022/01/01`,
       `2022/01/05`,
       `2022/01/10`,
@@ -25,14 +26,16 @@ date: 需要被标记的日期
       `2022/01/16`,
       `2022/01/18`,
     ]"
-/>
+  />
+</template>
 ```
 
 ### 自定义颜色
 
 ```html
-<vue-hash-calendar
-  :mark-date="[
+<template>
+  <vue-hash-calendar
+    :mark-date="[
       {
         color: '#f00',
         date: [
@@ -48,14 +51,16 @@ date: 需要被标记的日期
         ],
       },
     ]"
-/>
+  />
+</template>
 ```
 
 ### 自定义标记类型
 
 ```html
-<vue-hash-calendar
-  :mark-date="[
+<template>
+  <vue-hash-calendar
+    :mark-date="[
       {
         type: 'circle',
         date: [
@@ -71,14 +76,16 @@ date: 需要被标记的日期
         ],
       },
     ]"
-/>
+  />
+</template>
 ```
 
 ### 交叉使用
 
 ```html
-<vue-hash-calendar
-  :mark-date="[
+<template>
+  <vue-hash-calendar
+    :mark-date="[
       {
         color: '#f00',
         type: 'dot+circle',
@@ -101,5 +108,6 @@ date: 需要被标记的日期
       `2022/01/16`,
       `2022/01/18`,
     ]"
-/>
+  />
+</template>
 ```

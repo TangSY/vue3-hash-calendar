@@ -7,5 +7,7 @@
 ### 代码演示
 
 ```html
-<vue-hash-calendar :min-date="new Date('2022/11/05')" />
+<template>
+  <vue-hash-calendar :min-date="new Date('2022/11/05')" />
+</template>
 ```

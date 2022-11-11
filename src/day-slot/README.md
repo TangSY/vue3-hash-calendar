@@ -9,12 +9,14 @@
 ### 修改当天的日期为 今
 
 ```html
-<vue-hash-calendar>
-  <template v-slot:day="scope">
-    <div v-if="scope?.extendAttr?.isToday">今</div>
-    <div v-else>{{ scope?.date?.day }}</div>
-  </template>
-</vue-hash-calendar>
+<template>
+  <vue-hash-calendar>
+    <template v-slot:day="scope">
+      <div v-if="scope?.extendAttr?.isToday">今</div>
+      <div v-else>{{ scope?.date?.day }}</div>
+    </template>
+  </vue-hash-calendar>
+</template>
 ```
 
 ### 农历
@@ -22,14 +24,16 @@
 案例中使用的 `lunar.js` 文件获取地址：[lunar.js](https://github.com/TangSY/vue3-hash-calendar/blob/main/examples/lunar/lunar.js)
 
 ```html
-<vue-hash-calendar>
-  <template v-slot:day="scope">
-    <div class="lunar-content">
-      <div>{{ scope?.date.day }}</div>
-      <div class="lunar">{{ showLunar(scope?.date) }}</div>
-    </div>
-  </template>
-</vue-hash-calendar>
+<template>
+  <vue-hash-calendar>
+    <template v-slot:day="scope">
+      <div class="lunar-content">
+        <div>{{ scope?.date.day }}</div>
+        <div class="lunar">{{ showLunar(scope?.date) }}</div>
+      </div>
+    </template>
+  </vue-hash-calendar>
+</template>
 ```
 
 ```js
