@@ -10,7 +10,7 @@ import {
   minDate,
 } from './utils';
 
-const slidechange = (
+export const slidechange = (
   wrapper: Element | Window | DOMWrapper<Element> | VueWrapper<any>,
   dire: ScrollDirectionType
 ) => {

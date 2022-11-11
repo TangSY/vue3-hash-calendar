@@ -1,0 +1,979 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`model prop 1`] = `
+<div class="hash-calendar ">
+  <div class="calendar_title"
+       style="bottom: 700px;"
+  >
+    <div class="calendar_title_date">
+      <span class="calendar_title_date_year calendar_title_date_active">
+        2022年01月01日
+      </span>
+      <span class="calendar_title_date_time ">
+        01:01
+      </span>
+    </div>
+    <div class="calendar_confirm ">
+      今天
+    </div>
+    <div class="calendar_confirm">
+      确定
+    </div>
+  </div>
+  <div class="calendar_content"
+       style="height: 700px;"
+  >
+    <div class="calendar_body"
+         style="display: block;"
+    >
+      <div class="calendar_week">
+        <div class="calendar_item">
+          <p class="calendar_day">
+            日
+          </p>
+        </div>
+        <div class="calendar_item">
+          <p class="calendar_day">
+            一
+          </p>
+        </div>
+        <div class="calendar_item">
+          <p class="calendar_day">
+            二
+          </p>
+        </div>
+        <div class="calendar_item">
+          <p class="calendar_day">
+            三
+          </p>
+        </div>
+        <div class="calendar_item">
+          <p class="calendar_day">
+            四
+          </p>
+        </div>
+        <div class="calendar_item">
+          <p class="calendar_day">
+            五
+          </p>
+        </div>
+        <div class="calendar_item">
+          <p class="calendar_day">
+            六
+          </p>
+        </div>
+      </div>
+      <div class="calendar_group"
+           style="height: 600px;"
+      >
+        <ul style="transform: translate3d(0%, 0, 0);">
+          <li class="calendar_group_li"
+              style="transform: translate3d(-100%, 0px, 0); transition-duration: 0.3s;"
+          >
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                28
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                29
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                30
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day calendar_first_today    ">
+                12月
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                2
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                3
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                4
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                5
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                6
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                7
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                8
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                9
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                10
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                11
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                12
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                13
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                14
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                15
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                16
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                17
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                18
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                19
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                20
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                21
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                22
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                23
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                24
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                25
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                26
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                27
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                28
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                29
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                30
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                31
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day   calendar_day_checked calendar_day_not ">
+                1
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                2
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                3
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                4
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                5
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                6
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                7
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                8
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+          </li>
+          <li class="calendar_group_li"
+              style="transform: translate3d(0%, 0px, 0); transition-duration: 0.3s;"
+          >
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                26
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                27
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                28
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                29
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                30
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                31
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day calendar_first_today  calendar_day_checked  ">
+                1月
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                2
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                3
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                4
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                5
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                6
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                7
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                8
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                9
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                10
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                11
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                12
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                13
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                14
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                15
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                16
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                17
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                18
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                19
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                20
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                21
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                22
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                23
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                24
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                25
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                26
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                27
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                28
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                29
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                30
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                31
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                1
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                2
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                3
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                4
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                5
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+          </li>
+          <li class="calendar_group_li"
+              style="transform: translate3d(100%, 0px, 0); transition-duration: 0.3s;"
+          >
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                30
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                31
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day calendar_first_today    ">
+                2月
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                2
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                3
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                4
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                5
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                6
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                7
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                8
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                9
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                10
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                11
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                12
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                13
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                14
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                15
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                16
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                17
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                18
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                19
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                20
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                21
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                22
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                23
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                24
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                25
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                26
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                27
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day     ">
+                28
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                1
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                2
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                3
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                4
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                5
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                6
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                7
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                8
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                9
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                10
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item ">
+              <div class="calendar_day    calendar_day_not ">
+                11
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+            <div class="calendar_item "
+                 style="height: 100px;"
+            >
+              <div class="calendar_day    calendar_day_not ">
+                12
+              </div>
+              <div class="calendar_dot">
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="time_body"
+         style="display: none;"
+    >
+      <div class="time_group">
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`model prop 2`] = `""`;
