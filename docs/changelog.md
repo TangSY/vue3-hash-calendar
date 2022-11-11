@@ -1,3 +1,13 @@
+### [v1.0.10](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.9...v1.0.10)
+
+`2022-11-11`
+
+- 1.0.10 [297d29](https://github.com/TangSY/vue3-hash-calendar/commit/297d29a516f587033cdfd6fc6ee8c9a7bc130025)
+
+**Feature**
+
+- 添加 reset 方法 [d8f9c0](https://github.com/TangSY/vue3-hash-calendar/commit/d8f9c066351ea562b92f67731e38779662a8255a)
+
 ### [v1.0.8](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.7...v1.0.8)
 
 `2022-11-09`
