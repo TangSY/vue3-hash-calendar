@@ -85,3 +85,44 @@ test('test event of slidechange to left', async () => {
   expect(onTouchmove).toHaveBeenCalled();
   expect(onTouchend).toHaveBeenCalledTimes(1);
 });
+
+test('test event of slidechange to up', async () => {
+  const onCalendarTypeChange = jest.fn();
+  const onChange = jest.fn();
+  const onClick = jest.fn();
+  const onConfirm = jest.fn();
+  const onSlidechange = jest.fn();
+  const onTouchstart = jest.fn();
+  const onTouchmove = jest.fn();
+  const onTouchend = jest.fn();
+  const defaultDatetime = defaultDate;
+  const wrapper = mount(Calendar, {
+    props: {
+      onCalendarTypeChange,
+      onChange,
+      onClick,
+      onConfirm,
+      onSlidechange,
+      onTouchend,
+      onTouchmove,
+      onTouchstart,
+      defaultDatetime,
+    },
+  });
+
+  const calendar = wrapper.find('.calendar_group');
+
+  slidechange(calendar, 'up');
+  await later(200);
+  //   expect(onCalendarTypeChange).toHaveBeenCalledTimes(1);
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('week');
+  //   expect(onChange).toHaveBeenCalledTimes(1);
+  expect(onChange).toHaveBeenLastCalledWith(defaultDate);
+  expect(onClick).toHaveBeenCalledTimes(0);
+  expect(onConfirm).toHaveBeenCalledTimes(0);
+  expect(onSlidechange).toHaveBeenCalledTimes(1);
+  expect(onSlidechange).toHaveBeenLastCalledWith('up');
+  expect(onTouchstart).toHaveBeenCalledTimes(1);
+  expect(onTouchmove).toHaveBeenCalled();
+  expect(onTouchend).toHaveBeenCalledTimes(1);
+});
