@@ -121,7 +121,7 @@ export default defineComponent({
     const calendarRef = ref<CalendarDateInstance>();
     const checkedDate = ref(defaultDate);
     const isShowCalendar = ref(true);
-    const isShowWeek = ref(false);
+    const isShowWeek = ref(props.showWeekView);
     const calendarBodyHeight = ref(0);
     const firstTimes = ref(true);
     const currDateTime = ref(props.defaultDatetime);
@@ -356,8 +356,7 @@ export default defineComponent({
       () => props.showWeekView,
       (val) => {
         isShowWeek.value = val;
-      },
-      { immediate: true }
+      }
     );
 
     useExpose<CalendarExposeType>({
