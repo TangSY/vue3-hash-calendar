@@ -60,7 +60,7 @@ test('theme-color prop', async () => {
 });
 
 test('change-year-fast prop', async () => {
-  const wrapper = mount(Calendar);
+  const wrapper = mount(Calendar, { props: { defaultDatetime: defaultDate } });
   await later();
 
   const date = wrapper.find('.calendar_title_date_year');
@@ -84,6 +84,27 @@ test('change-year-fast prop', async () => {
 
   await date.trigger('click');
   expect(onCalendarTypeChange).toHaveBeenLastCalledWith('date');
+
+  await date.trigger('click');
+  await date.trigger('click');
+  await date.trigger('click');
+
+  const yearItem = wrapper.findAll('.year-body-item');
+  expect(yearItem[16].text()).toBe('2030-2039');
+  await yearItem[16].trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('year');
+  expect(date.text()).toBe('2030年01月01日');
+
+  const yearContent = wrapper.findAll('.year-body-item-content');
+  expect(yearContent[16].text()).toBe('2033');
+  await yearContent[16].trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('month');
+  expect(date.text()).toBe('2033年01月01日');
+
+  expect(yearContent[16].text()).toBe('5月');
+  await yearContent[16].trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('date');
+  expect(date.text()).toBe('2033年05月01日');
 });
 
 test('checked-day-class-name prop', async () => {
