@@ -40,7 +40,7 @@ import {
 import languageUtil from './language';
 
 // hooks
-import { useExpose } from './hooks';
+import { useExpose, useMountedOrActivated } from './hooks';
 import CalendarDate from './CalendarDate';
 import CalendarTime from './CalendarTime';
 import CalendarYearMonth from './CalendarYearMonth';
@@ -120,7 +120,7 @@ export default defineComponent({
 
     const calendarRef = ref<CalendarDateInstance>();
     const checkedDate = ref(defaultDate);
-    const isShowCalendar = ref(false);
+    const isShowCalendar = ref(true);
     const isShowWeek = ref(false);
     const calendarBodyHeight = ref(0);
     const firstTimes = ref(true);
@@ -337,18 +337,6 @@ export default defineComponent({
     };
 
     watch(
-      () => props.pickerType,
-      (val) => {
-        if (val === 'time') {
-          showTime();
-        } else {
-          showCalendar();
-        }
-      },
-      { immediate: true }
-    );
-
-    watch(
       checkedDate,
       () => {
         let date: EmitDateType = new Date(
@@ -380,6 +368,16 @@ export default defineComponent({
       lastWeek,
       nextWeek,
     });
+
+    const init = () => {
+      if (props.pickerType === 'time') {
+        showTime();
+      } else {
+        isShowCalendar.value = true;
+      }
+    };
+
+    useMountedOrActivated(init);
 
     const renderTodayButton = () => {
       let todayEle: any = languageUtil[props.lang].TODAY;
