@@ -127,30 +127,12 @@ export default {
       {
         title: '开发指南',
         items: [
-          {
-            path: 'home',
-            title: '介绍',
-          },
-          {
-            path: 'quickstart',
-            title: '快速上手',
-          },
-          {
-            path: 'api',
-            title: 'API',
-          },
-          {
-            path: 'question',
-            title: '常见问题',
-          },
-          {
-            path: 'changelog',
-            title: '更新日志',
-          },
-          {
-            path: 'sponsor',
-            title: '赞助',
-          },
+          { path: 'home', title: '介绍' },
+          { path: 'quickstart', title: '快速上手' },
+          { path: 'api', title: 'API' },
+          { path: 'question', title: '常见问题' },
+          { path: 'changelog', title: '更新日志' },
+          { path: 'sponsor', title: '赞助' },
         ],
       },
       {
@@ -158,24 +140,16 @@ export default {
         items: propConfig,
       },
       {
+        title: 'Event 使用指南',
+        items: [{ title: '事件回调', path: 'event' }],
+      },
+      {
         title: 'Method 使用指南',
         items: [
-          {
-            title: '切换月份',
-            path: 'switch-month',
-          },
-          {
-            title: '切换星期',
-            path: 'switch-week',
-          },
-          {
-            title: '返回今日',
-            path: 'today',
-          },
-          {
-            title: '重置日历到指定日期',
-            path: 'reset',
-          },
+          { title: '切换月份', path: 'switch-month' },
+          { title: '切换星期', path: 'switch-week' },
+          { title: '返回今日', path: 'today' },
+          { title: '重置日历到指定日期', path: 'reset' },
         ],
       },
       {
