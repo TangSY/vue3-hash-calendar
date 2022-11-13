@@ -774,21 +774,17 @@ export default defineComponent({
       { immediate: true }
     );
 
-    watch(
-      isShowWeek,
-      (val) => {
-        if (val) {
-          nextTick(() => {
-            showWeek();
-          });
-        } else {
-          nextTick(() => {
-            showMonth();
-          });
-        }
-      },
-      { immediate: true }
-    );
+    watch(isShowWeek, (val) => {
+      if (val) {
+        nextTick(() => {
+          showWeek();
+        });
+      } else {
+        nextTick(() => {
+          showMonth();
+        });
+      }
+    });
 
     watch(calendarGroupHeight, (val) => {
       emit('height', val + calendarWeekTitleHeight.value);
