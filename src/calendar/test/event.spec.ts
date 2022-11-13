@@ -201,4 +201,11 @@ test('test event of click', async () => {
   const confirm = wrapper.findAll('.calendar_confirm');
   await confirm[1].trigger('click');
   expect(onConfirm).toHaveBeenLastCalledWith(new Date(2022, 0, 2, 1, 1));
+
+  expect(onChange).toHaveBeenCalledTimes(3);
+  await confirm[0].trigger('click');
+  expect(onChange).toHaveBeenCalledTimes(4);
+
+  await wrapper.find('.calendar_title_date_time').trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('time');
 });

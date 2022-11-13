@@ -64,18 +64,26 @@ test('change-year-fast prop', async () => {
   await later();
 
   const date = wrapper.find('.calendar_title_date_year');
-  date.trigger('click');
-  await later();
-
+  await date.trigger('click');
   expect(wrapper.find('.year-body').exists()).toBeFalsy();
 
-  await wrapper.setProps({ changeYearFast: true });
-  date.trigger('click');
-  await later();
+  const onCalendarTypeChange = jest.fn();
+  await wrapper.setProps({ changeYearFast: true, onCalendarTypeChange });
 
+  await date.trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('month');
   expect(wrapper.find('.year-body').attributes('style')).toContain(
     'display: block'
   );
+
+  await date.trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('year');
+
+  await date.trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('yearRange');
+
+  await date.trigger('click');
+  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('date');
 });
 
 test('checked-day-class-name prop', async () => {
