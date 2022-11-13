@@ -9,7 +9,7 @@
   "bugs": {
     "url": "https://github.com/TangSY/vue3-hash-calendar/issues"
   },
-  "homepage": "https://www.hxkj.vip",
+  "homepage": "https://www.hxkj.vip/calendar/",
   "license": "MIT",
   "description": "vue 周 月 时间选择器，基于 vue 3.x 版本",
   "main": "lib/vue3-hash-calendar.js",
