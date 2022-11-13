@@ -124,7 +124,7 @@ export default defineComponent({
     const isShowWeek = ref(false);
     const calendarBodyHeight = ref(0);
     const firstTimes = ref(true);
-    const currDateTime = ref(new Date());
+    const currDateTime = ref(props.defaultDatetime);
     const yearMonthType = ref<CalendarPanelType>('date');
 
     const isShowDatetimePicker = computed({
@@ -337,14 +337,6 @@ export default defineComponent({
     };
 
     watch(
-      () => props.defaultDatetime,
-      (val) => {
-        currDateTime.value = val;
-      },
-      { immediate: true }
-    );
-
-    watch(
       () => props.pickerType,
       (val) => {
         if (val === 'time') {
@@ -496,7 +488,7 @@ export default defineComponent({
       if (val) {
         emit('calendarTypeChange', 'week');
       } else {
-        emit('calendarTypeChange', 'month');
+        emit('calendarTypeChange', 'date');
       }
 
       isShowWeek.value = val;
