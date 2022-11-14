@@ -14,6 +14,8 @@ export type ThemeColorType = {
 
 export type PickerType = 'datetime' | 'date' | 'time';
 
+export type SelectType = 'single' | 'multiple' | 'range';
+
 export type CalendarPanelType = 'date' | 'month' | 'year' | 'yearRange';
 
 export type ModelType = 'dialog' | 'inline';

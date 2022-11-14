@@ -38,7 +38,7 @@ export const calendarDateProps = {
   showWeekView: Boolean,
   show: Boolean,
   disabledWeekView: Boolean,
-  defaultDate: makeDateProp(new Date()),
+  defaultDate: [Date, Array] as PropType<Date | Date[] | null>,
   minDate: makeDateProp(null),
   maxDate: makeDateProp(null),
   markType: makeStringProp<MarkType>('dot'),

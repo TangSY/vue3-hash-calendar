@@ -24,12 +24,17 @@ import type {
   ScrollDirectionType,
   ThemeColorType,
   WeekStartType,
+  SelectType,
 } from './types';
 
 // Utils
 import {
+  compareDay,
   fillNumber,
   formatDate,
+  getNextDay,
+  getPrevDay,
+  getToday,
   makeArrayProp,
   makeDateProp,
   makeNumberProp,
@@ -57,8 +62,10 @@ export const calendarProps = {
   disabledWeekView: Boolean,
   showAction: truthProp,
   pickerType: makeStringProp<PickerType>('datetime'),
+  selectType: makeStringProp<SelectType>('single'),
+  allowSameDay: Boolean,
   showTodayButton: truthProp,
-  defaultDatetime: makeDateProp(new Date()),
+  defaultDatetime: [Date, Array] as PropType<Date | Date[] | null>,
   minDate: makeDateProp(null),
   maxDate: makeDateProp(null),
   format: makeStringProp(''),
@@ -110,21 +117,71 @@ export default defineComponent({
   ],
 
   setup(props, { emit, slots }) {
-    const defaultDate: CalendarDateType = {
+    const calendarRef = ref<CalendarDateInstance>();
+    const checkedDate = ref<CalendarDateType>({
       year: new Date().getFullYear(),
       month: new Date().getMonth(),
       day: new Date().getDate(),
       hours: new Date().getHours(),
       minutes: new Date().getMinutes(),
-    };
-
-    const calendarRef = ref<CalendarDateInstance>();
-    const checkedDate = ref(defaultDate);
+    });
     const isShowCalendar = ref(true);
     const isShowWeek = ref(props.showWeekView);
     const calendarBodyHeight = ref(0);
     const firstTimes = ref(true);
-    const currDateTime = ref(props.defaultDatetime);
+
+    const limitDateRange = (
+      date: Date,
+      minDate = props.minDate,
+      maxDate = props.maxDate
+    ) => {
+      if (minDate && compareDay(date, minDate) === -1) {
+        return minDate;
+      }
+      if (maxDate && compareDay(date, maxDate) === 1) {
+        return maxDate;
+      }
+      return date;
+    };
+
+    const getInitialDateTime = (defaultDatetime = props.defaultDatetime) => {
+      const { selectType, minDate, maxDate, allowSameDay } = props;
+
+      if (defaultDatetime === null) return defaultDatetime;
+
+      const nowDate = getToday();
+      const nowDatetime = new Date();
+
+      if (selectType === 'range') {
+        if (!Array.isArray(defaultDatetime)) {
+          defaultDatetime = [];
+        }
+        const start = limitDateRange(
+          defaultDatetime[0] || nowDate,
+          minDate,
+          allowSameDay ? maxDate : getPrevDay(maxDate)
+        );
+        const end = limitDateRange(
+          defaultDatetime[1] || nowDate,
+          allowSameDay ? minDate : getNextDay(minDate)
+        );
+        return [start, end];
+      }
+
+      if (selectType === 'multiple') {
+        if (Array.isArray(defaultDatetime)) {
+          return defaultDatetime.map((date) => limitDateRange(date));
+        }
+        return [limitDateRange(nowDate)];
+      }
+
+      if (!defaultDatetime || Array.isArray(defaultDatetime)) {
+        defaultDatetime = nowDatetime;
+      }
+      return limitDateRange(defaultDatetime);
+    };
+
+    const currDateTime = ref(getInitialDateTime());
     const yearMonthType = ref<CalendarPanelType>('date');
 
     const isShowDatetimePicker = computed({
@@ -166,7 +223,7 @@ export default defineComponent({
       calendarRef.value?.today();
     };
 
-    const reset = (date: Date = new Date()) => {
+    const reset = (date = getInitialDateTime()) => {
       currDateTime.value = date;
     };
 
@@ -359,6 +416,11 @@ export default defineComponent({
       }
     );
 
+    watch(
+      () => [props.selectType, props.minDate, props.maxDate],
+      () => reset(getInitialDateTime(currDateTime.value))
+    );
+
     useExpose<CalendarExposeType>({
       today,
       reset,
@@ -511,6 +573,7 @@ export default defineComponent({
           'maxDate',
           'disabledWeekView',
           'markType',
+          'selectType',
           'markDate',
           'disabledDate',
           'lang',
@@ -528,11 +591,11 @@ export default defineComponent({
     );
 
     const renderTimePicker = () => {
-      if (props.pickerType !== 'date') {
+      if (props.pickerType === 'datetime' || props.pickerType === 'time') {
         return (
           <CalendarTime
             show={!isShowCalendar.value}
-            defaultTime={currDateTime.value}
+            defaultTime={currDateTime.value as Date}
             calendarDate={checkedDate.value}
             onChange={timeChange}
             {...pick(props, ['minuteStep', 'disabledTime'])}
