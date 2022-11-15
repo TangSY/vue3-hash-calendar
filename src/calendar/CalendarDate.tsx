@@ -18,6 +18,7 @@ import {
   MarkDateType,
   MarkType,
   ScrollDirectionType,
+  SelectType,
   WeekStartType,
 } from './types';
 import {
@@ -38,6 +39,8 @@ export const calendarDateProps = {
   showWeekView: Boolean,
   show: Boolean,
   disabledWeekView: Boolean,
+  selectType: makeStringProp<SelectType>('single'),
+  allowSameDay: Boolean,
   defaultDate: [Date, Array] as PropType<Date | Date[] | null>,
   minDate: makeDateProp(null),
   maxDate: makeDateProp(null),
