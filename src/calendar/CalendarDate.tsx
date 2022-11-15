@@ -740,13 +740,24 @@ export default defineComponent({
     watch(
       () => props.defaultDate,
       (val) => {
-        yearOfCurrentShow.value = val.getFullYear();
-        monthOfCurrentShow.value = val.getMonth();
+        if (val instanceof Date) {
+          yearOfCurrentShow.value = val.getFullYear();
+          monthOfCurrentShow.value = val.getMonth();
 
-        checkedDate.value.year = val.getFullYear();
-        checkedDate.value.month = val.getMonth();
-        checkedDate.value.day = val.getDate();
-        calculateCalendarOfThreeMonth(val.getFullYear(), val.getMonth());
+          checkedDate.value.year = val.getFullYear();
+          checkedDate.value.month = val.getMonth();
+          checkedDate.value.day = val.getDate();
+          calculateCalendarOfThreeMonth(val.getFullYear(), val.getMonth());
+        } else if (Array.isArray(val)) {
+          val = val[0];
+          yearOfCurrentShow.value = val.getFullYear();
+          monthOfCurrentShow.value = val.getMonth();
+
+          checkedDate.value.year = val.getFullYear();
+          checkedDate.value.month = val.getMonth();
+          checkedDate.value.day = val.getDate();
+          calculateCalendarOfThreeMonth(val.getFullYear(), val.getMonth());
+        }
 
         if (isShowWeek.value) {
           showWeek();
