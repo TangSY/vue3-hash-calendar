@@ -118,7 +118,7 @@ export default defineComponent({
 
   setup(props, { emit, slots }) {
     const calendarRef = ref<CalendarDateInstance>();
-    const checkedDate = ref<CalendarDateType>({
+    const checkedDate = ref<CalendarDateType | CalendarDateType[]>({
       year: new Date().getFullYear(),
       month: new Date().getMonth(),
       day: new Date().getDate(),
@@ -178,6 +178,12 @@ export default defineComponent({
       if (!defaultDatetime || Array.isArray(defaultDatetime)) {
         defaultDatetime = nowDatetime;
       }
+
+      console.log(
+        'limitDateRange(defaultDatetime)',
+        limitDateRange(defaultDatetime)
+      );
+      console.log('defaultDatetime', defaultDatetime);
       return limitDateRange(defaultDatetime);
     };
 
@@ -245,48 +251,56 @@ export default defineComponent({
       calendarRef.value?.changeWeekView({ isNext: true });
     };
 
-    const dateChange = (date: CalendarDateType) => {
-      date.hours = checkedDate.value.hours;
-      date.minutes = checkedDate.value.minutes;
-      checkedDate.value = date;
+    const dateChange = (date: CalendarDateType[]) => {
+      if (props.selectType === 'single') {
+        checkedDate.value = {
+          ...checkedDate.value,
+          ...date[0],
+        };
+      }
     };
 
-    const dateClick = (date: CalendarDateType, type?: CalendarPanelType) => {
-      date.hours = checkedDate.value.hours;
-      date.minutes = checkedDate.value.minutes;
-      checkedDate.value = date;
+    const dateClick = (date: CalendarDateType[], type?: CalendarPanelType) => {
+      if (props.selectType === 'single') {
+        checkedDate.value = {
+          ...checkedDate.value,
+          ...date[0],
+        } as CalendarDateType;
 
-      let fDate: EmitDateType = new Date(
-        `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
-          checkedDate.value.day
-        } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
-      );
-      if (props.format) {
-        fDate = formatDate(fDate, props.format, props.lang);
-      }
-
-      // 控制点击之后进入下一选择面板
-      if (type) {
-        switch (type) {
-          case 'yearRange':
-            yearMonthType.value = 'year';
-            break;
-          case 'year':
-            yearMonthType.value = 'month';
-            break;
-          case 'month':
-            currDateTime.value = new Date(fDate);
-            yearMonthType.value = 'date';
-            break;
+        let fDate: EmitDateType = new Date(
+          `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
+            checkedDate.value.day
+          } ${checkedDate.value.hours}:${checkedDate.value.minutes}`
+        );
+        if (props.format) {
+          fDate = formatDate(fDate, props.format, props.lang);
         }
 
-        emit('calendarTypeChange', yearMonthType.value);
-      }
+        // 控制点击之后进入下一选择面板
+        if (type) {
+          switch (type) {
+            case 'yearRange':
+              yearMonthType.value = 'year';
+              break;
+            case 'year':
+              yearMonthType.value = 'month';
+              break;
+            case 'month':
+              currDateTime.value = new Date(fDate);
+              yearMonthType.value = 'date';
+              break;
+          }
 
-      emit('click', fDate);
+          emit('calendarTypeChange', yearMonthType.value);
+        }
+
+        emit('click', fDate);
+      }
     };
 
     const timeChange = (date: CalendarDateType) => {
+      if (Array.isArray(checkedDate.value)) return;
+
       date.year = checkedDate.value.year;
       date.month = checkedDate.value.month;
       date.day = checkedDate.value.day;
@@ -299,6 +313,8 @@ export default defineComponent({
 
     // 确认选择时间
     const confirm = () => {
+      if (Array.isArray(checkedDate.value)) return;
+
       let date: EmitDateType = new Date(
         `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
           checkedDate.value.day
@@ -396,6 +412,8 @@ export default defineComponent({
     watch(
       checkedDate,
       () => {
+        if (Array.isArray(checkedDate.value)) return;
+
         let date: EmitDateType = new Date(
           `${checkedDate.value.year}/${checkedDate.value.month + 1}/${
             checkedDate.value.day
@@ -476,6 +494,8 @@ export default defineComponent({
     };
 
     const renderAction = () => {
+      if (Array.isArray(checkedDate.value)) return;
+
       if (props.showAction) {
         return (
           <div
@@ -503,16 +523,21 @@ export default defineComponent({
                       }`}
                       onClick={showCalendar}
                     >
-                      {formatDatetime(
-                        `${checkedDate.value.year}/${
-                          checkedDate.value.month + 1
-                        }/${checkedDate.value.day}`,
-                        languageUtil[props.lang].DEFAULT_DATE_FORMAT
-                      )}
+                      {props.selectType === 'single'
+                        ? formatDatetime(
+                            `${checkedDate.value.year}/${
+                              checkedDate.value.month + 1
+                            }/${checkedDate.value.day}`,
+                            languageUtil[props.lang].DEFAULT_DATE_FORMAT
+                          )
+                        : `${checkedDate.value.year}年${
+                            checkedDate.value.month + 1
+                          }月`}
                     </span>
                   ) : null}
 
-                  {props.pickerType !== 'date' ? (
+                  {props.pickerType !== 'date' &&
+                  props.selectType === 'single' ? (
                     <span
                       class={`calendar_title_date_time ${
                         !isShowCalendar.value
@@ -591,6 +616,8 @@ export default defineComponent({
     );
 
     const renderTimePicker = () => {
+      if (Array.isArray(checkedDate.value)) return;
+
       if (props.pickerType === 'datetime' || props.pickerType === 'time') {
         return (
           <CalendarTime
@@ -604,28 +631,32 @@ export default defineComponent({
       }
     };
 
-    const renderYearMonthPicker = () => (
-      <CalendarYearMonth
-        calendarContentHeight={calendarContentHeight.value}
-        calendarDate={checkedDate.value}
-        type={yearMonthType.value}
-        onTouchstart={touchStart}
-        onTouchmove={touchMove}
-        onTouchend={touchEnd}
-        onSlidechange={slideChange}
-        onClick={dateClick}
-        {...pick(props, [
-          'minDate',
-          'maxDate',
-          'disabledDate',
-          'lang',
-          'disabledScroll',
-          'checkedDayClassName',
-          'notCurrentMonthDayClassName',
-          'disabledClassName',
-        ])}
-      />
-    );
+    const renderYearMonthPicker = () => {
+      if (Array.isArray(checkedDate.value)) return;
+
+      return (
+        <CalendarYearMonth
+          calendarContentHeight={calendarContentHeight.value}
+          calendarDate={checkedDate.value}
+          type={yearMonthType.value}
+          onTouchstart={touchStart}
+          onTouchmove={touchMove}
+          onTouchend={touchEnd}
+          onSlidechange={slideChange}
+          onClick={dateClick}
+          {...pick(props, [
+            'minDate',
+            'maxDate',
+            'disabledDate',
+            'lang',
+            'disabledScroll',
+            'checkedDayClassName',
+            'notCurrentMonthDayClassName',
+            'disabledClassName',
+          ])}
+        />
+      );
+    };
 
     const renderCtrlImg = () => {
       let confirmEle: any = (
