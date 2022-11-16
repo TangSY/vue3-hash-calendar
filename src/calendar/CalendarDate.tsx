@@ -67,7 +67,10 @@ export const calendarDateProps = {
 
 export type CalendarDatePropsType = ExtractPropTypes<typeof calendarDateProps>;
 
-type CalendarMonthType = Pick<CalendarDateType, 'day' | 'month' | 'year'>;
+type CalendarMonthType = Pick<
+  CalendarDateType,
+  'day' | 'month' | 'year' | 'type'
+>;
 
 export default defineComponent({
   name: 'CalendarDate',
@@ -113,7 +116,7 @@ export default defineComponent({
     const lastMonth = ref<number>(0);
     const nextMonthYear = ref<number>(0);
     const nextMonth = ref<number>(0);
-    const checkedDate = ref<CalendarMonthType>({} as CalendarMonthType);
+    const checkedDate = ref<CalendarMonthType[]>([]);
     const weekStartIndex = ref(0);
     const translateIndex = ref(0);
     const transitionDuration = ref(0.3);
@@ -319,8 +322,8 @@ export default defineComponent({
 
     // 计算当前展示月份的前后月份日历信息 flag  -1:获取上个月日历信息   0:当月信息或者跨月展示日历信息  1:获取下个月日历信息
     const calculateCalendarOfThreeMonth = (
-      year = new Date().getFullYear(),
-      month = new Date().getMonth()
+      year = yearOfCurrentShow.value,
+      month = monthOfCurrentShow.value
     ) => {
       lastMonthYear.value = month === 0 ? year - 1 : year; // 上个月的年份
       lastMonth.value = month === 0 ? 11 : month - 1; // 上个月的月份
@@ -346,21 +349,21 @@ export default defineComponent({
       if (!props.scrollChangeDate) return;
 
       // 改变日期选择的日期
-      let tempDate = {} as CalendarMonthType;
-      let { day } = checkedDate.value;
-      if (day > 30 || (day > 28 && month === 1)) {
-        day = daysOfMonth(year)[month];
+      if (props.selectType === 'single') {
+        let tempDate = {} as CalendarMonthType;
+        let { day } = checkedDate.value[0];
+        if (day > 30 || (day > 28 && month === 1)) {
+          day = daysOfMonth(year)[month];
+        }
+        tempDate = { day, year, month };
+
+        if (formatDisabledDate(tempDate)) return;
+
+        // fix: change 事件会触发两次 https://github.com/TangSY/vue-hash-calendar/issues/47
+        if (isShowWeek.value) return;
+
+        checkedDate.value = [{ day: tempDate.day, year, month }];
       }
-      tempDate = { day, year, month };
-
-      if (formatDisabledDate(tempDate)) return;
-
-      // fix: change 事件会触发两次 https://github.com/TangSY/vue-hash-calendar/issues/47
-      if (isShowWeek.value) return;
-
-      checkedDate.value.day = tempDate.day;
-      checkedDate.value.year = year;
-      checkedDate.value.month = month;
     };
 
     // 日历以月份方式展示
@@ -372,10 +375,7 @@ export default defineComponent({
       isLastWeekInCurrentMonth.value = false;
       isNextWeekInCurrentMonth.value = false;
 
-      calculateCalendarOfThreeMonth(
-        checkedDate.value.year,
-        checkedDate.value.month
-      );
+      calculateCalendarOfThreeMonth();
     };
 
     // 初始化日历dom
@@ -402,18 +402,27 @@ export default defineComponent({
 
     // 今天
     const today = () => {
-      checkedDate.value.day = new Date().getDate();
+      const year = new Date().getFullYear();
+      const month = new Date().getMonth();
+      const day = new Date().getDate();
 
-      yearOfCurrentShow.value = new Date().getFullYear(); // 当前日历展示的年份
-      monthOfCurrentShow.value = new Date().getMonth(); // 当前日历展示的月份
+      if (props.selectType === 'single') {
+        const date = checkedDate.value[0];
+        checkedDate.value = [{ ...date, day }];
+      }
+
+      yearOfCurrentShow.value = year; // 当前日历展示的年份
+      monthOfCurrentShow.value = month; // 当前日历展示的月份
 
       calculateCalendarOfThreeMonth();
 
       if (isShowWeek.value) {
         setTimeout(() => {
           isTouching.value = true;
-          checkedDate.value.year = new Date().getFullYear();
-          checkedDate.value.month = new Date().getMonth();
+          if (props.selectType === 'single') {
+            const date = checkedDate.value[0];
+            checkedDate.value = [{ ...date, year, month }];
+          }
           showWeek();
         }, transitionDuration.value * 1000);
       }
@@ -451,10 +460,7 @@ export default defineComponent({
         yearOfCurrentShow.value = lastMonthYear.value;
         monthOfCurrentShow.value = lastMonth.value;
       }
-      calculateCalendarOfThreeMonth(
-        yearOfCurrentShow.value,
-        monthOfCurrentShow.value
-      );
+      calculateCalendarOfThreeMonth();
     };
 
     // 获取下个月日历
@@ -465,21 +471,19 @@ export default defineComponent({
         yearOfCurrentShow.value = nextMonthYear.value;
         monthOfCurrentShow.value = nextMonth.value;
       }
-      calculateCalendarOfThreeMonth(
-        yearOfCurrentShow.value,
-        monthOfCurrentShow.value
-      );
+      calculateCalendarOfThreeMonth();
     };
 
     // 点击日历上的日期
     const clickCalendarDay = (date: CalendarMonthType) => {
-      if (!date || !date.day) return;
+      const { year, month, day } = date;
+      if (!day) return;
 
       if (formatDisabledDate(date)) return;
 
-      checkedDate.value.year = date.year;
-      checkedDate.value.month = date.month;
-      checkedDate.value.day = date.day;
+      if (props.selectType === 'single') {
+        checkedDate.value = [{ year, month, day }];
+      }
 
       if (date.month === lastMonth.value && date.year === lastMonthYear.value) {
         getLastMonth();
@@ -505,10 +509,9 @@ export default defineComponent({
     const isCheckedDay = (date: CalendarMonthType) => {
       if (formatDisabledDate(date)) return false;
 
-      return (
-        checkedDate.value.year === date.year &&
-        checkedDate.value.month === date.month &&
-        checkedDate.value.day === date.day
+      const { year, month, day } = date;
+      return checkedDate.value.some(
+        (item) => item.year === year && item.month === month && item.day === day
       );
     };
 
@@ -731,34 +734,30 @@ export default defineComponent({
     );
 
     watch(weekStartIndex, () => {
-      calculateCalendarOfThreeMonth(
-        checkedDate.value.year,
-        checkedDate.value.month
-      );
+      calculateCalendarOfThreeMonth();
     });
 
     watch(
       () => props.defaultDate,
       (val) => {
-        if (val instanceof Date) {
-          yearOfCurrentShow.value = val.getFullYear();
-          monthOfCurrentShow.value = val.getMonth();
+        if (props.selectType === 'single' && val instanceof Date) {
+          const year = val.getFullYear();
+          const month = val.getMonth();
+          const day = val.getDate();
 
-          checkedDate.value.year = val.getFullYear();
-          checkedDate.value.month = val.getMonth();
-          checkedDate.value.day = val.getDate();
-          calculateCalendarOfThreeMonth(val.getFullYear(), val.getMonth());
+          yearOfCurrentShow.value = year;
+          monthOfCurrentShow.value = month;
+
+          checkedDate.value = [{ year, month, day }];
         } else if (Array.isArray(val)) {
-          val = val[0];
-          yearOfCurrentShow.value = val.getFullYear();
-          monthOfCurrentShow.value = val.getMonth();
-
-          checkedDate.value.year = val.getFullYear();
-          checkedDate.value.month = val.getMonth();
-          checkedDate.value.day = val.getDate();
-          calculateCalendarOfThreeMonth(val.getFullYear(), val.getMonth());
+          checkedDate.value = val.map((item) => {
+            const year = item.getFullYear();
+            const month = item.getMonth();
+            const day = item.getDate();
+            return { year, month, day };
+          });
         }
-
+        calculateCalendarOfThreeMonth();
         if (isShowWeek.value) {
           showWeek();
         }
@@ -778,10 +777,7 @@ export default defineComponent({
       () => props.show,
       (val) => {
         if (val) {
-          calculateCalendarOfThreeMonth(
-            checkedDate.value.year,
-            checkedDate.value.month
-          );
+          calculateCalendarOfThreeMonth();
           initDom();
         }
       },

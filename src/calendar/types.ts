@@ -52,12 +52,21 @@ export type DisabledScrollType =
 
 export type ScrollDirectionType = 'left' | 'right' | 'up' | 'down';
 
+export type CalendarDayType =
+  | 'single'
+  | 'start'
+  | 'middle'
+  | 'end'
+  | 'start-end'
+  | 'multiple';
+
 export type CalendarDateType = {
   year: number;
   month: number;
   day: number;
   hours: number;
   minutes: number;
+  type?: CalendarDayType;
 };
 
 export type EmitDateType = Date | string;
