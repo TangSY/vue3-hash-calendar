@@ -159,15 +159,19 @@ export default defineComponent({
     });
 
     // 日历以星期方式展示
-    const showWeek = (checkedDatetime = checkedDate.value) => {
+    const showWeek = (checkedDatetime?: CalendarMonthType) => {
+      if (!checkedDatetime) {
+        checkedDatetime = checkedDate.value[0];
+      }
+      const { month, day } = checkedDatetime;
       const daysArr: number[] = [];
       calendarOfMonth.value[1].forEach((item) => {
         daysArr.push(item.day);
       });
-      let dayIndexOfMonth = daysArr.indexOf(checkedDatetime.day);
+      let dayIndexOfMonth = daysArr.indexOf(day);
       // 当day为月底的天数时，有可能在daysArr的前面也存在上一个月对应的日期，所以需要取lastIndexOf
-      if (checkedDatetime.day > 15) {
-        dayIndexOfMonth = daysArr.lastIndexOf(checkedDatetime.day);
+      if (day > 15) {
+        dayIndexOfMonth = daysArr.lastIndexOf(day);
       }
 
       // 计算当前日期在第几行
@@ -184,7 +188,7 @@ export default defineComponent({
       isLastWeekInCurrentMonth.value = false;
       currentWeek = calendarOfMonth.value[1].slice(sliceStart, sliceEnd);
       currentWeek.forEach((item, index) => {
-        if (item.day === checkedDatetime.day) {
+        if (item.day === day) {
           selectedDayIndex.value = index;
         }
       });
@@ -193,13 +197,10 @@ export default defineComponent({
       const lastDayOfCurrentWeek = currentWeek[6];
 
       if (
-        firstDayOfCurrentWeek.month !== checkedDatetime.month ||
+        firstDayOfCurrentWeek.month !== month ||
         firstDayOfCurrentWeek.day === 1
       ) {
-        if (
-          calendarOfMonth.value[0].slice(28, 35)[6].month !==
-          checkedDatetime.month
-        ) {
+        if (calendarOfMonth.value[0].slice(28, 35)[6].month !== month) {
           lastWeek.value = calendarOfMonth.value[0].slice(28, 35);
         } else {
           lastWeek.value = calendarOfMonth.value[0].slice(21, 28);
@@ -211,7 +212,7 @@ export default defineComponent({
         );
         if (
           lastWeek.value[selectedDayIndex.value] &&
-          lastWeek.value[selectedDayIndex.value].month === checkedDatetime.month
+          lastWeek.value[selectedDayIndex.value].month === month
         ) {
           isLastWeekInCurrentMonth.value = true;
         }
@@ -220,7 +221,7 @@ export default defineComponent({
       isNextWeekInCurrentMonth.value = false;
       if (
         lastDayOfCurrentWeek.day < firstDayOfCurrentWeek.day &&
-        lastDayOfCurrentWeek.month !== checkedDatetime.month
+        lastDayOfCurrentWeek.month !== month
       ) {
         nextWeek.value = calendarOfMonth.value[2].slice(7, 14);
       } else if (
@@ -233,9 +234,7 @@ export default defineComponent({
           sliceStart + 7,
           sliceEnd + 7
         );
-        if (
-          nextWeek.value[selectedDayIndex.value].month === checkedDatetime.month
-        ) {
+        if (nextWeek.value[selectedDayIndex.value].month === month) {
           isNextWeekInCurrentMonth.value = true;
         }
       }
@@ -437,7 +436,7 @@ export default defineComponent({
 
       if (!props.scrollChangeDate) return;
 
-      checkedDate.value = checked;
+      checkedDate.value = [checked];
     };
 
     // 显示下一周
@@ -449,7 +448,7 @@ export default defineComponent({
 
       if (!props.scrollChangeDate) return;
 
-      checkedDate.value = checked;
+      checkedDate.value = [checked];
     };
 
     // 获取上个月日历
