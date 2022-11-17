@@ -69,6 +69,11 @@ export type CalendarDateType = {
   type?: CalendarDayType;
 };
 
+export type CalendarYearMonthType = {
+  year: number;
+  month: number;
+};
+
 export type EmitDateType = Date | string;
 
 export type CalendarExposeType = {

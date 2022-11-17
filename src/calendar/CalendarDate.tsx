@@ -13,6 +13,7 @@ import { useExpose, useMountedOrActivated, useRect } from './hooks';
 import {
   CalendarDateExposeType,
   CalendarDateType,
+  CalendarYearMonthType,
   DisabledScrollType,
   LangType,
   MarkDateType,
@@ -82,6 +83,7 @@ export default defineComponent({
     'update:showWeekView',
     'click',
     'change',
+    'yearMonthChange',
     'slidechange',
     'touchstart',
     'touchmove',
@@ -94,8 +96,6 @@ export default defineComponent({
     const weekTitleRef = ref(null);
     const calendarRef = ref(null);
     const calendarItemRef = reactive<HTMLElement[]>([]);
-    const yearOfCurrentShow = ref(new Date().getFullYear());
-    const monthOfCurrentShow = ref(new Date().getMonth());
     const yearOfToday = ref(new Date().getFullYear());
     const monthOfToday = ref(new Date().getMonth());
     const dayOfToday = ref(new Date().getDate());
@@ -138,6 +138,10 @@ export default defineComponent({
     const isNextWeekInCurrentMonth = ref(false);
     const markDateColorObj = ref<any>({});
     const markDateTypeObj = ref<any>({});
+    const currentYearMonth = ref<CalendarYearMonthType>({
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+    });
 
     calendarWeek.value = languageUtil[props.lang].WEEK;
     weekStartIndex.value = weekArray.indexOf(props.weekStart.toLowerCase());
@@ -321,8 +325,8 @@ export default defineComponent({
 
     // 计算当前展示月份的前后月份日历信息 flag  -1:获取上个月日历信息   0:当月信息或者跨月展示日历信息  1:获取下个月日历信息
     const calculateCalendarOfThreeMonth = (
-      year = yearOfCurrentShow.value,
-      month = monthOfCurrentShow.value
+      year = currentYearMonth.value.year,
+      month = currentYearMonth.value.month
     ) => {
       lastMonthYear.value = month === 0 ? year - 1 : year; // 上个月的年份
       lastMonth.value = month === 0 ? 11 : month - 1; // 上个月的月份
@@ -377,8 +381,12 @@ export default defineComponent({
       calculateCalendarOfThreeMonth();
     };
 
-    // 初始化日历dom
-    const initDom = () => {
+    // 初始化日历
+    const init = () => {
+      if (props.selectType === 'single') {
+        const { year, month } = checkedDate.value[0];
+        currentYearMonth.value = { year, month };
+      }
       nextTick(() => {
         calendarItemHeight.value = useRect(calendarItemRef[0]).height;
         calendarWeekTitleHeight.value = useRect(weekTitleRef).height;
@@ -410,9 +418,7 @@ export default defineComponent({
         checkedDate.value = [{ ...date, day }];
       }
 
-      yearOfCurrentShow.value = year; // 当前日历展示的年份
-      monthOfCurrentShow.value = month; // 当前日历展示的月份
-
+      currentYearMonth.value = { year, month };
       calculateCalendarOfThreeMonth();
 
       if (isShowWeek.value) {
@@ -456,8 +462,10 @@ export default defineComponent({
       translateIndex.value += 1;
 
       if (!isLastWeekInCurrentMonth.value) {
-        yearOfCurrentShow.value = lastMonthYear.value;
-        monthOfCurrentShow.value = lastMonth.value;
+        currentYearMonth.value = {
+          year: lastMonthYear.value,
+          month: lastMonth.value,
+        };
       }
       calculateCalendarOfThreeMonth();
     };
@@ -467,8 +475,10 @@ export default defineComponent({
       translateIndex.value -= 1;
 
       if (!isNextWeekInCurrentMonth.value) {
-        yearOfCurrentShow.value = nextMonthYear.value;
-        monthOfCurrentShow.value = nextMonth.value;
+        currentYearMonth.value = {
+          year: nextMonthYear.value,
+          month: nextMonth.value,
+        };
       }
       calculateCalendarOfThreeMonth();
     };
@@ -691,7 +701,7 @@ export default defineComponent({
       return dateArr;
     };
 
-    useMountedOrActivated(initDom);
+    useMountedOrActivated(init);
 
     watch(
       () => props.markDate,
@@ -744,8 +754,7 @@ export default defineComponent({
           const month = val.getMonth();
           const day = val.getDate();
 
-          yearOfCurrentShow.value = year;
-          monthOfCurrentShow.value = month;
+          currentYearMonth.value = { year, month };
 
           checkedDate.value = [{ year, month, day }];
         } else if (Array.isArray(val)) {
@@ -777,10 +786,14 @@ export default defineComponent({
       (val) => {
         if (val) {
           calculateCalendarOfThreeMonth();
-          initDom();
+          init();
         }
       },
       { immediate: true }
+    );
+
+    watch(currentYearMonth, () =>
+      emit('yearMonthChange', currentYearMonth.value)
     );
 
     watch(isShowWeek, (val) => {

@@ -9,8 +9,8 @@ import {
 import CalendarScrollContainer from './CalendarScrollContainer';
 import languageUtil, { LanguageEntityType, LanguageType } from './language';
 import type {
-  CalendarDateType,
   CalendarPanelType,
+  CalendarYearMonthType,
   DisabledScrollType,
   LangType,
   ScrollDirectionType,
@@ -38,8 +38,8 @@ export const calendarYearMonthProps = {
     type: [Boolean, String] as PropType<DisabledScrollType>,
     default: () => false,
   },
-  calendarDate: {
-    type: Object as PropType<CalendarDateType>,
+  currentYearMonth: {
+    type: Object as PropType<CalendarYearMonthType>,
     default: () => ({}),
   },
   lang: makeStringProp<LangType>('CN'),
@@ -71,7 +71,7 @@ export default defineComponent({
 
     const initYear = (year: number) => {
       const yearArr = [];
-      const currYear = `${year || props.calendarDate.year}`;
+      const currYear = `${year || props.currentYearMonth.year}`;
       const yearStart = parseInt(currYear.substring(0, 3) + '0', 10);
       for (let i = 0; i <= yearRange.value; i++) {
         yearArr.push(yearStart + i);
@@ -83,7 +83,7 @@ export default defineComponent({
 
     const initYearRange = (year: number) => {
       const yearRangeArr = [];
-      const currYear = `${year || props.calendarDate.year}`;
+      const currYear = `${year || props.currentYearMonth.year}`;
       const yearStart = parseInt(currYear.substring(0, 2) + '00', 10);
       for (let i = 0; i <= yearRange.value; i++) {
         yearRangeArr.push({ s: yearStart + i * 10, e: yearStart + i * 10 + 9 });
@@ -93,7 +93,7 @@ export default defineComponent({
       return yearRangeArr;
     };
 
-    const getThreeYearArr = (year = props.calendarDate.year) => {
+    const getThreeYearArr = (year = props.currentYearMonth.year) => {
       const yearStr = year + '';
       const yearStart = yearStr.substring(0, 3);
       const yearStartLast = parseInt(parseInt(yearStart, 10) - 1 + '0', 10);
@@ -107,7 +107,7 @@ export default defineComponent({
       ];
     };
 
-    const getThreeYearRangeArr = (year = props.calendarDate.year) => {
+    const getThreeYearRangeArr = (year = props.currentYearMonth.year) => {
       const yearStr = year + '';
       const yearStart = yearStr.substring(0, 2);
       const yearStartLast = parseInt(parseInt(yearStart, 10) - 1 + '00', 10);
@@ -169,19 +169,13 @@ export default defineComponent({
       let fDate = new Date();
 
       if (props.type === 'month') {
-        fDate = new Date(
-          `${props.calendarDate.year}/${index + 1}/${props.calendarDate.day}`
-        );
+        fDate = new Date(`${props.currentYearMonth.year}/${index + 1}/01`);
       } else if (props.type === 'year') {
-        fDate = new Date(
-          `${date}/${props.calendarDate.month + 1}/${props.calendarDate.day}`
-        );
+        fDate = new Date(`${date}/${props.currentYearMonth.month + 1}/01`);
       } else if (props.type === 'yearRange') {
         const yearArr = getRangeYear(date);
         return yearArr.every((year) => {
-          fDate = new Date(
-            `${year}/${props.calendarDate.month + 1}/${props.calendarDate.day}`
-          );
+          fDate = new Date(`${year}/${props.currentYearMonth.month + 1}/01`);
           return (
             props.disabledDate(fDate) ||
             !isDateInRange(fDate, props.minDate, props.maxDate)
@@ -199,7 +193,7 @@ export default defineComponent({
       if (!date) return; // fix:1月无法选中
       if (isDisabled(date, index)) return;
 
-      let checkedDate = { ...props.calendarDate };
+      let checkedDate = { ...props.currentYearMonth };
       if (props.type === 'month') {
         checkedDate = {
           ...checkedDate,
@@ -225,14 +219,15 @@ export default defineComponent({
 
     const isChecked = (date: YearRangeType & number, index: number) => {
       if (props.type === 'month') {
-        return index === props.calendarDate.month;
+        return index === props.currentYearMonth.month;
       }
       if (props.type === 'year') {
-        return date === props.calendarDate.year;
+        return date === props.currentYearMonth.year;
       }
       if (props.type === 'yearRange') {
         return (
-          date.s <= props.calendarDate.year && date.e >= props.calendarDate.year
+          date.s <= props.currentYearMonth.year &&
+          date.e >= props.currentYearMonth.year
         );
       }
     };
