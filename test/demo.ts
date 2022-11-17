@@ -12,7 +12,7 @@ export function snapshotDemo(Demo: any, option: any = {}) {
       },
     });
 
-    await later(200);
+    await later(500);
 
     expect(wrapper.html()).toMatchSnapshot();
 
