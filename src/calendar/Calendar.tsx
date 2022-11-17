@@ -255,10 +255,12 @@ export default defineComponent({
 
     const dateChange = (date: CalendarDateType[]) => {
       if (props.selectType === 'single') {
-        checkedDate.value = {
-          ...checkedDate.value,
-          ...date[0],
-        };
+        checkedDate.value = [
+          {
+            ...checkedDate.value[0],
+            ...date[0],
+          },
+        ];
       }
     };
 
@@ -289,11 +291,10 @@ export default defineComponent({
               yearMonthType.value = 'month';
               break;
             case 'month':
+              currDateTime.value = new Date(fDate);
               yearMonthType.value = 'date';
               break;
           }
-
-          currDateTime.value = new Date(fDate);
 
           emit('calendarTypeChange', yearMonthType.value);
         }
@@ -306,6 +307,7 @@ export default defineComponent({
       date: CalendarDateType,
       type: CalendarPanelType
     ) => {
+      currentYearMonth.value = { year: date.year, month: date.month };
       dateClick([date], type);
     };
 

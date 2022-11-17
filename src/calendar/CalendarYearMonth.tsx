@@ -94,6 +94,7 @@ export default defineComponent({
     };
 
     const getThreeYearArr = (year = props.currentYearMonth.year) => {
+      console.log('props.currentYearMonth.year', props.currentYearMonth.year);
       const yearStr = year + '';
       const yearStart = yearStr.substring(0, 3);
       const yearStartLast = parseInt(parseInt(yearStart, 10) - 1 + '0', 10);
