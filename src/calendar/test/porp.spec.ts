@@ -591,7 +591,7 @@ test('show-week-view prop', async () => {
   await later(400);
   slidechange(calendar, 'right');
   await later(400);
-  expect(li[1].attributes('style')).toContain('translate3d(0%, -100px, 0)');
+  expect(li[1].attributes('style')).toContain('translate3d(0%, -200px, 0)');
 });
 
 test('disabled-time prop', async () => {

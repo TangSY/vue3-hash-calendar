@@ -31,9 +31,8 @@ test('test event of slidechange to right', async () => {
 
   slidechange(calendar, 'right');
   await later(200);
-  //   expect(onCalendarTypeChange).toHaveBeenCalledTimes(1);
-  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('date');
-  //   expect(onChange).toHaveBeenCalledTimes(1);
+  expect(onCalendarTypeChange).toHaveBeenCalledTimes(0);
+  expect(onChange).toHaveBeenCalledTimes(3);
   expect(onChange).toHaveBeenLastCalledWith(new Date(2021, 11, 1, 1, 1));
   expect(onClick).toHaveBeenCalledTimes(0);
   expect(onConfirm).toHaveBeenCalledTimes(0);
@@ -42,6 +41,11 @@ test('test event of slidechange to right', async () => {
   expect(onTouchstart).toHaveBeenCalledTimes(1);
   expect(onTouchmove).toHaveBeenCalled();
   expect(onTouchend).toHaveBeenCalledTimes(1);
+
+  slidechange(calendar, 'right');
+  await later(200);
+  expect(onChange).toHaveBeenCalledTimes(4);
+  expect(onChange).toHaveBeenLastCalledWith(new Date(2021, 10, 1, 1, 1));
 });
 
 test('test event of slidechange to left', async () => {
@@ -72,7 +76,8 @@ test('test event of slidechange to left', async () => {
 
   slidechange(calendar, 'left');
   await later(200);
-  expect(onCalendarTypeChange).toHaveBeenLastCalledWith('date');
+  expect(onCalendarTypeChange).toHaveBeenCalledTimes(0);
+  expect(onChange).toHaveBeenCalledTimes(3);
   expect(onChange).toHaveBeenLastCalledWith(new Date(2022, 1, 1, 1, 1));
   expect(onClick).toHaveBeenCalledTimes(0);
   expect(onConfirm).toHaveBeenCalledTimes(0);
@@ -81,6 +86,11 @@ test('test event of slidechange to left', async () => {
   expect(onTouchstart).toHaveBeenCalledTimes(1);
   expect(onTouchmove).toHaveBeenCalled();
   expect(onTouchend).toHaveBeenCalledTimes(1);
+
+  slidechange(calendar, 'left');
+  await later(200);
+  expect(onChange).toHaveBeenCalledTimes(4);
+  expect(onChange).toHaveBeenLastCalledWith(new Date(2022, 2, 1, 1, 1));
 });
 
 test('test event of slidechange to up', async () => {

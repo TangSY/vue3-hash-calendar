@@ -363,9 +363,14 @@ export default defineComponent({
         if (formatDisabledDate(tempDate)) return;
 
         // fix: change 事件会触发两次 https://github.com/TangSY/vue-hash-calendar/issues/47
-        if (isShowWeek.value) return;
-
-        checkedDate.value = [{ day: tempDate.day, year, month }];
+        const {
+          year: preYear,
+          month: preMonth,
+          day: preDay,
+        } = checkedDate.value[0];
+        if (preYear !== year || preMonth !== month || preDay !== day) {
+          checkedDate.value = [{ day: tempDate.day, year, month }];
+        }
       }
     };
 

@@ -254,6 +254,8 @@ export default defineComponent({
     };
 
     const dateChange = (date: CalendarDateType[]) => {
+      console.log('dateChange------');
+
       if (props.selectType === 'single') {
         checkedDate.value = [
           {
@@ -265,6 +267,7 @@ export default defineComponent({
     };
 
     const dateClick = (date: CalendarDateType[], type?: CalendarPanelType) => {
+      console.log('dateClick------');
       if (props.selectType === 'single') {
         checkedDate.value = [
           {
@@ -312,6 +315,8 @@ export default defineComponent({
     };
 
     const timeChange = (date: CalendarDateType) => {
+      console.log('timeChange-----');
+
       if (props.selectType === 'single') {
         const { minutes, hours } = date;
         checkedDate.value = [
@@ -330,6 +335,7 @@ export default defineComponent({
 
     // 确认选择时间
     const confirm = () => {
+      console.log('confirm-----');
       if (props.selectType === 'single') {
         const { year, month, day, hours, minutes } = checkedDate.value[0];
 
@@ -368,6 +374,8 @@ export default defineComponent({
 
     // 显示日历控件
     const showCalendar = () => {
+      console.log('showCalendar-----');
+
       if (isShowCalendar.value) {
         showYearMonthPicker();
       } else {
@@ -625,6 +633,8 @@ export default defineComponent({
     };
 
     const updateShowWeekView = (val: boolean) => {
+      if (isShowWeek.value === val) return;
+
       if (val) {
         emit('calendarTypeChange', 'week');
       } else {

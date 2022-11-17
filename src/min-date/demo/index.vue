@@ -1,5 +1,5 @@
 <template>
-  <vue-hash-calendar :min-date="new Date('2022/11/05')" />
+  <vue-hash-calendar :min-date="new Date('2022/08/08')" />
 </template>
 
 <script setup>
