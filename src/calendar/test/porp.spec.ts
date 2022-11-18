@@ -423,9 +423,12 @@ test('mark-date prop', async () => {
 
 test('max-date prop', async () => {
   const wrapper = mount(Calendar, {
-    props: { maxDate, defaultDatetime: maxDate },
+    props: { maxDate, defaultDatetime: new Date(2023, 1, 1, 1, 1) },
   });
   await later();
+
+  const date = wrapper.find('.calendar_title_date_active');
+  expect(date.text()).toBe('2022年02月01日');
 
   const days = wrapper.findAll('.calendar_item');
 
@@ -445,13 +448,19 @@ test('max-date prop', async () => {
   slidechange(calendar, 'left');
   await later();
   expect(wrapper.emitted('slidechange')).toEqual([['right'], ['left']]);
+
+  await wrapper.setProps({ maxDate: new Date(2023, 1, 1, 1, 1) });
+  expect(date.text()).toBe('2023年02月01日');
 });
 
 test('min-date prop', async () => {
   const wrapper = mount(Calendar, {
-    props: { minDate, defaultDatetime: minDate },
+    props: { minDate, defaultDatetime: new Date(2021, 0, 1, 1, 1) },
   });
   await later();
+
+  const date = wrapper.find('.calendar_title_date_active');
+  expect(date.text()).toBe('2022年01月01日');
 
   const days = wrapper.findAll('.calendar_item');
 
@@ -471,6 +480,9 @@ test('min-date prop', async () => {
   slidechange(calendar, 'right');
   await later();
   expect(wrapper.emitted('slidechange')).toEqual([['left'], ['right']]);
+
+  await wrapper.setProps({ minDate: new Date(2021, 0, 1, 1, 1) });
+  expect(date.text()).toBe('2021年01月01日');
 });
 
 test('minute-step prop', async () => {

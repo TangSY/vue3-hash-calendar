@@ -476,7 +476,13 @@ export default defineComponent({
 
     watch(
       () => [props.selectType, props.minDate, props.maxDate],
-      () => reset(getInitialDateTime(currDateTime.value))
+      () => {
+        if (props.selectType === 'single') {
+          reset(getInitialDateTime());
+        } else {
+          reset(getInitialDateTime(currDateTime.value));
+        }
+      }
     );
 
     useExpose<CalendarExposeType>({
