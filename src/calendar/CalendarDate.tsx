@@ -419,8 +419,7 @@ export default defineComponent({
       const day = new Date().getDate();
 
       if (props.selectType === 'single') {
-        const date = checkedDate.value[0];
-        checkedDate.value = [{ ...date, day }];
+        checkedDate.value = [{ year, month, day }];
       }
 
       currentYearMonth.value = { year, month };
@@ -488,16 +487,31 @@ export default defineComponent({
       calculateCalendarOfThreeMonth();
     };
 
+    const dealCheckedDate = (date: CalendarMonthType) => {
+      const { selectType } = props;
+      const { year, month, day } = date;
+      if (selectType === 'single') {
+        checkedDate.value = [{ year, month, day }];
+      } else if (selectType === 'multiple') {
+        const existIndex = checkedDate.value.findIndex(
+          (item) =>
+            item.year === year && item.month === month && item.day === day
+        );
+        if (existIndex > -1) {
+          checkedDate.value.splice(existIndex, 1);
+        } else {
+          checkedDate.value = [...checkedDate.value, date];
+        }
+      }
+    };
+
     // 点击日历上的日期
     const clickCalendarDay = (date: CalendarMonthType) => {
-      const { year, month, day } = date;
-      if (!day) return;
+      if (!date.day) return;
 
       if (formatDisabledDate(date)) return;
 
-      if (props.selectType === 'single') {
-        checkedDate.value = [{ year, month, day }];
-      }
+      dealCheckedDate(date);
 
       if (date.month === lastMonth.value && date.year === lastMonthYear.value) {
         getLastMonth();

@@ -777,7 +777,7 @@ export default defineComponent({
               }}
             >
               {props.pickerType !== 'time' ? renderCalendar() : ''}
-              {renderTimePicker()}
+              {props.selectType === 'single' && renderTimePicker()}
               {props.changeYearFast ? renderYearMonthPicker() : ''}
             </div>
             {renderCtrlImg()}

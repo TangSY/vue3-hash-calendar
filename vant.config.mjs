@@ -1,6 +1,7 @@
 const componentsProp = [
   'calendar',
   'picker-type',
+  'select-type',
   'model',
   'visible',
   'scroll-change-date',
