@@ -267,7 +267,6 @@ export default defineComponent({
     };
 
     const dateClick = (date: CalendarDateType[], type?: CalendarPanelType) => {
-      console.log('dateClick------');
       if (props.selectType === 'single') {
         checkedDate.value = [
           {
@@ -284,22 +283,8 @@ export default defineComponent({
           fDate = formatDate(fDate, props.format, props.lang);
         }
 
-        // 控制点击之后进入下一选择面板
-        if (type) {
-          switch (type) {
-            case 'yearRange':
-              yearMonthType.value = 'year';
-              break;
-            case 'year':
-              yearMonthType.value = 'month';
-              break;
-            case 'month':
-              currDateTime.value = new Date(fDate);
-              yearMonthType.value = 'date';
-              break;
-          }
-
-          emit('calendarTypeChange', yearMonthType.value);
+        if (type === 'month') {
+          currDateTime.value = new Date(fDate);
         }
 
         emit('click', fDate);
@@ -310,6 +295,23 @@ export default defineComponent({
       date: CalendarDateType,
       type: CalendarPanelType
     ) => {
+      // 控制点击之后进入下一选择面板
+      if (type) {
+        switch (type) {
+          case 'yearRange':
+            yearMonthType.value = 'year';
+            break;
+          case 'year':
+            yearMonthType.value = 'month';
+            break;
+          case 'month':
+            yearMonthType.value = 'date';
+            break;
+        }
+
+        emit('calendarTypeChange', yearMonthType.value);
+      }
+
       currentYearMonth.value = { year: date.year, month: date.month };
       dateClick([date], type);
     };
@@ -438,34 +440,26 @@ export default defineComponent({
     watch(
       checkedDate,
       () => {
-        if (props.selectType === 'single') {
-          const { year, month, day, hours, minutes } = checkedDate.value[0];
-
-          let date: EmitDateType = new Date(
+        const dateArr = checkedDate.value.map((item) => {
+          const { year, month, day, hours, minutes } = item;
+          const date: EmitDateType = new Date(
             `${year}/${month + 1}/${day} ${hours}:${minutes}`
           );
+
           if (props.format) {
-            date = formatDate(date, props.format, props.lang);
+            return formatDate(date, props.format, props.lang);
           }
-          emit('change', date);
+          return date;
+        });
+
+        if (props.selectType === 'single') {
+          emit('change', dateArr[0]);
+        } else {
+          emit('change', dateArr);
         }
       },
       { deep: true }
     );
-
-    // watch(currDateTime, (date) => {
-    //   if (props.selectType === 'single' && date instanceof Date) {
-    //     checkedDate.value = [
-    //       {
-    //         year: date.getFullYear(),
-    //         month: date.getMonth(),
-    //         day: date.getDate(),
-    //         hours: date.getHours(),
-    //         minutes: date.getMinutes(),
-    //       },
-    //     ];
-    //   }
-    // });
 
     watch(
       () => props.showWeekView,
