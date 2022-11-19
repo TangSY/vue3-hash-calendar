@@ -254,8 +254,6 @@ export default defineComponent({
     };
 
     const dateChange = (date: CalendarDateType[]) => {
-      console.log('dateChange------');
-
       if (props.selectType === 'single') {
         checkedDate.value = [
           {
@@ -263,32 +261,38 @@ export default defineComponent({
             ...date[0],
           },
         ];
+      } else {
+        checkedDate.value = date;
       }
     };
 
-    const dateClick = (date: CalendarDateType[], type?: CalendarPanelType) => {
-      if (props.selectType === 'single') {
-        checkedDate.value = [
-          {
-            ...checkedDate.value[0],
-            ...date[0],
-          },
-        ];
-        const { year, month, day, hours, minutes } = checkedDate.value[0];
+    const dateClick = (date: CalendarDateType, type?: CalendarPanelType) => {
+      const { year, month, day } = date;
 
-        let fDate: EmitDateType = new Date(
-          `${year}/${month + 1}/${day} ${hours}:${minutes}`
-        );
-        if (props.format) {
-          fDate = formatDate(fDate, props.format, props.lang);
-        }
+      // 年月选择不触发click回调
+      if (!day) return;
+
+      let fDate: EmitDateType;
+      if (props.selectType === 'single') {
+        const checked = checkedDate.value[0];
+        date.minutes = checked.minutes;
+        date.hours = checked.hours;
+        const { hours, minutes } = date;
+
+        fDate = new Date(`${year}/${month + 1}/${day} ${hours}:${minutes}`);
 
         if (type === 'month') {
           currDateTime.value = new Date(fDate);
         }
-
-        emit('click', fDate);
+      } else {
+        fDate = new Date(`${year}/${month + 1}/${day}`);
       }
+
+      if (props.format) {
+        fDate = formatDate(fDate, props.format, props.lang);
+      }
+
+      emit('click', fDate);
     };
 
     const yearMonthClick = (
@@ -313,42 +317,51 @@ export default defineComponent({
       }
 
       currentYearMonth.value = { year: date.year, month: date.month };
-      dateClick([date], type);
+      dateClick(date, type);
     };
 
     const timeChange = (date: CalendarDateType) => {
-      console.log('timeChange-----');
-
-      if (props.selectType === 'single') {
-        const { minutes, hours } = date;
-        checkedDate.value = [
-          {
-            ...checkedDate.value[0],
-            hours,
-            minutes,
-          },
-        ];
-      }
+      const { minutes, hours } = date;
+      const checked = checkedDate.value[0];
+      checkedDate.value = [
+        {
+          ...checked,
+          minutes,
+          hours,
+        },
+      ];
     };
 
     const close = () => {
       isShowDatetimePicker.value = false;
     };
 
+    // 组合事件返回值
+    const makeEmitDate = () => {
+      const dateArr = checkedDate.value.map((item) => {
+        const { year, month, day, hours, minutes } = item;
+
+        let date: EmitDateType = new Date(`${year}/${month + 1}/${day}`);
+        if (props.selectType === 'single') {
+          date = new Date(`${year}/${month + 1}/${day} ${hours}:${minutes}`);
+        }
+
+        if (props.format) {
+          return formatDate(date, props.format, props.lang);
+        }
+        return date;
+      });
+
+      if (props.selectType === 'single') {
+        return dateArr[0];
+      }
+
+      return dateArr;
+    };
+
     // 确认选择时间
     const confirm = () => {
-      console.log('confirm-----');
-      if (props.selectType === 'single') {
-        const { year, month, day, hours, minutes } = checkedDate.value[0];
-
-        let date: EmitDateType = new Date(
-          `${year}/${month + 1}/${day} ${hours}:${minutes}`
-        );
-        if (props.format) {
-          date = formatDate(date, props.format, props.lang);
-        }
-        emit('confirm', date);
-      }
+      emit('confirm', makeEmitDate());
 
       if (props.model === 'dialog') {
         close();
@@ -440,23 +453,7 @@ export default defineComponent({
     watch(
       checkedDate,
       () => {
-        const dateArr = checkedDate.value.map((item) => {
-          const { year, month, day, hours, minutes } = item;
-          const date: EmitDateType = new Date(
-            `${year}/${month + 1}/${day} ${hours}:${minutes}`
-          );
-
-          if (props.format) {
-            return formatDate(date, props.format, props.lang);
-          }
-          return date;
-        });
-
-        if (props.selectType === 'single') {
-          emit('change', dateArr[0]);
-        } else {
-          emit('change', dateArr);
-        }
+        emit('change', makeEmitDate());
       },
       { deep: true }
     );
@@ -489,25 +486,32 @@ export default defineComponent({
     });
 
     const init = () => {
-      const { defaultDatetime } = props;
-      if (props.selectType === 'single' && defaultDatetime instanceof Date) {
+      const date = currDateTime.value;
+      if (!date) {
+        checkedDate.value = [];
+      } else if (date instanceof Date) {
         currentYearMonth.value = {
-          year: defaultDatetime.getFullYear(),
-          month: defaultDatetime.getMonth(),
+          year: date.getFullYear(),
+          month: date.getMonth(),
         };
 
-        const date = currDateTime.value;
-        if (date instanceof Date) {
-          checkedDate.value = [
-            {
-              year: date.getFullYear(),
-              month: date.getMonth(),
-              day: date.getDate(),
-              hours: date.getHours(),
-              minutes: date.getMinutes(),
-            },
-          ];
-        }
+        checkedDate.value = [
+          {
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            day: date.getDate(),
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+          },
+        ];
+      } else if (Array.isArray(date)) {
+        checkedDate.value = date.map((item) => ({
+          year: item.getFullYear(),
+          month: item.getMonth(),
+          day: item.getDate(),
+          hours: item.getHours(),
+          minutes: item.getMinutes(),
+        }));
       }
 
       if (props.pickerType === 'time') {

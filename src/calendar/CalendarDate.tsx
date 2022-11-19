@@ -510,7 +510,7 @@ export default defineComponent({
         showWeek();
       }
 
-      emit('click', checkedDate.value);
+      emit('click', date);
     };
 
     // 该日期是否为今天
