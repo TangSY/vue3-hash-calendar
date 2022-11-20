@@ -870,7 +870,26 @@ export default defineComponent({
       </div>
     );
 
+    const getRangeDayClassName = (date: CalendarMonthType) => {
+      const currDate = checkedDate.value.find(
+        (item) => compareDay(item, date) === 0
+      );
+      if (!currDate) return '';
+
+      const { type } = currDate;
+      return type === 'start'
+        ? 'calendar_range_start'
+        : type === 'middle'
+        ? 'calendar_range_middle'
+        : type === 'end'
+        ? 'calendar_range_end'
+        : '';
+    };
+
     const renderDay = (date: CalendarMonthType, i: number) => {
+      if (props.selectType === 'range') {
+        console.log('date', date);
+      }
       let dayEle: any = isFirstDayOfMonth(date, i)
         ? languageUtil[props.lang].MONTH[date.month]
         : date.day === 0
@@ -908,7 +927,9 @@ export default defineComponent({
             isNotCurrentMonthDay(date, i) && props.showNotCurrentMonthDay
               ? props.notCurrentMonthDayClassName || 'calendar_day_not'
               : ''
-          } ${markDateColor(date, 'circle') ? 'calendar_mark_circle' : ''}`}
+          } ${
+            markDateColor(date, 'circle') ? 'calendar_mark_circle' : ''
+          } ${getRangeDayClassName(date)}`}
           style={{ 'border-color': markDateColor(date, 'circle') }}
         >
           {dayEle}
