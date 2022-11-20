@@ -95,6 +95,22 @@ export function pick<T, U extends keyof T>(
   }, {} as Writeable<Pick<T, U>>);
 }
 
+export const transDateToYearMonthDay = (date: Date) => {
+  if (!date) return date;
+
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    day: date.getDate(),
+  };
+};
+
+export const transYearMontDayToDate = (date: CalendarMonthType) => {
+  const { year, month, day } = date;
+
+  return new Date(year, month, day, 0, 0, 0, 0);
+};
+
 export const getMinDate = (min: Date) =>
   min && new Date(min.setHours(0, 0, 0, 0)).getTime() - 24 * 60 * 60 * 1000;
 
@@ -140,15 +156,17 @@ export function getDayByOffset(date: Date, offset: number) {
   return cloned;
 }
 
-export const getPrevDay = (date: Date) => {
+export const getPrevDay = (date: CalendarMonthType) => {
   if (!date) return date;
 
-  return getDayByOffset(date, -1);
+  const currDate = transYearMontDayToDate(date);
+  return getDayByOffset(currDate, -1);
 };
-export const getNextDay = (date: Date) => {
+export const getNextDay = (date: CalendarMonthType) => {
   if (!date) return date;
 
-  return getDayByOffset(date, 1);
+  const currDate = transYearMontDayToDate(date);
+  return getDayByOffset(currDate, 1);
 };
 export const getToday = () => {
   const today = new Date();
@@ -162,14 +180,23 @@ export function calcDateNum(date: [Date, Date]) {
   return (day2 - day1) / (1000 * 60 * 60 * 24) + 1;
 }
 
-export function calcMiddleDay(date: [CalendarMonthType, CalendarMonthType]) {
-  const [date1, date2] = date.map(
-    (item) => new Date(item.year, item.month, item.day, 0, 0, 0, 0)
-  );
+export function calcMiddleDay(
+  date: [CalendarMonthType, CalendarMonthType]
+): CalendarMonthType[] {
+  const [date1, date2] = date.map((item) => transYearMontDayToDate(item));
 
   const dateNum = calcDateNum([date1, date2]);
   if (dateNum > 2) {
-    return date;
+    let nextDate: CalendarMonthType = { ...date[0], type: 'start' };
+    const dateArr = [];
+    while (compareDay(nextDate, date[1]) === -1) {
+      dateArr.push(nextDate);
+      nextDate = {
+        ...transDateToYearMonthDay(getNextDay(nextDate)),
+        type: 'middle',
+      };
+    }
+    return [...dateArr, { ...date[1], type: 'end' }];
   }
 
   return date;
@@ -182,14 +209,4 @@ export const getStartEndDay = (date: CalendarMonthType[]) => {
   }
 
   return [start, date[date.length - 1]];
-};
-
-export const transDateToYearMonthDay = (date: Date) => {
-  if (!date) return date;
-
-  return {
-    year: date.getFullYear(),
-    month: date.getMonth(),
-    day: date.getDate(),
-  };
 };

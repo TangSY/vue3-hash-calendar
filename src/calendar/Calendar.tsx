@@ -170,11 +170,11 @@ export default defineComponent({
         const start = limitDateRange(
           defaultDatetime[0] || nowDate,
           minDate,
-          allowSameDay ? maxDate : getPrevDay(maxDate)
+          allowSameDay ? maxDate : getPrevDay(transDateToYearMonthDay(maxDate))
         );
         const end = limitDateRange(
           defaultDatetime[1] || nowDate,
-          allowSameDay ? minDate : getNextDay(minDate)
+          allowSameDay ? minDate : getNextDay(transDateToYearMonthDay(minDate))
         );
         return [start, end];
       }
