@@ -41,6 +41,7 @@ import {
   makeNumberProp,
   makeStringProp,
   pick,
+  transDateToYearMonthDay,
   truthProp,
 } from './utils';
 import languageUtil from './language';
@@ -133,10 +134,22 @@ export default defineComponent({
       minDate = props.minDate,
       maxDate = props.maxDate
     ) => {
-      if (minDate && compareDay(date, minDate) === -1) {
+      if (
+        minDate &&
+        compareDay(
+          transDateToYearMonthDay(date),
+          transDateToYearMonthDay(minDate)
+        ) === -1
+      ) {
         return minDate;
       }
-      if (maxDate && compareDay(date, maxDate) === 1) {
+      if (
+        maxDate &&
+        compareDay(
+          transDateToYearMonthDay(date),
+          transDateToYearMonthDay(maxDate)
+        ) === 1
+      ) {
         return maxDate;
       }
       return date;
@@ -453,7 +466,17 @@ export default defineComponent({
     watch(
       checkedDate,
       () => {
-        emit('change', makeEmitDate());
+        const emitDate = makeEmitDate();
+        // 当 range 类型只选了一个值时不触发change事件
+        if (
+          props.selectType === 'range' &&
+          Array.isArray(emitDate) &&
+          emitDate.length === 1
+        ) {
+          return;
+        }
+
+        emit('change', emitDate);
       },
       { deep: true }
     );

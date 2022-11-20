@@ -12,7 +12,7 @@ import languageUtil from './language';
 import { useExpose, useMountedOrActivated, useRect } from './hooks';
 import {
   CalendarDateExposeType,
-  CalendarDateType,
+  CalendarMonthType,
   CalendarYearMonthType,
   DisabledScrollType,
   LangType,
@@ -23,12 +23,15 @@ import {
   WeekStartType,
 } from './types';
 import {
+  calcMiddleDay,
+  compareDay,
   daysOfMonth,
   fillNumber,
   formatDate,
   getDayOfWeek,
   getMaxDate,
   getMinDate,
+  getStartEndDay,
   isDateInRange,
   makeArrayProp,
   makeDateProp,
@@ -67,11 +70,6 @@ export const calendarDateProps = {
 };
 
 export type CalendarDatePropsType = ExtractPropTypes<typeof calendarDateProps>;
-
-type CalendarMonthType = Pick<
-  CalendarDateType,
-  'day' | 'month' | 'year' | 'type'
->;
 
 export default defineComponent({
   name: 'CalendarDate',
@@ -490,17 +488,39 @@ export default defineComponent({
     const dealCheckedDate = (date: CalendarMonthType) => {
       const { selectType } = props;
       const { year, month, day } = date;
+      const checked = checkedDate.value;
+
       if (selectType === 'single') {
         checkedDate.value = [{ year, month, day }];
       } else if (selectType === 'multiple') {
-        const existIndex = checkedDate.value.findIndex(
+        const existIndex = checked.findIndex(
           (item) =>
             item.year === year && item.month === month && item.day === day
         );
         if (existIndex > -1) {
           checkedDate.value.splice(existIndex, 1);
         } else {
-          checkedDate.value = [...checkedDate.value, date];
+          checkedDate.value = [...checked, date];
+        }
+      } else if (selectType === 'range') {
+        if (!checked || !checked.length) {
+          checkedDate.value = [date];
+          return;
+        }
+
+        const [startDay, endDay] = getStartEndDay(checked);
+        if (startDay && !endDay) {
+          const compareToStart = compareDay(date, startDay);
+
+          if (compareToStart === 1) {
+            checkedDate.value = calcMiddleDay([checked[0], date]);
+          } else if (compareToStart === -1) {
+            checkedDate.value = [date];
+          } else if (props.allowSameDay) {
+            checkedDate.value = [date, date];
+          }
+        } else {
+          checkedDate.value = [date];
         }
       }
     };

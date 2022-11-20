@@ -69,6 +69,11 @@ export type CalendarDateType = {
   type?: CalendarDayType;
 };
 
+export type CalendarMonthType = Pick<
+  CalendarDateType,
+  'day' | 'month' | 'year' | 'type'
+>;
+
 export type CalendarYearMonthType = {
   year: number;
   month: number;
