@@ -501,6 +501,7 @@ export default defineComponent({
           checkedDate.value = [...checked, date];
         }
       } else if (selectType === 'range') {
+        date = { ...date, type: 'start' };
         if (!checked || !checked.length) {
           checkedDate.value = [date];
           return;
@@ -511,10 +512,14 @@ export default defineComponent({
           const compareToStart = compareDay(date, startDay);
 
           if (compareToStart === 1) {
-            checkedDate.value = calcMiddleDay([checked[0], date]);
+            checkedDate.value = calcMiddleDay([
+              checked[0],
+              { ...date, type: 'end' },
+            ]);
           } else if (compareToStart === -1) {
             checkedDate.value = [date];
           } else if (props.allowSameDay) {
+            date = { ...date, type: 'start-end' };
             checkedDate.value = [date, date];
           }
         } else {
@@ -795,6 +800,7 @@ export default defineComponent({
           checkedDate.value = [transDateToYearMonthDay(val)];
         } else if (Array.isArray(val)) {
           checkedDate.value = val.map((item) => transDateToYearMonthDay(item));
+          console.log('checkedDate.value', checkedDate.value);
         }
         calculateCalendarOfThreeMonth();
         if (isShowWeek.value) {
@@ -877,6 +883,8 @@ export default defineComponent({
         ? ' calendar_range_middle'
         : type === 'end'
         ? ' calendar_range_end'
+        : type === 'start-end'
+        ? ' calendar_range_start-end'
         : '';
     };
 

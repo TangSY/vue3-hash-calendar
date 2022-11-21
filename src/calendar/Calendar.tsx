@@ -304,7 +304,6 @@ export default defineComponent({
       date: CalendarDateType,
       type: CalendarPanelType
     ) => {
-      console.log('date', date);
       // 控制点击之后进入下一选择面板
       if (type) {
         switch (type) {
@@ -393,8 +392,6 @@ export default defineComponent({
 
     // 显示日历控件
     const showCalendar = () => {
-      console.log('showCalendar-----');
-
       if (isShowCalendar.value) {
         showYearMonthPicker();
       } else {
