@@ -22,7 +22,13 @@ multiple：多选
 
 ```html
 <template>
-  <vue-hash-calendar select-type="range" />
+  <vue-hash-calendar
+    select-type="range"
+    :default-datetime="[
+      new Date(new Date().setDate(14)),
+      new Date(new Date().setDate(18)),
+    ]"
+  />
 </template>
 ```
 
@@ -30,6 +36,17 @@ multiple：多选
 
 ```html
 <template>
-  <vue-hash-calendar select-type="multiple" />
+  <vue-hash-calendar
+    select-type="multiple"
+    :default-datetime="[
+      new Date(new Date().setDate(8)),
+      new Date(new Date().setDate(9)),
+      new Date(new Date().setDate(10)),
+      new Date(new Date().setDate(16)),
+      new Date(new Date().setDate(22)),
+      new Date(new Date().setDate(23)),
+      new Date(new Date().setDate(24)),
+    ]"
+  />
 </template>
 ```
