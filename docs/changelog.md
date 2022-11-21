@@ -1,3 +1,31 @@
+### [v1.1.0](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.11...v1.1.0)
+
+`2022-11-21`
+
+- 1.1.0 [36209c](https://github.com/TangSY/vue3-hash-calendar/commit/36209c14069274ba811beade9c25c5b4105736e8)
+
+**Feature**
+
+- 调整 mindate、maxdate 更新逻辑 [f49bd3](https://github.com/TangSY/vue3-hash-calendar/commit/f49bd3112da2ca26a496ac1ba9d6a2c9b5a130ef)
+- 日期选择添加 multiple 支持 [3c45ab](https://github.com/TangSY/vue3-hash-calendar/commit/3c45ab32ce76fccfe1c3f96c4c5fc44464684a9c)
+- 适配 range 类型默认值 [80a4f4](https://github.com/TangSY/vue3-hash-calendar/commit/80a4f4747601a217398240e62ce87cd02ba43996)
+- 添加范围选择功能 [f712cf](https://github.com/TangSY/vue3-hash-calendar/commit/f712cf1981310edad4ec97cc86fbafdd3bf2ee80)
+- 优化 change 事件逻辑 [02107f](https://github.com/TangSY/vue3-hash-calendar/commit/02107fc67a50c80e2ecbf15343d780fa9d63b764)
+- 优化范围选择功能 [6db542](https://github.com/TangSY/vue3-hash-calendar/commit/6db54200afd53792e3e93a471ddc0bfe55717798)
+- 优化范围选择器默认日期 [c1e91b](https://github.com/TangSY/vue3-hash-calendar/commit/c1e91bac1825182f8195c2ee624ebeb55c5f0161)
+- 优化 range 类型日历样式及逻辑 [875571](https://github.com/TangSY/vue3-hash-calendar/commit/875571cf52c162969690c7d674a037e07f31d1e8)
+- Calendar 组件适配多选模式 [9f1afb](https://github.com/TangSY/vue3-hash-calendar/commit/9f1afbab01a34f688034d5ea827e3d33f5305303)
+
+**refactor**
+
+- 重构 single 类型日历 [d4f63d](https://github.com/TangSY/vue3-hash-calendar/commit/d4f63d38f08a34ae6086e44bc2b5a539a00c78ea)
+- single 类型日历改造完成 [15906a](https://github.com/TangSY/vue3-hash-calendar/commit/15906a6d7f1295b4414b64acfac97822a0c4f73f)
+
+**style**
+
+- 动态设置 range middle 背景颜色透明度 [ec63b8](https://github.com/TangSY/vue3-hash-calendar/commit/ec63b8a52db5bfe808969173078cbf35a62291c2)
+- 完善 range 类型样式 [39d468](https://github.com/TangSY/vue3-hash-calendar/commit/39d468bf8ae6a11164b3ce904994e3a014296d3a)
+
 ### [v1.0.10](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.9...v1.0.10)
 
 `2022-11-11`
