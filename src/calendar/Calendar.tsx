@@ -41,7 +41,10 @@ import {
   makeNumberProp,
   makeStringProp,
   pick,
+  transDateToHourMinute,
   transDateToYearMonthDay,
+  transHourMinuteToDate,
+  transYearMontDayToDate,
   truthProp,
 } from './utils';
 import languageUtil from './language';
@@ -195,13 +198,7 @@ export default defineComponent({
 
     const currDateTime = ref(getInitialDateTime());
     const checkedDate = ref<CalendarDateType[]>([
-      {
-        year: new Date().getFullYear(),
-        month: new Date().getMonth(),
-        day: new Date().getDate(),
-        hours: new Date().getHours(),
-        minutes: new Date().getMinutes(),
-      },
+      transDateToHourMinute(new Date()),
     ]);
     const yearMonthType = ref<CalendarPanelType>('date');
 
@@ -279,27 +276,22 @@ export default defineComponent({
       }
     };
 
-    const dateClick = (date: CalendarDateType, type?: CalendarPanelType) => {
-      const { year, month, day } = date;
-
+    const dateClick = (date: CalendarDateType) => {
       // 年月选择不触发click回调
-      if (!day) return;
+      if (!date.day) return;
 
       let fDate: EmitDateType;
       if (props.selectType === 'single') {
         const checked = checkedDate.value[0];
         date.minutes = checked.minutes;
         date.hours = checked.hours;
-        const { hours, minutes } = date;
 
-        fDate = new Date(`${year}/${month + 1}/${day} ${hours}:${minutes}`);
-
-        if (type === 'month') {
-          currDateTime.value = new Date(fDate);
-        }
+        fDate = transHourMinuteToDate(date);
       } else {
-        fDate = new Date(`${year}/${month + 1}/${day}`);
+        fDate = transYearMontDayToDate(date);
       }
+
+      currDateTime.value = new Date(fDate);
 
       if (props.format) {
         fDate = formatDate(fDate, props.format, props.lang);
@@ -312,6 +304,7 @@ export default defineComponent({
       date: CalendarDateType,
       type: CalendarPanelType
     ) => {
+      console.log('date', date);
       // 控制点击之后进入下一选择面板
       if (type) {
         switch (type) {
@@ -330,7 +323,7 @@ export default defineComponent({
       }
 
       currentYearMonth.value = { year: date.year, month: date.month };
-      dateClick(date, type);
+      dateClick(date);
     };
 
     const timeChange = (date: CalendarDateType) => {
@@ -352,11 +345,9 @@ export default defineComponent({
     // 组合事件返回值
     const makeEmitDate = () => {
       const dateArr = checkedDate.value.map((item) => {
-        const { year, month, day, hours, minutes } = item;
-
-        let date: EmitDateType = new Date(`${year}/${month + 1}/${day}`);
+        let date: EmitDateType = transYearMontDayToDate(item);
         if (props.selectType === 'single') {
-          date = new Date(`${year}/${month + 1}/${day} ${hours}:${minutes}`);
+          date = transHourMinuteToDate(item);
         }
 
         if (props.format) {
@@ -518,23 +509,9 @@ export default defineComponent({
           month: date.getMonth(),
         };
 
-        checkedDate.value = [
-          {
-            year: date.getFullYear(),
-            month: date.getMonth(),
-            day: date.getDate(),
-            hours: date.getHours(),
-            minutes: date.getMinutes(),
-          },
-        ];
+        checkedDate.value = [transDateToHourMinute(date)];
       } else if (Array.isArray(date)) {
-        checkedDate.value = date.map((item) => ({
-          year: item.getFullYear(),
-          month: item.getMonth(),
-          day: item.getDate(),
-          hours: item.getHours(),
-          minutes: item.getMinutes(),
-        }));
+        checkedDate.value = date.map((item) => transDateToHourMinute(item));
       }
 
       if (props.pickerType === 'time') {
@@ -583,12 +560,14 @@ export default defineComponent({
 
     const renderAction = () => {
       let timeText = '';
-      let dateText = `${currentYearMonth.value.year}年${
-        currentYearMonth.value.month + 1
-      }月`;
+      const { year, month } = currentYearMonth.value;
+      let dateText = formatDatetime(
+        `${year}/${month + 1}`,
+        languageUtil[props.lang].DEFAULT_YEAR_MONTH_FORMAT
+      );
 
       if (props.selectType === 'single') {
-        const { year, month, day, hours, minutes } = checkedDate.value[0];
+        const { day, hours, minutes } = checkedDate.value[0];
 
         timeText = formatDatetime(
           `${year}/${month + 1}/${day} ${fillNumber(hours)}:${fillNumber(

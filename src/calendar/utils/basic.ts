@@ -1,6 +1,6 @@
 import { isLeap } from '.';
 import language from '../language';
-import { CalendarMonthType, LangType } from '../types';
+import { CalendarDateType, CalendarMonthType, LangType } from '../types';
 
 /**
  * 日期格式化
@@ -105,10 +105,30 @@ export const transDateToYearMonthDay = (date: Date) => {
   };
 };
 
+export const transDateToHourMinute = (date: Date) => {
+  if (!date) return date;
+
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    day: date.getDate(),
+    hours: date.getHours(),
+    minutes: date.getMinutes(),
+  };
+};
+
 export const transYearMontDayToDate = (date: CalendarMonthType) => {
   const { year, month, day } = date;
 
   return new Date(year, month, day, 0, 0, 0, 0);
+};
+
+export const transHourMinuteToDate = (date: CalendarDateType) => {
+  const { year, month, day, minutes, hours } = date;
+
+  return new Date(
+    transYearMontDayToDate({ year, month, day }).setHours(hours, minutes, 0, 0)
+  );
 };
 
 export const getMinDate = (min: Date) =>

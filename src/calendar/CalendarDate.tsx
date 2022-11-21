@@ -36,6 +36,7 @@ import {
   makeArrayProp,
   makeDateProp,
   makeStringProp,
+  transDateToYearMonthDay,
   truthProp,
 } from './utils';
 
@@ -412,9 +413,7 @@ export default defineComponent({
 
     // 今天
     const today = () => {
-      const year = new Date().getFullYear();
-      const month = new Date().getMonth();
-      const day = new Date().getDate();
+      const { year, month, day } = transDateToYearMonthDay(new Date());
 
       if (props.selectType === 'single') {
         checkedDate.value = [{ year, month, day }];
@@ -494,8 +493,7 @@ export default defineComponent({
         checkedDate.value = [{ year, month, day }];
       } else if (selectType === 'multiple') {
         const existIndex = checked.findIndex(
-          (item) =>
-            item.year === year && item.month === month && item.day === day
+          (item) => compareDay(item, date) === 0
         );
         if (existIndex > -1) {
           checkedDate.value.splice(existIndex, 1);
@@ -791,18 +789,12 @@ export default defineComponent({
         if (props.selectType === 'single' && val instanceof Date) {
           const year = val.getFullYear();
           const month = val.getMonth();
-          const day = val.getDate();
 
           currentYearMonth.value = { year, month };
 
-          checkedDate.value = [{ year, month, day }];
+          checkedDate.value = [transDateToYearMonthDay(val)];
         } else if (Array.isArray(val)) {
-          checkedDate.value = val.map((item) => {
-            const year = item.getFullYear();
-            const month = item.getMonth();
-            const day = item.getDate();
-            return { year, month, day };
-          });
+          checkedDate.value = val.map((item) => transDateToYearMonthDay(item));
         }
         calculateCalendarOfThreeMonth();
         if (isShowWeek.value) {
@@ -871,6 +863,8 @@ export default defineComponent({
     );
 
     const getRangeDayClassName = (date: CalendarMonthType) => {
+      if (props.selectType !== 'range') return '';
+
       const currDate = checkedDate.value.find(
         (item) => compareDay(item, date) === 0
       );
@@ -878,18 +872,15 @@ export default defineComponent({
 
       const { type } = currDate;
       return type === 'start'
-        ? 'calendar_range_start'
+        ? ' calendar_range_start'
         : type === 'middle'
-        ? 'calendar_range_middle'
+        ? ' calendar_range_middle'
         : type === 'end'
-        ? 'calendar_range_end'
+        ? ' calendar_range_end'
         : '';
     };
 
     const renderDay = (date: CalendarMonthType, i: number) => {
-      if (props.selectType === 'range') {
-        console.log('date', date);
-      }
       let dayEle: any = isFirstDayOfMonth(date, i)
         ? languageUtil[props.lang].MONTH[date.month]
         : date.day === 0
@@ -927,9 +918,7 @@ export default defineComponent({
             isNotCurrentMonthDay(date, i) && props.showNotCurrentMonthDay
               ? props.notCurrentMonthDayClassName || 'calendar_day_not'
               : ''
-          } ${
-            markDateColor(date, 'circle') ? 'calendar_mark_circle' : ''
-          } ${getRangeDayClassName(date)}`}
+          } ${markDateColor(date, 'circle') ? 'calendar_mark_circle' : ''}`}
           style={{ 'border-color': markDateColor(date, 'circle') }}
         >
           {dayEle}
@@ -961,7 +950,7 @@ export default defineComponent({
                 formatDisabledDate(date)
                   ? props.disabledClassName || 'calendar_item_disable'
                   : ''
-              }`}
+              }${getRangeDayClassName(date)}`}
               ref={(el) => {
                 calendarItemRef.length = 0;
                 calendarItemRef.push(el as HTMLElement);
