@@ -799,8 +799,15 @@ export default defineComponent({
 
           checkedDate.value = [transDateToYearMonthDay(val)];
         } else if (Array.isArray(val)) {
-          checkedDate.value = val.map((item) => transDateToYearMonthDay(item));
-          console.log('checkedDate.value', checkedDate.value);
+          const checked = val.map((item) => transDateToYearMonthDay(item));
+          if (props.selectType === 'range') {
+            checkedDate.value = calcMiddleDay([
+              { ...checked[0], type: 'start' },
+              { ...checked[1], type: 'end' },
+            ]);
+          } else {
+            checkedDate.value = checked;
+          }
         }
         calculateCalendarOfThreeMonth();
         if (isShowWeek.value) {
@@ -878,13 +885,13 @@ export default defineComponent({
 
       const { type } = currDate;
       return type === 'start'
-        ? ' calendar_range_start'
+        ? ' calendar_range_checked calendar_range_start'
         : type === 'middle'
-        ? ' calendar_range_middle'
+        ? ' calendar_range_checked calendar_range_middle'
         : type === 'end'
-        ? ' calendar_range_end'
+        ? ' calendar_range_checked calendar_range_end'
         : type === 'start-end'
-        ? ' calendar_range_start-end'
+        ? ' calendar_range_checked calendar_range_start-end'
         : '';
     };
 
