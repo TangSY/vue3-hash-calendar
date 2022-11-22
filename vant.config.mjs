@@ -8,6 +8,7 @@ const componentsProp = [
   'default-datetime',
   'min-date',
   'max-date',
+  'max-range',
   'format',
   'week-start',
   'mark-date',

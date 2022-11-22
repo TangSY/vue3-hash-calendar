@@ -1,4 +1,4 @@
-# picker-type
+# select-type
 
 ### 介绍
 

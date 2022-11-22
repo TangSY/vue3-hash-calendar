@@ -77,6 +77,7 @@ export const calendarProps = {
   defaultDatetime: [Date, Array] as PropType<Date | Date[] | null>,
   minDate: makeDateProp(null),
   maxDate: makeDateProp(null),
+  maxRange: makeNumberProp(0),
   format: makeStringProp(''),
   model: makeStringProp<ModelType>('inline'),
   markType: makeStringProp<MarkType>('dot'),
@@ -119,6 +120,7 @@ export default defineComponent({
     'click',
     'confirm',
     'change',
+    'overRange',
     'slidechange',
     'touchstart',
     'touchmove',
@@ -668,12 +670,14 @@ export default defineComponent({
         onSlidechange={slideChange}
         onYearMonthChange={yearMonthChange}
         onChange={dateChange}
+        onOverRange={() => emit('overRange')}
         onClick={dateClick}
         showWeekView={isShowWeek.value}
         onUpdate:showWeekView={updateShowWeekView}
         {...pick(props, [
           'minDate',
           'maxDate',
+          'maxRange',
           'disabledWeekView',
           'markType',
           'selectType',

@@ -35,6 +35,7 @@ import {
   isDateInRange,
   makeArrayProp,
   makeDateProp,
+  makeNumberProp,
   makeStringProp,
   transDateToYearMonthDay,
   truthProp,
@@ -53,6 +54,7 @@ export const calendarDateProps = {
   },
   minDate: makeDateProp(null),
   maxDate: makeDateProp(null),
+  maxRange: makeNumberProp(0),
   markType: makeStringProp<MarkType>('dot'),
   markDate: makeArrayProp<MarkDateType>(),
   disabledDate: {
@@ -86,6 +88,7 @@ export default defineComponent({
     'update:showWeekView',
     'click',
     'change',
+    'overRange',
     'yearMonthChange',
     'slidechange',
     'touchstart',
@@ -489,7 +492,7 @@ export default defineComponent({
     };
 
     const dealCheckedDate = (date: CalendarMonthType) => {
-      const { selectType } = props;
+      const { selectType, maxRange } = props;
       const { year, month, day } = date;
       const checked = checkedDate.value;
 
@@ -502,6 +505,10 @@ export default defineComponent({
         if (existIndex > -1) {
           checkedDate.value.splice(existIndex, 1);
         } else {
+          if (maxRange && checked.length >= maxRange) {
+            emit('overRange');
+            return;
+          }
           checkedDate.value = [...checked, date];
         }
       } else if (selectType === 'range') {
@@ -516,10 +523,15 @@ export default defineComponent({
           const compareToStart = compareDay(date, startDay);
 
           if (compareToStart === 1) {
-            checkedDate.value = calcMiddleDay([
+            const dateArr = calcMiddleDay([
               checked[0],
               { ...date, type: 'end' },
             ]);
+            if (maxRange && dateArr.length > maxRange) {
+              emit('overRange');
+              return;
+            }
+            checkedDate.value = dateArr;
           } else if (compareToStart === -1) {
             checkedDate.value = [date];
           } else if (props.allowSameDay) {

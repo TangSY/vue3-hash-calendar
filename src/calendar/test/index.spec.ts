@@ -153,3 +153,29 @@ test('multiple-type with click', async () => {
   await days[55].trigger('click');
   expect(onChange).toHaveBeenLastCalledWith([new Date(2022, 0, 1)]);
 });
+
+test('multiple-type with format', async () => {
+  const onChange = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      selectType: 'multiple',
+      defaultDatetime: defaultMultipleDate,
+      defaultYearMonth,
+      onChange,
+    },
+  });
+  await later(200);
+});
+
+test('range-type with format', async () => {
+  const onChange = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      selectType: 'multiple',
+      defaultDatetime: defaultMultipleDate,
+      defaultYearMonth,
+      onChange,
+    },
+  });
+  await later(200);
+});

@@ -23,7 +23,21 @@
 
 ---
 
-# 效果图
+## 特性
+
+- 支持自定义农历/节假日
+- 支持单选、多选、范围选择类型
+- 上下滑动可切换周/月模式
+- 支持快速切换年份和月份
+- 周模式，左右滑动切换周
+- 月模式，左右滑动切换月份
+- 单元测试全覆盖
+- 详尽的文档和示例
+- 支持定制主题
+- 国际化语言支持（中/英）
+- 使用 TypeScript 开发，提供完整的类型定义文件
+
+## 效果图
 
 ![calendar.gif](https://www.hxkj.vip/demo/calendar/calendar.gif?from=hxkj)
 ![dot.gif](https://www.hxkj.vip/demo/calendar/dot.gif?from=hxkj)
@@ -31,6 +45,35 @@
 ![yearmonth.gif](https://www.hxkj.vip/demo/calendar/yearmonth.gif?from=hxkj)
 ![range](https://www.hxkj.vip/calendar/public/range.jpg?from=hxkj)
 ![multiple](https://www.hxkj.vip/calendar/public/multiple.jpg?from=hxkj)
+
+## 安装
+
+```bash
+# 通过 npm
+npm i vue3-hash-calendar
+
+# 通过 yarn
+yarn add vue3-hash-calendar
+
+# 通过 pnpm
+pnpm add vue3-hash-calendar
+```
+
+## 引入
+
+```js
+import Vue from 'vue';
+import VueHashCalendar from 'vue3-hash-calendar';
+import 'vue3-hash-calendar/es/index.css';
+
+Vue.use(VueHashCalendar);
+```
+
+## 使用
+
+```html
+<vue-hash-calendar />
+```
 
 ## 仓库地址
 
