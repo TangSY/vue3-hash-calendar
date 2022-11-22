@@ -219,3 +219,49 @@ test('test event of click', async () => {
   await wrapper.find('.calendar_title_date_time').trigger('click');
   expect(onCalendarTypeChange).toHaveBeenLastCalledWith('time');
 });
+
+test('test event of multiple overRange', async () => {
+  const onOverRange = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      selectType: 'multiple',
+      defaultDatetime: null,
+      maxRange: 3,
+      onOverRange,
+    },
+  });
+  await later(200);
+
+  const days = wrapper.findAll('.calendar_day');
+
+  await days[55].trigger('click');
+  expect(onOverRange).toHaveBeenCalledTimes(0);
+  await days[56].trigger('click');
+  expect(onOverRange).toHaveBeenCalledTimes(0);
+  await days[57].trigger('click');
+  expect(onOverRange).toHaveBeenCalledTimes(0);
+  await days[58].trigger('click');
+  expect(onOverRange).toHaveBeenCalledTimes(1);
+});
+
+test('test event of range overRange', async () => {
+  const onOverRange = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      selectType: 'range',
+      defaultDatetime: null,
+      maxRange: 3,
+      onOverRange,
+    },
+  });
+  await later(200);
+
+  const days = wrapper.findAll('.calendar_day');
+
+  await days[55].trigger('click');
+  await days[57].trigger('click');
+  expect(onOverRange).toHaveBeenCalledTimes(0);
+  await days[55].trigger('click');
+  await days[58].trigger('click');
+  expect(onOverRange).toHaveBeenCalledTimes(1);
+});

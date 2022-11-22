@@ -48,6 +48,7 @@
 | touchend           | 日历滑动 end 事件，同于原生该事件。                                                       | （event: touch 事件）              |
 | slidechange        | 日历滑动的方向。返回值：right、left、up、down 。                                          | （direction: 滑动的方向）          |
 | calendarTypeChange | 日历展示类型切换时触发。返回值：week、date、month、year、yearRange 。                     | （type: 日历展示面板类型）         |
+| overRange          | 范围、多选类型中，选择超过最多可选天数时触发                                              | --                                 |
 
 ### 插槽 Slot
 

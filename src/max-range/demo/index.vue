@@ -4,6 +4,7 @@
     :default-year-month="{ year: 2022, month: 0 }"
     :default-datetime="null"
     :max-range="5"
+    @over-range="overRange"
     select-type="range"
   />
 
@@ -12,10 +13,15 @@
     :default-year-month="{ year: 2022, month: 0 }"
     :default-datetime="null"
     :max-range="5"
+    @over-range="overRange"
     select-type="multiple"
   />
 </template>
 
 <script setup>
 import VueHashCalendar from '../../calendar';
+
+const overRange = () => {
+  console.log('overRange');
+};
 </script>

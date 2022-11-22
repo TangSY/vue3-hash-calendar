@@ -13,9 +13,18 @@
   <vue-hash-calendar
     select-type="range"
     :max-range="5"
+    @over-range="overRange"
     :default-datetime="null"
   />
 </template>
+```
+
+```js
+<script setup>
+const overRange = () => {
+  console.log('overRange');
+};
+</script>
 ```
 
 ### multiple
@@ -27,7 +36,16 @@
   <vue-hash-calendar
     select-type="multiple"
     :max-range="5"
+    @over-range="overRange"
     :default-datetime="null"
   />
 </template>
+```
+
+```js
+<script setup>
+const overRange = () => {
+  console.log('overRange');
+};
+</script>
 ```
