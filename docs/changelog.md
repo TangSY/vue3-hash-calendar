@@ -1,3 +1,17 @@
+### [v1.1.1](https://github.com/TangSY/vue3-hash-calendar/compare/v1.1.0...v1.1.1)
+
+`2022-11-22`
+
+**Document**
+
+- 1.1.1 [100850](https://github.com/TangSY/vue3-hash-calendar/commit/1008503c312e290aef48b3d2804a2057cfa03d33)
+
+**Feature**
+
+- 添加 maxRange 属性 [54b135](https://github.com/TangSY/vue3-hash-calendar/commit/54b1351cf542b9b88df256bd449016fe7c2693fa)
+- 添加 overRange 事件 [3ade11](https://github.com/TangSY/vue3-hash-calendar/commit/3ade11764b1cce4bdd2b823783849907afc9aee8)
+- 优化默认 change 事件 [875b89](https://github.com/TangSY/vue3-hash-calendar/commit/875b89470371d35c6fa5df9c4e1953066f1b64bc)
+
 ### [v1.1.0](https://github.com/TangSY/vue3-hash-calendar/compare/v1.0.11...v1.1.0)
 
 `2022-11-21`
