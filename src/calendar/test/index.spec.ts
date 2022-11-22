@@ -97,3 +97,23 @@ test('range-type with click', async () => {
     new Date(2022, 0, 5),
   ]);
 });
+
+test('multiple-type with defaultDatetime', async () => {
+  const onChange = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      selectType: 'multiple',
+      defaultDatetime: defaultMultipleDate,
+      defaultYearMonth,
+      onChange,
+    },
+  });
+  await later(200);
+
+  const days = wrapper.findAll('.calendar_day');
+  expect(days[55].attributes('class')).toContain('calendar_day_checked');
+  expect(days[56].attributes('class')).not.toContain('calendar_day_checked');
+  expect(days[59].attributes('class')).toContain('calendar_day_checked');
+  expect(days[60].attributes('class')).not.toContain('calendar_day_checked');
+  expect(days[64].attributes('class')).toContain('calendar_day_checked');
+});
