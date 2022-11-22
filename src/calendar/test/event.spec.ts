@@ -1,6 +1,6 @@
 import { mount, later } from '../../../test';
 import Calendar from '..';
-import { defaultDate } from './utils';
+import { defaultDate, ON_CHANGE_BASIC_CALLED_TIMES } from './utils';
 import { slidechange } from './porp.spec';
 
 test('test event of slidechange to right', async () => {
@@ -32,7 +32,7 @@ test('test event of slidechange to right', async () => {
   slidechange(calendar, 'right');
   await later(200);
   expect(onCalendarTypeChange).toHaveBeenCalledTimes(0);
-  expect(onChange).toHaveBeenCalledTimes(3);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
   expect(onChange).toHaveBeenLastCalledWith(new Date(2021, 11, 1, 1, 1));
   expect(onClick).toHaveBeenCalledTimes(0);
   expect(onConfirm).toHaveBeenCalledTimes(0);
@@ -44,7 +44,7 @@ test('test event of slidechange to right', async () => {
 
   slidechange(calendar, 'right');
   await later(200);
-  expect(onChange).toHaveBeenCalledTimes(4);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 2);
   expect(onChange).toHaveBeenLastCalledWith(new Date(2021, 10, 1, 1, 1));
 });
 
@@ -77,7 +77,7 @@ test('test event of slidechange to left', async () => {
   slidechange(calendar, 'left');
   await later(200);
   expect(onCalendarTypeChange).toHaveBeenCalledTimes(0);
-  expect(onChange).toHaveBeenCalledTimes(3);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
   expect(onChange).toHaveBeenLastCalledWith(new Date(2022, 1, 1, 1, 1));
   expect(onClick).toHaveBeenCalledTimes(0);
   expect(onConfirm).toHaveBeenCalledTimes(0);
@@ -89,7 +89,7 @@ test('test event of slidechange to left', async () => {
 
   slidechange(calendar, 'left');
   await later(200);
-  expect(onChange).toHaveBeenCalledTimes(4);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 2);
   expect(onChange).toHaveBeenLastCalledWith(new Date(2022, 2, 1, 1, 1));
 });
 
@@ -212,9 +212,9 @@ test('test event of click', async () => {
   await confirm[1].trigger('click');
   expect(onConfirm).toHaveBeenLastCalledWith(new Date(2022, 0, 2, 1, 1));
 
-  expect(onChange).toHaveBeenCalledTimes(3);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
   await confirm[0].trigger('click');
-  expect(onChange).toHaveBeenCalledTimes(4);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 2);
 
   await wrapper.find('.calendar_title_date_time').trigger('click');
   expect(onCalendarTypeChange).toHaveBeenLastCalledWith('time');

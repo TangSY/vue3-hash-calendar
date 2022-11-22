@@ -17,19 +17,19 @@ test('range-type with allow-same-day', async () => {
     },
   });
   await later(200);
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
 
   const days = wrapper.findAll('.calendar_item');
   await days[55].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
   await days[55].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
 
   wrapper.setProps({ allowSameDay: true });
   await days[55].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
   await days[55].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
   expect(onChange).toHaveBeenLastCalledWith([
     new Date(2022, 0, 1),
     new Date(2022, 0, 1),
@@ -59,21 +59,25 @@ test('range-type with defaultDatetime', async () => {
 
 test('range-type with click', async () => {
   const onChange = jest.fn();
+  const onClick = jest.fn();
   const wrapper = mount(Calendar, {
     props: {
       selectType: 'range',
       defaultYearMonth,
       onChange,
+      onClick,
     },
   });
   await later(200);
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
 
   const days = wrapper.findAll('.calendar_item');
   await days[55].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
+  expect(onClick).toHaveBeenLastCalledWith(new Date(2022, 0, 1));
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
   await days[57].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
+  expect(onClick).toHaveBeenLastCalledWith(new Date(2022, 0, 3));
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
   expect(onChange).toHaveBeenLastCalledWith([
     new Date(2022, 0, 1),
     new Date(2022, 0, 2),
@@ -81,15 +85,16 @@ test('range-type with click', async () => {
   ]);
 
   await days[58].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
+  expect(onClick).toHaveBeenLastCalledWith(new Date(2022, 0, 4));
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
   expect(wrapper.find('.calendar_range_start').exists()).toBeTruthy();
   expect(wrapper.find('.calendar_range_middle').exists()).toBeFalsy();
   expect(wrapper.find('.calendar_range_end').exists()).toBeFalsy();
 
   await days[56].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
   await days[59].trigger('click');
-  expect(onChange).toBeCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 2);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 2);
   expect(onChange).toHaveBeenLastCalledWith([
     new Date(2022, 0, 2),
     new Date(2022, 0, 3),
@@ -116,4 +121,35 @@ test('multiple-type with defaultDatetime', async () => {
   expect(days[59].attributes('class')).toContain('calendar_day_checked');
   expect(days[60].attributes('class')).not.toContain('calendar_day_checked');
   expect(days[64].attributes('class')).toContain('calendar_day_checked');
+});
+
+test('multiple-type with click', async () => {
+  const onChange = jest.fn();
+  const onClick = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      selectType: 'multiple',
+      defaultDatetime: defaultMultipleDate,
+      defaultYearMonth,
+      onChange,
+      onClick,
+    },
+  });
+  await later(200);
+
+  const days = wrapper.findAll('.calendar_day');
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES);
+  await days[55].trigger('click');
+  expect(onClick).toHaveBeenLastCalledWith(new Date(2022, 0, 1));
+  expect(onChange).toHaveBeenLastCalledWith([
+    new Date(2022, 0, 5),
+    new Date(2022, 0, 10),
+  ]);
+  expect(onChange).toHaveBeenCalledTimes(ON_CHANGE_BASIC_CALLED_TIMES + 1);
+  await days[59].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith([new Date(2022, 0, 10)]);
+  await days[64].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith([]);
+  await days[55].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith([new Date(2022, 0, 1)]);
 });
