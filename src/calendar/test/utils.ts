@@ -15,3 +15,5 @@ export const defalutTimeText = '01:01';
 
 export const minDate = new Date(2022, 0, 1, 1, 1);
 export const maxDate = new Date(2022, 1, 1, 1, 1);
+
+export const defaultYearMonth = { year: 2022, month: 0 };

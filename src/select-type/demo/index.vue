@@ -8,6 +8,8 @@
       new Date(new Date().setDate(14)),
       new Date(new Date().setDate(18)),
     ]"
+    allow-same-day
+    @change="change"
     select-type="range"
   />
 
@@ -28,4 +30,8 @@
 
 <script setup>
 import VueHashCalendar from '../../calendar';
+
+const change = (date) => {
+  console.log('date', date);
+};
 </script>

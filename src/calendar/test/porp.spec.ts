@@ -190,9 +190,9 @@ test('disabled-date prop', async () => {
   await later();
 
   const days = wrapper.findAll('.calendar_day');
-  days[56].trigger('click');
+  await days[56].trigger('click');
   expect(onClick).toHaveBeenCalledTimes(0);
-  days[55].trigger('click');
+  await days[55].trigger('click');
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
@@ -625,4 +625,20 @@ test('disabled-time prop', async () => {
     },
   });
   expect(wrapper.find('.time-disabled').exists()).toBeTruthy();
+});
+
+test('select-type prop', async () => {
+  const wrapper = mount(Calendar, {
+    props: { selectType: 'single', defaultDatetime: defaultDate },
+  });
+  await later(200);
+
+  const date = wrapper.find('.calendar_title_date_active');
+  expect(date.text()).toBe(defalutDateText);
+
+  await wrapper.setProps({ selectType: 'range' });
+  expect(date.text()).toBe('2022年01月');
+
+  await wrapper.setProps({ selectType: 'multiple' });
+  expect(date.text()).toBe('2022年01月');
 });

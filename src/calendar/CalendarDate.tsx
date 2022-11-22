@@ -47,6 +47,10 @@ export const calendarDateProps = {
   selectType: makeStringProp<SelectType>('single'),
   allowSameDay: Boolean,
   defaultDate: [Date, Array] as PropType<Date | Date[] | null>,
+  defaultYearMonth: {
+    type: Object as PropType<CalendarYearMonthType>,
+    default: {},
+  },
   minDate: makeDateProp(null),
   maxDate: makeDateProp(null),
   markType: makeStringProp<MarkType>('dot'),
@@ -508,8 +512,12 @@ export default defineComponent({
         }
 
         const [startDay, endDay] = getStartEndDay(checked);
+        console.log('startDay', startDay);
+        console.log('endDay', endDay);
         if (startDay && !endDay) {
           const compareToStart = compareDay(date, startDay);
+          console.log('compareToStart', compareToStart);
+          console.log('props.allowSameDay', props.allowSameDay);
 
           if (compareToStart === 1) {
             checkedDate.value = calcMiddleDay([
@@ -520,6 +528,7 @@ export default defineComponent({
             checkedDate.value = [date];
           } else if (props.allowSameDay) {
             date = { ...date, type: 'start-end' };
+            console.log('date', date);
             checkedDate.value = [date, date];
           }
         } else {
@@ -851,6 +860,16 @@ export default defineComponent({
         });
       }
     });
+
+    watch(
+      () => props.defaultYearMonth,
+      (val) => {
+        if (val) {
+          currentYearMonth.value = val;
+        }
+      },
+      { immediate: true }
+    );
 
     watch(calendarGroupHeight, (val) => {
       emit('height', val + calendarWeekTitleHeight.value);
