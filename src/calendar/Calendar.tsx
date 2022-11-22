@@ -30,6 +30,7 @@ import type {
 
 // Utils
 import {
+  calcMiddleDay,
   compareDay,
   fillNumber,
   formatDate,
@@ -514,7 +515,17 @@ export default defineComponent({
 
         checkedDate.value = [transDateToHourMinute(date)];
       } else if (Array.isArray(date)) {
-        checkedDate.value = date.map((item) => transDateToHourMinute(item));
+        if (props.selectType === 'range') {
+          const dateArr = calcMiddleDay([
+            { ...transDateToHourMinute(date[0]), type: 'start' },
+            { ...transDateToHourMinute(date[1]), type: 'end' },
+          ]);
+          checkedDate.value = dateArr.map((item) =>
+            transDateToHourMinute(transYearMontDayToDate(item))
+          );
+        } else {
+          checkedDate.value = date.map((item) => transDateToHourMinute(item));
+        }
       }
 
       if (props.pickerType === 'time') {

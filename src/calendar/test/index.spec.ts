@@ -154,28 +154,62 @@ test('multiple-type with click', async () => {
   expect(onChange).toHaveBeenLastCalledWith([new Date(2022, 0, 1)]);
 });
 
+test('range-type with format', async () => {
+  const onChange = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      selectType: 'range',
+      format: 'YY/MM/DD',
+      defaultDatetime: defaultRangeDate,
+      defaultYearMonth,
+      onChange,
+    },
+  });
+  await later(200);
+
+  expect(onChange).toHaveBeenLastCalledWith([
+    '2022/01/01',
+    '2022/01/02',
+    '2022/01/03',
+    '2022/01/04',
+    '2022/01/05',
+  ]);
+
+  const days = wrapper.findAll('.calendar_day');
+  await days[55].trigger('click');
+  await days[57].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith([
+    '2022/01/01',
+    '2022/01/02',
+    '2022/01/03',
+  ]);
+});
+
 test('multiple-type with format', async () => {
   const onChange = jest.fn();
   const wrapper = mount(Calendar, {
     props: {
       selectType: 'multiple',
+      format: 'YY/MM/DD',
       defaultDatetime: defaultMultipleDate,
       defaultYearMonth,
       onChange,
     },
   });
   await later(200);
-});
 
-test('range-type with format', async () => {
-  const onChange = jest.fn();
-  const wrapper = mount(Calendar, {
-    props: {
-      selectType: 'multiple',
-      defaultDatetime: defaultMultipleDate,
-      defaultYearMonth,
-      onChange,
-    },
-  });
-  await later(200);
+  expect(onChange).toHaveBeenLastCalledWith([
+    '2022/01/01',
+    '2022/01/05',
+    '2022/01/10',
+  ]);
+
+  const days = wrapper.findAll('.calendar_day');
+  await days[55].trigger('click');
+  await days[57].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith([
+    '2022/01/05',
+    '2022/01/10',
+    '2022/01/03',
+  ]);
 });
