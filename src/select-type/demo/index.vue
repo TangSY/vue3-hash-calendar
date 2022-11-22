@@ -1,13 +1,14 @@
 <template>
   <h1 class="hash-demo-title">single</h1>
-  <vue-hash-calendar select-type="single" />
+  <vue-hash-calendar
+    select-type="single"
+    :default-datetime="new Date(2022, 0, 1, 1, 1)"
+  />
 
   <h1 class="hash-demo-title">range</h1>
   <vue-hash-calendar
-    :default-datetime="[
-      new Date(new Date().setDate(14)),
-      new Date(new Date().setDate(18)),
-    ]"
+    :default-year-month="{ year: 2022, month: 0 }"
+    :default-datetime="[new Date(2022, 0, 10), new Date(2022, 0, 14)]"
     allow-same-day
     @change="change"
     select-type="range"
@@ -15,14 +16,15 @@
 
   <h1 class="hash-demo-title">multiple</h1>
   <vue-hash-calendar
+    :default-year-month="{ year: 2022, month: 0 }"
     :default-datetime="[
-      new Date(new Date().setDate(8)),
-      new Date(new Date().setDate(9)),
-      new Date(new Date().setDate(10)),
-      new Date(new Date().setDate(16)),
-      new Date(new Date().setDate(22)),
-      new Date(new Date().setDate(23)),
-      new Date(new Date().setDate(24)),
+      new Date(2022, 0, 4),
+      new Date(2022, 0, 5),
+      new Date(2022, 0, 6),
+      new Date(2022, 0, 12),
+      new Date(2022, 0, 18),
+      new Date(2022, 0, 19),
+      new Date(2022, 0, 20),
     ]"
     select-type="multiple"
   />

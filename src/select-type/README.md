@@ -20,14 +20,13 @@ multiple：多选
 
 ### range
 
+若 `range` 类型需要设置默认日期，只需要传入`起始时间`和`结束时间`
+
 ```html
 <template>
   <vue-hash-calendar
     select-type="range"
-    :default-datetime="[
-      new Date(new Date().setDate(14)),
-      new Date(new Date().setDate(18)),
-    ]"
+    :default-datetime="[new Date(2022, 0, 10), new Date(2022, 0, 14)]"
   />
 </template>
 ```
@@ -39,13 +38,13 @@ multiple：多选
   <vue-hash-calendar
     select-type="multiple"
     :default-datetime="[
-      new Date(new Date().setDate(8)),
-      new Date(new Date().setDate(9)),
-      new Date(new Date().setDate(10)),
-      new Date(new Date().setDate(16)),
-      new Date(new Date().setDate(22)),
-      new Date(new Date().setDate(23)),
-      new Date(new Date().setDate(24)),
+      new Date(2022, 0, 4),
+      new Date(2022, 0, 5),
+      new Date(2022, 0, 6),
+      new Date(2022, 0, 12),
+      new Date(2022, 0, 18),
+      new Date(2022, 0, 19),
+      new Date(2022, 0, 20),
     ]"
   />
 </template>
