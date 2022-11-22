@@ -512,12 +512,8 @@ export default defineComponent({
         }
 
         const [startDay, endDay] = getStartEndDay(checked);
-        console.log('startDay', startDay);
-        console.log('endDay', endDay);
         if (startDay && !endDay) {
           const compareToStart = compareDay(date, startDay);
-          console.log('compareToStart', compareToStart);
-          console.log('props.allowSameDay', props.allowSameDay);
 
           if (compareToStart === 1) {
             checkedDate.value = calcMiddleDay([
@@ -528,7 +524,6 @@ export default defineComponent({
             checkedDate.value = [date];
           } else if (props.allowSameDay) {
             date = { ...date, type: 'start-end' };
-            console.log('date', date);
             checkedDate.value = [date, date];
           }
         } else {
