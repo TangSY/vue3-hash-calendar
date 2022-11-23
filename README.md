@@ -37,15 +37,6 @@
 - 国际化语言支持（中/英）
 - 使用 TypeScript 开发，提供完整的类型定义文件
 
-## 效果图
-
-![calendar.gif](https://www.hxkj.vip/demo/calendar/calendar.gif?from=hxkj)
-![dot.gif](https://www.hxkj.vip/demo/calendar/dot.gif?from=hxkj)
-![week.gif](https://www.hxkj.vip/demo/calendar/week.gif?from=hxkj)
-![yearmonth.gif](https://www.hxkj.vip/demo/calendar/yearmonth.gif?from=hxkj)
-![range](https://www.hxkj.vip/calendar/public/range.jpg?from=hxkj)
-![multiple](https://www.hxkj.vip/calendar/public/multiple.jpg?from=hxkj)
-
 ## 安装
 
 ```bash
@@ -75,12 +66,38 @@ Vue.use(VueHashCalendar);
 <vue-hash-calendar />
 ```
 
-## 仓库地址
+### 仓库地址
 
+- gitee：[https://gitee.com/HashTang/vue3-hash-calendar](https://gitee.com/HashTang/vue3-hash-calendar)
 - github：[https://github.com/TangSY/vue3-hash-calendar](https://github.com/TangSY/vue3-hash-calendar)
-- 码云 gitee：[https://gitee.com/HashTang/vue3-hash-calendar](https://gitee.com/HashTang/vue3-hash-calendar)
 
-## 其他版本
+### 其他版本
 
 - vue 2.x 版本：[https://github.com/TangSY/vue-hash-calendar](https://github.com/TangSY/vue-hash-calendar)
 - react 版本：[https://github.com/TangSY/react-hash-calendar](https://github.com/TangSY/react-hash-calendar)
+
+## 效果图
+
+### 默认配置
+
+![default](https://www.hxkj.vip/calendar/public/default.jpg?from=hxkj)
+
+### 周视图模式
+
+![week](https://www.hxkj.vip/calendar/public/week.jpg?from=hxkj)
+
+### 标记日期
+
+![mark](https://www.hxkj.vip/calendar/public/mark.jpg?from=hxkj)
+
+### 快速切换年月
+
+![yearmonth](https://www.hxkj.vip/calendar/public/yearmonth.jpg?from=hxkj)
+
+### 区间选择
+
+![range](https://www.hxkj.vip/calendar/public/range.jpg?from=hxkj)
+
+### 多选
+
+![multiple](https://www.hxkj.vip/calendar/public/multiple.jpg?from=hxkj)
