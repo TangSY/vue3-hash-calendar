@@ -66,12 +66,12 @@ Vue.use(VueHashCalendar);
 <vue-hash-calendar />
 ```
 
-### 仓库地址
+## 仓库地址
 
 - gitee：[https://gitee.com/HashTang/vue3-hash-calendar](https://gitee.com/HashTang/vue3-hash-calendar)
 - github：[https://github.com/TangSY/vue3-hash-calendar](https://github.com/TangSY/vue3-hash-calendar)
 
-### 其他版本
+## 其他版本
 
 - vue 2.x 版本：[https://github.com/TangSY/vue-hash-calendar](https://github.com/TangSY/vue-hash-calendar)
 - react 版本：[https://github.com/TangSY/react-hash-calendar](https://github.com/TangSY/react-hash-calendar)
