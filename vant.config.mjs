@@ -66,7 +66,7 @@ export default {
   },
   site: {
     title: 'vue3-hash-calendar',
-    logo: 'http://www.hxkj.vip/calendar/public/logo.png',
+    logo: 'https://www.hxkj.vip/calendar/public/logo.png',
     description: '基于 vue3 版本的周 月 时间选择器',
     baiduAnalytics: {
       seed: 'b0668f30d62e1597bdb36d05edea8960',

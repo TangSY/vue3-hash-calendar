@@ -21,7 +21,7 @@
 
 ### 农历
 
-案例中使用的 `lunar.js` 文件获取地址：[lunar.js](https://github.com/TangSY/vue3-hash-calendar/blob/main/examples/lunar/lunar.js)
+案例中使用的 `lunar.js` 文件获取地址：[lunar.js](https://www.hxkj.vip/calendar/lunar.js)
 
 ```html
 <template>
