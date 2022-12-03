@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="logo" src="https://www.hxkj.vip/calendar/public/logo.png" width="190" height="80" style="margin-bottom: 10px;">
+    <img alt="logo" src="https://calendar.hxkj.vip/public/logo.png" width="190" height="80" style="margin-bottom: 10px;">
 </p>
 
 <h1 align="center">vue3-hash-calendar</h1>
@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  🔥 <a href="https://hxkj.vip/calendar">文档网站</a>
+  🔥 <a href="https://calendar.hxkj.vip">文档网站</a>
   &nbsp;&nbsp;
   🌈 <a href="https://github.com/TangSY/vue3-hash-calendar/blob/main/docs/changelog.md">更新日志</a>
 </p>
@@ -80,24 +80,24 @@ Vue.use(VueHashCalendar);
 
 ### 默认配置
 
-![default](https://www.hxkj.vip/calendar/public/default.jpg?from=hxkj.vip)
+![default](https://calendar.hxkj.vip/public/default.jpg?from=hxkj.vip)
 
 ### 周视图模式
 
-![week](https://www.hxkj.vip/calendar/public/week.jpg?from=hxkj.vip)
+![week](https://calendar.hxkj.vip/public/week.jpg?from=hxkj.vip)
 
 ### 标记日期
 
-![mark](https://www.hxkj.vip/calendar/public/mark.jpg?from=hxkj.vip)
+![mark](https://calendar.hxkj.vip/public/mark.jpg?from=hxkj.vip)
 
 ### 快速切换年月
 
-![yearmonth](https://www.hxkj.vip/calendar/public/yearmonth.jpg?from=hxkj.vip)
+![yearmonth](https://calendar.hxkj.vip/public/yearmonth.jpg?from=hxkj.vip)
 
 ### 区间选择
 
-![range](https://www.hxkj.vip/calendar/public/range.jpg?from=hxkj.vip)
+![range](https://calendar.hxkj.vip/public/range.jpg?from=hxkj.vip)
 
 ### 多选
 
-![multiple](https://www.hxkj.vip/calendar/public/multiple.jpg?from=hxkj.vip)
+![multiple](https://calendar.hxkj.vip/public/multiple.jpg?from=hxkj.vip)
