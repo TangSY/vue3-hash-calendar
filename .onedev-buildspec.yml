@@ -1,11 +1,24 @@
 version: 18
 jobs:
-- name: test
+- name: checkout
   steps:
-  - !UseTemplateStep
-    name: test
-    templateName: test template
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: install
+    runInContainer: true
+    image: 1dev/server
+    interpreter: !DefaultInterpreter
+      commands:
+      - yarn
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
