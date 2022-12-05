@@ -17,6 +17,7 @@ jobs:
       - yarn
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  jobExecutor: shell-executor
   triggers:
   - !BranchUpdateTrigger {}
   retryCondition: never
