@@ -4,13 +4,13 @@ jobs:
   steps:
   - !CommandStep
     name: test suits
-    runInContainer: true
+    runInContainer: false
     image: 1dev/server
     interpreter: !DefaultInterpreter
       commands:
-      - yarn test
+      - yarn
     useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+    condition: ALWAYS
   triggers:
   - !BranchUpdateTrigger
     branches: dev
@@ -20,3 +20,28 @@ jobs:
   cpuRequirement: 250
   memoryRequirement: 256
   timeout: 3600
+stepTemplates:
+- name: test template
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: install
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands:
+      - yarn
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: test
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands:
+      - yarn test
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
