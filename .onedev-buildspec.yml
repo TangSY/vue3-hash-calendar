@@ -8,9 +8,19 @@ jobs:
     withLfs: false
     withSubmodules: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PullRepository
+    name: pull
+    remoteUrl: https://onedev.hxkj.vip/vue3-hash-calendar.git
+    syncToChildProject: false
+    userName: t@tsy6.com
+    passwordSecret: pwd
+    refs: refs/heads/* refs/tags/*
+    withLfs: false
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: install
-    runInContainer: true
+    runInContainer: false
     image: 1dev/server
     interpreter: !DefaultInterpreter
       commands:
