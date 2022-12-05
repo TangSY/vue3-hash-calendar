@@ -6,9 +6,6 @@ jobs:
     name: test
     templateName: test template
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  triggers:
-  - !BranchUpdateTrigger
-    branches: dev
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
