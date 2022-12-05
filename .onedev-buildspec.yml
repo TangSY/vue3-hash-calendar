@@ -2,15 +2,10 @@ version: 18
 jobs:
 - name: test
   steps:
-  - !CommandStep
-    name: test suits
-    runInContainer: false
-    image: 1dev/server
-    interpreter: !DefaultInterpreter
-      commands:
-      - yarn
-    useTTY: false
-    condition: ALWAYS
+  - !UseTemplateStep
+    name: test
+    templateName: test template
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger
     branches: dev
