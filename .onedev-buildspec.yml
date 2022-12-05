@@ -4,13 +4,13 @@ jobs:
   steps:
   - !CommandStep
     name: test suits
-    runInContainer: false
+    runInContainer: true
+    image: 1dev/server
     interpreter: !DefaultInterpreter
       commands:
       - yarn test
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  jobExecutor: shell-executor
   triggers:
   - !BranchUpdateTrigger
     branches: dev
