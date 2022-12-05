@@ -10,6 +10,7 @@ jobs:
       - yarn test
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  jobExecutor: shell-executor
   triggers:
   - !BranchUpdateTrigger
     branches: dev
