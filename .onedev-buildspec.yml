@@ -1,0 +1,21 @@
+version: 18
+jobs:
+- name: test
+  steps:
+  - !CommandStep
+    name: test suits
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands:
+      - yarn test
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger
+    branches: dev
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
