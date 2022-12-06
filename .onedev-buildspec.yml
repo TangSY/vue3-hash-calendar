@@ -59,7 +59,7 @@ jobs:
       - yarn
       - yarn build
       - cat > .npmrc <<-EOF
-      - //registry.npmjs.org/:_authToken=@NPM_TOKEN@
+      - //registry.npmjs.org/:_authToken=@secret:NPM_TOKEN@
       - registry=https://registry.npmjs.org/
       - home=https://www.npmjs.org
       - EOF
@@ -68,10 +68,6 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !TagCreateTrigger {}
-  jobDependencies:
-  - jobName: test
-    requireSuccessful: true
-    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
