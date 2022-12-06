@@ -12,7 +12,7 @@ jobs:
   - !CommandStep
     name: build
     runInContainer: true
-    image: node:latest
+    image: node:14.19.1
     interpreter: !DefaultInterpreter
       commands:
       - set -e
