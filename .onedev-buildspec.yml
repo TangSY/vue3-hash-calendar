@@ -11,7 +11,7 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: build
-    runInContainer: true
+    runInContainer: false
     image: node:14.19.1
     interpreter: !DefaultInterpreter
       commands:
