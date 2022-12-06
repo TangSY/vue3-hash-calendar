@@ -16,7 +16,8 @@ jobs:
     interpreter: !DefaultInterpreter
       commands:
       - set -e
-      - yum install -y jq
+      - apt update
+      - apt install -y jq
       - ''
       - yarn
       - export CI=true
