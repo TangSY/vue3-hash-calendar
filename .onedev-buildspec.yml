@@ -68,6 +68,10 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !TagCreateTrigger {}
+  jobDependencies:
+  - jobName: test
+    requireSuccessful: true
+    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -105,6 +109,44 @@ jobs:
   caches:
   - key: '@project_path@-node_modules'
     path: node_modules
+  timeout: 3600
+- name: Push to GitHub
+  steps:
+  - !PushRepository
+    name: push
+    remoteUrl: https://github.com/TangSY/vue3-hash-calendar
+    userName: TangSY
+    passwordSecret: github-access-token
+    withLfs: false
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  - !TagCreateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
+- name: Pull from GitHub
+  steps:
+  - !PullRepository
+    name: pull
+    remoteUrl: https://github.com/TangSY/vue3-hash-calendar
+    syncToChildProject: false
+    refs: refs/heads/* refs/tags/*
+    withLfs: false
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !ScheduleTrigger
+    cronExpression: 0 0 1 * * ?
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
   timeout: 3600
 stepTemplates:
 - name: test template
