@@ -1,15 +1,31 @@
 version: 18
 jobs:
 - name: CI
-  jobExecutor: shell-executor
   steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
-    name: install
+    name: build
     runInContainer: true
-    image: 1dev/server
+    image: node:latest
     interpreter: !DefaultInterpreter
       commands:
+      - set -e
+      - apt update
+      - apt install -y jq
+      - ''
       - yarn
+      - export CI=true
+      - yarn test
+      - yarn build
+      - ''
+      - '# parse and store package version into a file which '
+      - '# will be used later to tag docker image'
+      - jq -r '.version' package.json > version.txt
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
