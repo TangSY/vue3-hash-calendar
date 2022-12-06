@@ -5,7 +5,7 @@ jobs:
   steps:
   - !CommandStep
     name: install
-    runInContainer: false
+    runInContainer: true
     image: 1dev/server
     interpreter: !DefaultInterpreter
       commands:
