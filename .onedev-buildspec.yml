@@ -1,6 +1,6 @@
 version: 18
 jobs:
-- name: CI
+- name: CI/CD
   jobExecutor: internal
   steps:
   - !CheckoutStep
@@ -10,24 +10,93 @@ jobs:
     withSubmodules: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
-    name: test
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands:
-      - yarn
-      - yarn test
-    useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !CommandStep
     name: build
     runInContainer: false
     image: node:14.19.1
     interpreter: !DefaultInterpreter
       commands:
-      - yarn build
+      - yarn
       - yarn build:site
-      - pwd
-      - ls
+      - ''
+      - cd ./site-dist
+      - tar -zcvf calendar.tar.gz *
+      - mv calendar.tar.gz /usr/share/nginx/hxkj/dist/calendar/
+      - cd /usr/share/nginx/hxkj/dist/calendar/
+      - tar -zxvf calendar.tar.gz
+      - rm -f calendar.tar.gz
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger
+    branches: main
+  jobDependencies:
+  - jobName: test
+    requireSuccessful: true
+    artifacts: '**'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  caches:
+  - key: '@project_path@-node_modules'
+    path: node_modules
+  timeout: 3600
+- name: release
+  jobExecutor: internal
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: publish
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands:
+      - yarn
+      - yarn build
+      - cat > .npmrc <<-EOF
+      - //registry.npmjs.org/:_authToken=@NPM_TOKEN@
+      - registry=https://registry.npmjs.org/
+      - home=https://www.npmjs.org
+      - EOF
+      - npm publish
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !TagCreateTrigger {}
+  jobDependencies:
+  - jobName: test
+    requireSuccessful: true
+    artifacts: '**'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  caches:
+  - key: '@project_path@-node_modules'
+    path: node_modules
+  timeout: 3600
+- name: test
+  jobExecutor: internal
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: test
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands:
+      - 'yarn '
+      - yarn test
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
@@ -37,59 +106,9 @@ jobs:
   retryDelay: 30
   cpuRequirement: 250
   memoryRequirement: 256
-  timeout: 3600
-- name: CD
-  jobExecutor: internal
-  steps:
-  - !CommandStep
-    name: deploy
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands:
-      - ls
-      - cd ./site-dist
-      - tar -zcvf calendar.tar.gz *
-      - mv calendar.tar.gz /usr/share/nginx/hxkj/dist/calendar/
-      - cd /usr/share/nginx/hxkj/dist/calendar/
-      - tar -zxvf calendar.tar.gz
-      - rm -f calendar.tar.gz
-    useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  jobDependencies:
-  - jobName: CI
-    requireSuccessful: true
-    artifacts: '**'
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  cpuRequirement: 250
-  memoryRequirement: 256
-  timeout: 3600
-- name: release
-  jobExecutor: internal
-  steps:
-  - !CommandStep
-    name: publish
-    runInContainer: false
-    interpreter: !DefaultInterpreter
-      commands:
-      - cat > .npmrc <<-EOF
-      - //registry.npmjs.org/:_authToken=@NPM_TOKEN@
-      - registry=https://registry.npmjs.org/
-      - home=https://www.npmjs.org
-      - EOF
-      - npm publish
-    useTTY: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  jobDependencies:
-  - jobName: CI
-    requireSuccessful: true
-    artifacts: '**'
-  retryCondition: never
-  maxRetries: 3
-  retryDelay: 30
-  cpuRequirement: 250
-  memoryRequirement: 256
+  caches:
+  - key: '@project_path@-node_modules'
+    path: node_modules
   timeout: 3600
 stepTemplates:
 - name: test template
