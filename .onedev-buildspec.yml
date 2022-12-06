@@ -3,12 +3,6 @@ jobs:
 - name: CI
   jobExecutor: shell-executor
   steps:
-  - !CheckoutStep
-    name: checkout
-    cloneCredential: !DefaultCredential {}
-    withLfs: false
-    withSubmodules: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
     name: install
     runInContainer: false
