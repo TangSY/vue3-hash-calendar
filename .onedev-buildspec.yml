@@ -19,11 +19,12 @@ jobs:
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !CommandStep
-    name: build:site
+    name: build
     runInContainer: false
     image: node:14.19.1
     interpreter: !DefaultInterpreter
       commands:
+      - yarn build
       - yarn build:site
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
@@ -51,6 +52,10 @@ jobs:
       - rm -f calendar.tar.gz
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  jobDependencies:
+  - jobName: CI
+    requireSuccessful: true
+    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -65,7 +70,6 @@ jobs:
     runInContainer: false
     interpreter: !DefaultInterpreter
       commands:
-      - yarn build
       - cat > .npmrc <<-EOF
       - //registry.npmjs.org/:_authToken=@NPM_TOKEN@
       - registry=https://registry.npmjs.org/
@@ -74,6 +78,10 @@ jobs:
       - npm publish
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  jobDependencies:
+  - jobName: CI
+    requireSuccessful: true
+    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
