@@ -15,18 +15,13 @@ jobs:
     image: node:14.19.1
     interpreter: !DefaultInterpreter
       commands:
-      - set -e
-      - apt update
-      - apt install -y jq
-      - ''
       - yarn
       - export CI=true
-      - yarn test
       - yarn build
       - ''
-      - '# parse and store package version into a file which '
-      - '# will be used later to tag docker image'
-      - jq -r '.version' package.json > version.txt
+      - pwd
+      - cd /data
+      - ls
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
