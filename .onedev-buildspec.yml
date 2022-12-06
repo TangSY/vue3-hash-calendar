@@ -26,6 +26,8 @@ jobs:
       commands:
       - yarn build
       - yarn build:site
+      - pwd
+      - ls
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
@@ -44,6 +46,7 @@ jobs:
     runInContainer: false
     interpreter: !DefaultInterpreter
       commands:
+      - ls
       - cd ./site-dist
       - tar -zcvf calendar.tar.gz *
       - mv calendar.tar.gz /usr/share/nginx/hxkj/dist/calendar/
