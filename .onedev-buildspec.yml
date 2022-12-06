@@ -1,6 +1,7 @@
 version: 18
 jobs:
-- name: checkout
+- name: CI
+  jobExecutor: shell-executor
   steps:
   - !CheckoutStep
     name: checkout
@@ -17,7 +18,6 @@ jobs:
       - yarn
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  jobExecutor: shell-executor
   triggers:
   - !BranchUpdateTrigger {}
   retryCondition: never
