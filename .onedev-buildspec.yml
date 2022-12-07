@@ -103,13 +103,23 @@ jobs:
   timeout: 3600
 - name: Push to GitHub
   steps:
-  - !PushRepository
-    name: push
-    remoteUrl: https://github.com/TangSY/vue3-hash-calendar
-    userName: TangSY
-    passwordSecret: github-access-token
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
     withLfs: false
-    force: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: push
+    runInContainer: false
+    interpreter: !DefaultInterpreter
+      commands:
+      - git config user.name "TangSY"
+      - git config user.email "337828932@@qq.com"
+      - git remote set-url origin git@@github.com:TangSY/vue3-hash-calendar.git
+      - git remote -v
+      - git push
+    useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger {}
