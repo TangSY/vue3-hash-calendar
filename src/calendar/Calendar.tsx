@@ -330,6 +330,23 @@ export default defineComponent({
 
       currentYearMonth.value = { year: date.year, month: date.month };
       dateClick(date);
+
+      if (props.selectType === 'single') {
+        const { day, hours, minutes } = checkedDate.value[0];
+
+        let emitDate: string | Date = transHourMinuteToDate({
+          ...currentYearMonth.value,
+          day,
+          hours,
+          minutes,
+        });
+
+        if (props.format) {
+          emitDate = formatDate(emitDate, props.format, props.lang);
+        }
+
+        emit('change', emitDate);
+      }
     };
 
     const timeChange = (date: CalendarDateType) => {

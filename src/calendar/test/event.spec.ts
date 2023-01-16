@@ -265,3 +265,31 @@ test('test event of range overRange', async () => {
   await days[58].trigger('click');
   expect(onOverRange).toHaveBeenCalledTimes(1);
 });
+
+test('test change event by change-year-fast', async () => {
+  const onChange = jest.fn();
+  const wrapper = mount(Calendar, {
+    props: {
+      changeYearFast: true,
+      defaultDatetime: defaultDate,
+      onChange,
+    },
+  });
+  await later(200);
+
+  const date = wrapper.find('.calendar_title_date_year');
+  await date.trigger('click');
+  await date.trigger('click');
+  await date.trigger('click');
+
+  const yearItem = wrapper.findAll('.year-body-item');
+  await yearItem[16].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith(new Date(2030, 0, 1, 1, 1));
+
+  const yearContent = wrapper.findAll('.year-body-item-content');
+  await yearContent[16].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith(new Date(2033, 0, 1, 1, 1));
+
+  await yearContent[16].trigger('click');
+  expect(onChange).toHaveBeenLastCalledWith(new Date(2033, 4, 1, 1, 1));
+});
