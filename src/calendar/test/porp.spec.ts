@@ -588,7 +588,9 @@ test('show-today-button prop', async () => {
 });
 
 test('show-week-view prop', async () => {
-  const wrapper = mount(Calendar);
+  const wrapper = mount(Calendar, {
+    props: { defaultDatetime: defaultDate },
+  });
   await later();
 
   const calendar = wrapper.find('.calendar_group');
