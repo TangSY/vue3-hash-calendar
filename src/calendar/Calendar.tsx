@@ -618,7 +618,7 @@ export default defineComponent({
           <div
             class="calendar_title"
             onClick={(e) => {
-              e.preventDefault();
+              if (e.cancelable) e.preventDefault();
               e.stopPropagation();
             }}
             style={{
@@ -809,7 +809,7 @@ export default defineComponent({
                 height: `${calendarContentHeight.value}px`,
               }}
               onClick={(e: MouseEvent) => {
-                e.preventDefault();
+                if (e.cancelable) e.preventDefault();
                 e.stopImmediatePropagation();
               }}
             >
