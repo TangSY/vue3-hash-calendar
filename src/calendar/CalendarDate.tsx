@@ -667,7 +667,7 @@ export default defineComponent({
       // fix: 禁止切换周模式显示后，日历区域上下滑动，页面不能触发上下滑动了 #62
       if (!props.disabledWeekView) {
         event.stopPropagation();
-        event.preventDefault();
+        if (event.cancelable) event.preventDefault();
       }
 
       const moveX = event.touches[0].clientX - touchStartPositionX.value;

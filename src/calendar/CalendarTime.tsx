@@ -99,7 +99,7 @@ export default defineComponent({
     };
 
     const timeTouchStart = (e: TouchEvent) => {
-      e.preventDefault();
+      if (e.cancelable) e.preventDefault();
       timeStartY.value = e.changedTouches[0].pageY;
       const { transform } = (e.currentTarget as HTMLElement).style;
       if (transform) {

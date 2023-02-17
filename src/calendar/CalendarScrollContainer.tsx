@@ -72,7 +72,7 @@ export default defineComponent({
     // 监听手指移动事件
     const touchMove = (event: TouchEvent) => {
       emit('touchmove', event);
-      event.preventDefault();
+      if (event.cancelable) event.preventDefault();
       event.stopPropagation();
 
       const moveX = event.touches[0].clientX - touchStartPositionX.value;

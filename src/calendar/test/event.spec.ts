@@ -1,7 +1,7 @@
 import { mount, later } from '../../../test';
 import Calendar from '..';
 import { defaultDate, ON_CHANGE_BASIC_CALLED_TIMES } from './utils';
-import { slidechange } from './porp.spec';
+import { slidechange } from './prop.spec';
 
 test('test event of slidechange to right', async () => {
   const onCalendarTypeChange = jest.fn();
